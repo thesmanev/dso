@@ -29,7 +29,7 @@ void serial(void){
 	if((USART1->ISR & USART_ISR_RXNE)){
 		uint8_t cmd = USART1->RDR;
 		if(cmd == 0x24){
-			switch(x){
+			switch(channel_state){
 			case 0:
 				break;
 			case 1:

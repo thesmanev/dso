@@ -206,8 +206,8 @@ void toggle(uint32_t *var)
  */
 void channelChange(void)
 {
-	x = dso1.ch1.enabled;
-	x = channel_state + (dso1.ch2.enabled << 1);
+	channel_state = dso1.ch1.enabled;
+	channel_state = channel_state + (dso1.ch2.enabled << 1);
 	channel_state = channel_state + (dso1.ch3.enabled << 2);
 	channel_state = channel_state + (dso1.ch4.enabled << 3);
 

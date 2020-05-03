@@ -5,306 +5,363 @@
  *      Author: Stanimir Manev
  */
 #include "main.h"
+#include "stdbool.h"
+
+static bool clear_framebuffer1_f = false;
+static bool clear_framebuffer2_f = false;
+static bool clear_framebuffer3_f = false;
+static bool clear_framebuffer4_f = false;
+
+void clearWaveform(void)
+{
+	uint8_t y0 = 0;
+	uint8_t y1 = 0;
+
+	if(clear_framebuffer1_f)
+	{
+		uint32_t j = 8;			/* The Oscilloscope grid starts from the 8th pixel */
+		for(uint32_t i = 0; i < X_PIXELS - 1; i++)
+		{
+			y0 = sendScreenBuffer1[i];
+			y1 = sendScreenBuffer1[i+1];
+			LCD_DrawLineV(y0, y1, j, ILI9341_BLACK);
+			j = j + 1;
+			clear_framebuffer1_f = false;
+		}
+	}
+
+	if(clear_framebuffer2_f)
+	{
+		uint32_t j = 8;
+		for(uint32_t i = 0; i < X_PIXELS - 1; i++)
+		{
+			y0 = sendScreenBuffer2[i];
+			y1 = sendScreenBuffer2[i+1];
+			LCD_DrawLineV(y0, y1, j, ILI9341_BLACK);
+			j = j + 1;
+			clear_framebuffer2_f = false;
+		}
+	}
+
+	if(clear_framebuffer3_f)
+	{
+		uint32_t j = 8;
+		for(uint32_t i = 0; i < X_PIXELS - 1; i++)
+		{
+			y0 = sendScreenBuffer3[i];
+			y1 = sendScreenBuffer3[i+1];
+			LCD_DrawLineV(y0, y1, j, ILI9341_BLACK);
+			j = j + 1;
+			clear_framebuffer3_f = false;
+		}
+	}
+
+	if(clear_framebuffer4_f)
+	{
+		uint32_t j = 8;
+		for(uint32_t i = 0; i < X_PIXELS - 1; i++)
+		{
+			y0 = sendScreenBuffer4[i];
+			y1 = sendScreenBuffer4[i+1];
+			LCD_DrawLineV(y0, y1, j, ILI9341_BLACK);
+			j = j + 1;
+			clear_framebuffer4_f = false;
+		}
+	}
+}
 
 void displayWaveformTrig(uint32_t chNum, uint32_t mode){
 	uint32_t i;
 	uint32_t pixcnt = 8; // comes from waveform screen size
 	uint32_t color;
 
-	if(dso1.quad){
-		uint16_t *buff1 = (uint16_t*)buffer1;
-		uint16_t *buff2 = (uint16_t*)buffer3;
-		uint32_t y1 = 0, y2 = 0, y3 = 0, y4 = 0, x0 = 8, x1 = 0;
+	if(mode)
+	{
+		clearWaveform();
+	}
+	else
+	{
+		if(dso1.quad){
+			uint16_t *buff1 = (uint16_t*)buffer1;
+			uint16_t *buff2 = (uint16_t*)buffer3;
+			uint32_t y1 = 0, y2 = 0, y3 = 0, y4 = 0, x0 = 8, x1 = 0;
+			clear_framebuffer1_f = true;
 
-		if(mode)
-			color = ILI9341_BLACK;
-		else
 			color = CH1_COLOR; // ch1 color
-		switch(dso1.timeDiv){
-			case timeDiv_2_5us:{
-				y1 = 227 - (buff1[dso1.triggerPoint] / 19) + dso1.ch1.vertical;// 212 comes from waveform screen size
-				y2 = 227 - (buff1[dso1.triggerPoint+1] / 19) + dso1.ch1.vertical;// 4096 / 212 = 19.316
-				y3 = 227 - (buff2[dso1.triggerPoint] / 19) + dso1.ch1.vertical; // needs refinement!!!!
-				y4 = 227 - (buff2[dso1.triggerPoint+1] / 19) + dso1.ch1.vertical;
-				sendScreenBuffer1[pixcnt-8] = y1;
-				LCD_DrawLineV(y1, y2, pixcnt++, color);
-				sendScreenBuffer1[pixcnt-8] = y2;
-				LCD_DrawLineV(y2, y3, pixcnt++, color);
-				sendScreenBuffer1[pixcnt-8] = y3;
-				LCD_DrawLineV(y3, y4, pixcnt++, color);
-				sendScreenBuffer1[pixcnt-8] = y4;
-				for(i = dso1.triggerPoint+2; i < (dso1.triggerPoint+(X_PIXELS/2)); i += 2){
-					y1 = 227 - (buff1[i] / 19) + dso1.ch1.vertical;
-					LCD_DrawLineV(y4, y1, pixcnt++, color);
+			switch(dso1.timeDiv){
+				case timeDiv_2_5us:{
+					y1 = 227 - (buff1[dso1.triggerPoint] / 19) + dso1.ch1.vertical;// 212 comes from waveform screen size
+					y2 = 227 - (buff1[dso1.triggerPoint+1] / 19) + dso1.ch1.vertical;// 4096 / 212 = 19.316
+					y3 = 227 - (buff2[dso1.triggerPoint] / 19) + dso1.ch1.vertical; // needs refinement!!!!
+					y4 = 227 - (buff2[dso1.triggerPoint+1] / 19) + dso1.ch1.vertical;
 					sendScreenBuffer1[pixcnt-8] = y1;
-					y2 = 227 - (buff1[i+1] / 19) + dso1.ch1.vertical;
-					y3 = 227 - (buff2[i] / 19) + dso1.ch1.vertical;
-					y4 = 227 - (buff2[i+1] / 19) + dso1.ch1.vertical;
 					LCD_DrawLineV(y1, y2, pixcnt++, color);
 					sendScreenBuffer1[pixcnt-8] = y2;
 					LCD_DrawLineV(y2, y3, pixcnt++, color);
 					sendScreenBuffer1[pixcnt-8] = y3;
 					LCD_DrawLineV(y3, y4, pixcnt++, color);
 					sendScreenBuffer1[pixcnt-8] = y4;
+					for(i = dso1.triggerPoint+2; i < (dso1.triggerPoint+(X_PIXELS/2)); i += 2){
+						y1 = 227 - (buff1[i] / 19) + dso1.ch1.vertical;
+						LCD_DrawLineV(y4, y1, pixcnt++, color);
+						sendScreenBuffer1[pixcnt-8] = y1;
+						y2 = 227 - (buff1[i+1] / 19) + dso1.ch1.vertical;
+						y3 = 227 - (buff2[i] / 19) + dso1.ch1.vertical;
+						y4 = 227 - (buff2[i+1] / 19) + dso1.ch1.vertical;
+						LCD_DrawLineV(y1, y2, pixcnt++, color);
+						sendScreenBuffer1[pixcnt-8] = y2;
+						LCD_DrawLineV(y2, y3, pixcnt++, color);
+						sendScreenBuffer1[pixcnt-8] = y3;
+						LCD_DrawLineV(y3, y4, pixcnt++, color);
+						sendScreenBuffer1[pixcnt-8] = y4;
+					}
+				break;
 				}
-			break;
-			}
-			case timeDiv_1us:{
-				y1 = 227 - (buff1[dso1.triggerPoint] / 19) + dso1.ch1.vertical;// 212 comes from waveform screen size
-				y2 = 227 - (buff1[dso1.triggerPoint+1] / 19) + dso1.ch1.vertical;// 4096 / 212 = 19.316
-				y3 = 227 - (buff2[dso1.triggerPoint] / 19) + dso1.ch1.vertical; // needs refinement!!!!
-				y4 = 227 - (buff2[dso1.triggerPoint+1] / 19) + dso1.ch1.vertical;
-				x1 = (pixcnt*871) / 512;
-				LCD_DrawLine(x0, y1, x1, y2, color);
-				sendScreenBuffer1[0] = y1;
-				pixcnt++;
-				x0 = x1;
-				x1 = (pixcnt*871) / 512;
-				LCD_DrawLine(x0, y2, x1, y3, color);
-				sendScreenBuffer1[1] = y2;
-				pixcnt++;
-				x0 = x1;
-				x1 = (pixcnt*871) / 512;
-				LCD_DrawLine(x0, y3, x1, y4, color);
-				sendScreenBuffer1[2] = y3;
-				pixcnt++;
-				x0 = x1;
-				for(i = dso1.triggerPoint+2; i <dso1.triggerPoint + 163; i += 2){
-					y1 = 227 - (buff1[i] / 19) + dso1.ch1.vertical;
+				case timeDiv_1us:{
+					y1 = 227 - (buff1[dso1.triggerPoint] / 19) + dso1.ch1.vertical;// 212 comes from waveform screen size
+					y2 = 227 - (buff1[dso1.triggerPoint+1] / 19) + dso1.ch1.vertical;// 4096 / 212 = 19.316
+					y3 = 227 - (buff2[dso1.triggerPoint] / 19) + dso1.ch1.vertical; // needs refinement!!!!
+					y4 = 227 - (buff2[dso1.triggerPoint+1] / 19) + dso1.ch1.vertical;
 					x1 = (pixcnt*871) / 512;
-					LCD_DrawLine(x0, y4, x1, y1, color);
-					sendScreenBuffer1[pixcnt-8] = y4;
-					pixcnt++;
-					x0 = x1;
-					x1 = (pixcnt*871) / 512;
-					y2 = 227 - (buff1[i+1] / 19) + dso1.ch1.vertical;
-					y3 = 227 - (buff2[i] / 19) + dso1.ch1.vertical;
-					y4 = 227 - (buff2[i+1] / 19) + dso1.ch1.vertical;
 					LCD_DrawLine(x0, y1, x1, y2, color);
-					sendScreenBuffer1[pixcnt-8] = y1;
+					sendScreenBuffer1[0] = y1;
 					pixcnt++;
 					x0 = x1;
 					x1 = (pixcnt*871) / 512;
 					LCD_DrawLine(x0, y2, x1, y3, color);
-					sendScreenBuffer1[pixcnt-8] = y2;
+					sendScreenBuffer1[1] = y2;
 					pixcnt++;
 					x0 = x1;
 					x1 = (pixcnt*871) / 512;
 					LCD_DrawLine(x0, y3, x1, y4, color);
-					sendScreenBuffer1[pixcnt-8] = y3;
+					sendScreenBuffer1[2] = y3;
 					pixcnt++;
 					x0 = x1;
+					for(i = dso1.triggerPoint+2; i <dso1.triggerPoint + 163; i += 2){
+						y1 = 227 - (buff1[i] / 19) + dso1.ch1.vertical;
+						x1 = (pixcnt*871) / 512;
+						LCD_DrawLine(x0, y4, x1, y1, color);
+						sendScreenBuffer1[pixcnt-8] = y4;
+						pixcnt++;
+						x0 = x1;
+						x1 = (pixcnt*871) / 512;
+						y2 = 227 - (buff1[i+1] / 19) + dso1.ch1.vertical;
+						y3 = 227 - (buff2[i] / 19) + dso1.ch1.vertical;
+						y4 = 227 - (buff2[i+1] / 19) + dso1.ch1.vertical;
+						LCD_DrawLine(x0, y1, x1, y2, color);
+						sendScreenBuffer1[pixcnt-8] = y1;
+						pixcnt++;
+						x0 = x1;
+						x1 = (pixcnt*871) / 512;
+						LCD_DrawLine(x0, y2, x1, y3, color);
+						sendScreenBuffer1[pixcnt-8] = y2;
+						pixcnt++;
+						x0 = x1;
+						x1 = (pixcnt*871) / 512;
+						LCD_DrawLine(x0, y3, x1, y4, color);
+						sendScreenBuffer1[pixcnt-8] = y3;
+						pixcnt++;
+						x0 = x1;
+					}
+				break;
 				}
-			break;
+				default:
+				break;
 			}
-			default:
-			break;
+			return;
 		}
-		return;
-	}
-	if(dso1.dual1){
-		uint16_t *buff1 = (uint16_t*)buffer1;
-		uint32_t y1 = 0, y2 = 0, x = 0;
+		if(dso1.dual1){
+			clear_framebuffer1_f = true;
+			uint16_t *buff1 = (uint16_t*)buffer1;
+			uint32_t y1 = 0, y2 = 0, x = 0;
 
-		if(mode)
-			color = ILI9341_BLACK;
-		else
 			color = CH1_COLOR; // ch1 color
 
-		switch(dso1.timeDiv){
-			case 6:{
-				y1 = 227 - (buff1[dso1.triggerPoint] / 19) + dso1.ch1.vertical;// 212 comes from waveform screen size
-				sendScreenBuffer1[0] = y1;
-				for(i = 1; i < X_PIXELS; i++){
-					x = (i*47)/16 + dso1.triggerPoint;
-					y2 = 227 - (buff1[x] / 19) + dso1.ch1.vertical;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					sendScreenBuffer1[i] = y2;
-					y1 = y2;
+			switch(dso1.timeDiv){
+				case 6:{
+					y1 = 227 - (buff1[dso1.triggerPoint] / 19) + dso1.ch1.vertical;// 212 comes from waveform screen size
+					sendScreenBuffer1[0] = y1;
+					for(i = 1; i < X_PIXELS; i++){
+						x = (i*47)/16 + dso1.triggerPoint;
+						y2 = 227 - (buff1[x] / 19) + dso1.ch1.vertical;
+						LCD_DrawLineV(y1, y2, pixcnt++, color);
+						sendScreenBuffer1[i] = y2;
+						y1 = y2;
+					}
+					break;
 				}
-				break;
-			}
-			case 7:{
-				y1 = 227 - (buff1[dso1.triggerPoint] / 19) + dso1.ch1.vertical;// 212 comes from waveform screen size
-				sendScreenBuffer1[0] = y1;
-				for(i = 1; i < X_PIXELS; i++){
-					x = (i*47)/32 + dso1.triggerPoint;
-					y2 = 227 - (buff1[x] / 19) + dso1.ch1.vertical;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					sendScreenBuffer1[i] = y2;
-					y1 = y2;
+				case 7:{
+					y1 = 227 - (buff1[dso1.triggerPoint] / 19) + dso1.ch1.vertical;// 212 comes from waveform screen size
+					sendScreenBuffer1[0] = y1;
+					for(i = 1; i < X_PIXELS; i++){
+						x = (i*47)/32 + dso1.triggerPoint;
+						y2 = 227 - (buff1[x] / 19) + dso1.ch1.vertical;
+						LCD_DrawLineV(y1, y2, pixcnt++, color);
+						sendScreenBuffer1[i] = y2;
+						y1 = y2;
+					}
+					break;
 				}
-				break;
-			}
-			default:
-				assertError(16); // 16 - wrong timeDiv for displayWaveform
+				default:
+					assertError(16); // 16 - wrong timeDiv for displayWaveform
 
+			}
+			pixcnt = 8;
 		}
-		pixcnt = 8;
-	}
 
-	if(dso1.dual2){
-		uint16_t *buff1 = (uint16_t*)buffer3;
-		uint32_t y1 = 0, y2 = 0, x = 0;
+		if(dso1.dual2){
+			clear_framebuffer3_f = true;
+			uint16_t *buff1 = (uint16_t*)buffer3;
+			uint32_t y1 = 0, y2 = 0, x = 0;
 
-		if(mode)
-			color = ILI9341_BLACK;
-		else
 			color = CH3_COLOR; // ch3 color
 
-		switch(dso1.timeDiv){
-			case 6:{
-				y1 = 227 - (buff1[dso1.triggerPoint] / 19) + dso1.ch3.vertical;// 212 comes from waveform screen size
-				sendScreenBuffer3[0] = y1;
-				for(i = 1; i < X_PIXELS; i++){
-					x = (i*47)/16 + dso1.triggerPoint;
-					y2 = 227 - (buff1[x] / 19) + dso1.ch3.vertical;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					sendScreenBuffer3[i] = y2;
-					y1 = y2;
+			switch(dso1.timeDiv){
+				case 6:{
+					y1 = 227 - (buff1[dso1.triggerPoint] / 19) + dso1.ch3.vertical;// 212 comes from waveform screen size
+					sendScreenBuffer3[0] = y1;
+					for(i = 1; i < X_PIXELS; i++){
+						x = (i*47)/16 + dso1.triggerPoint;
+						y2 = 227 - (buff1[x] / 19) + dso1.ch3.vertical;
+						LCD_DrawLineV(y1, y2, pixcnt++, color);
+						sendScreenBuffer3[i] = y2;
+						y1 = y2;
+					}
+					break;
 				}
-				break;
-			}
-			case 7:{
-				y1 = 227 - (buff1[dso1.triggerPoint] / 19) + dso1.ch3.vertical;// 212 comes from waveform screen size
-				sendScreenBuffer3[0] = y1;
-				for(i = 1; i < X_PIXELS; i++){
-					x = (i*47)/32 + dso1.triggerPoint;
-					y2 = 227 - (buff1[x] / 19) + dso1.ch3.vertical;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					sendScreenBuffer3[i] = y2;
-					y1 = y2;
+				case 7:{
+					y1 = 227 - (buff1[dso1.triggerPoint] / 19) + dso1.ch3.vertical;// 212 comes from waveform screen size
+					sendScreenBuffer3[0] = y1;
+					for(i = 1; i < X_PIXELS; i++){
+						x = (i*47)/32 + dso1.triggerPoint;
+						y2 = 227 - (buff1[x] / 19) + dso1.ch3.vertical;
+						LCD_DrawLineV(y1, y2, pixcnt++, color);
+						sendScreenBuffer3[i] = y2;
+						y1 = y2;
+					}
+					break;
 				}
-				break;
-			}
-			default:
-				assertError(16); // 16 - wrong timeDiv for displayWaveform
+				default:
+					assertError(16); // 16 - wrong timeDiv for displayWaveform
 
+			}
+			pixcnt = 8;
 		}
-		pixcnt = 8;
-	}
-	if(chNum){
-		uint16_t *buff1;
-		uint32_t y1 = 0, y2 = 0, x = 0, vert = 0;
-		uint8_t *scrbuff;
-		switch(chNum){
-			case 1:{
-				vert = dso1.ch1.vertical;
-				if(mode)
-					color = ILI9341_BLACK;
-				else
+		if(chNum){
+			uint16_t *buff1;
+			uint32_t y1 = 0, y2 = 0, x = 0, vert = 0;
+			uint8_t *scrbuff;
+			switch(chNum){
+				case 1:{
+					vert = dso1.ch1.vertical;
 					color = CH1_COLOR; // ch1 color
-				buff1 = (uint16_t*)buffer1;
-				scrbuff = sendScreenBuffer1;
-				break;
-			}
-			case 2:{
-				vert = dso1.ch2.vertical;
-				if(mode)
-					color = ILI9341_BLACK;
-				else
+					buff1 = (uint16_t*)buffer1;
+					scrbuff = sendScreenBuffer1;
+					clear_framebuffer1_f = true;
+					break;
+				}
+				case 2:{
+					vert = dso1.ch2.vertical;
 					color = CH2_COLOR; // ch1 color
-				buff1 = (uint16_t*)buffer2;
-				scrbuff = sendScreenBuffer2;
-				break;
-			}
-			case 3:{
-				vert = dso1.ch3.vertical;
-				if(mode)
-					color = ILI9341_BLACK;
-				else
+					buff1 = (uint16_t*)buffer2;
+					scrbuff = sendScreenBuffer2;
+					clear_framebuffer2_f = true;
+					break;
+				}
+				case 3:{
+					vert = dso1.ch3.vertical;
 					color = CH3_COLOR; // ch1 color
-				buff1 = (uint16_t*)buffer3;
-				scrbuff = sendScreenBuffer3;
-				break;
-			}
-			case 4:{
-				vert = dso1.ch4.vertical;
-				if(mode)
-					color = ILI9341_BLACK;
-				else
+					buff1 = (uint16_t*)buffer3;
+					scrbuff = sendScreenBuffer3;
+					clear_framebuffer3_f = true;
+					break;
+				}
+				case 4:{
+					vert = dso1.ch4.vertical;
 					color = CH4_COLOR; // ch1 color
-				buff1 = (uint16_t*)buffer4;
-				scrbuff = sendScreenBuffer4;
-				break;
-			}
-		}
-		switch(dso1.timeDiv){
-			case timeDiv_1ms:{
-				y1 = 227 - (buff1[dso1.triggerPoint] / 19) + vert;// 212 comes from waveform screen size
-				scrbuff[0] = y1;
-				for(i = 1; i<X_PIXELS; i++){
-					x = ((i*439143)/131072) + dso1.triggerPoint ;
-					y2 = 227 - (buff1[x] / 19) + vert;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					scrbuff[i] = y2;
-					y1 = y2;
+					buff1 = (uint16_t*)buffer4;
+					scrbuff = sendScreenBuffer4;
+					clear_framebuffer4_f = true;
+					break;
 				}
-				break;
 			}
-			case timeDiv_500us:{
-				y1 = 227 - (buff1[dso1.triggerPoint] / 19) + vert;// 212 comes from waveform screen size
-				scrbuff[0] = y1;
-				for(i = 1; i<X_PIXELS; i++){
-					x = ((i*910925)/65536) + dso1.triggerPoint;
-					y2 = 227 - (buff1[x] / 19) + vert;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					scrbuff[i] = y2;
-					y1 = y2;
+			switch(dso1.timeDiv){
+				case timeDiv_1ms:{
+					y1 = 227 - (buff1[dso1.triggerPoint] / 19) + vert;// 212 comes from waveform screen size
+					scrbuff[0] = y1;
+					for(i = 1; i<X_PIXELS; i++){
+						x = ((i*439143)/131072) + dso1.triggerPoint ;
+						y2 = 227 - (buff1[x] / 19) + vert;
+						LCD_DrawLineV(y1, y2, pixcnt++, color);
+						scrbuff[i] = y2;
+						y1 = y2;
+					}
+					break;
 				}
-				break;
-			}
-			case timeDiv_250us:{
-				y1 = 227 - (buff1[dso1.triggerPoint] / 19) + vert;// 212 comes from waveform screen size
-				scrbuff[0] = y1;
-				for(i = 1; i<X_PIXELS; i++){
-					x = (i*7) + dso1.triggerPoint;
-					y2 = 227 - (buff1[x] / 19) + vert;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					scrbuff[i] = y2;
-					y1 = y2;
+				case timeDiv_500us:{
+					y1 = 227 - (buff1[dso1.triggerPoint] / 19) + vert;// 212 comes from waveform screen size
+					scrbuff[0] = y1;
+					for(i = 1; i<X_PIXELS; i++){
+						x = ((i*910925)/65536) + dso1.triggerPoint;
+						y2 = 227 - (buff1[x] / 19) + vert;
+						LCD_DrawLineV(y1, y2, pixcnt++, color);
+						scrbuff[i] = y2;
+						y1 = y2;
+					}
+					break;
 				}
-				break;
-			}
-			case timeDiv_100us:{
-				y1 = 227 - (buff1[dso1.triggerPoint] / 19) + vert;// 212 comes from waveform screen size
-				scrbuff[0] = y1;
-				for(i = 1; i<X_PIXELS; i++){
-					x = ((i*421307)/65536) + dso1.triggerPoint;
-					y2 = 227 - (buff1[x] / 19) + vert;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					scrbuff[i] = y2;
-					y1 = y2;
+				case timeDiv_250us:{
+					y1 = 227 - (buff1[dso1.triggerPoint] / 19) + vert;// 212 comes from waveform screen size
+					scrbuff[0] = y1;
+					for(i = 1; i<X_PIXELS; i++){
+						x = (i*7) + dso1.triggerPoint;
+						y2 = 227 - (buff1[x] / 19) + vert;
+						LCD_DrawLineV(y1, y2, pixcnt++, color);
+						scrbuff[i] = y2;
+						y1 = y2;
+					}
+					break;
 				}
-				break;
-			}
-			case timeDiv_50us:{
-				y1 = 227 - (buff1[dso1.triggerPoint] / 19) + vert;// 212 comes from waveform screen size
-				scrbuff[0] = y1;
-				for(i = 1; i<X_PIXELS; i++){
-					x = ((i*1389865)/262144) + dso1.triggerPoint;
-					y2 = 227 - (buff1[x] / 19) + vert;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					scrbuff[i] = y2;
-					y1 = y2;
+				case timeDiv_100us:{
+					y1 = 227 - (buff1[dso1.triggerPoint] / 19) + vert;// 212 comes from waveform screen size
+					scrbuff[0] = y1;
+					for(i = 1; i<X_PIXELS; i++){
+						x = ((i*421307)/65536) + dso1.triggerPoint;
+						y2 = 227 - (buff1[x] / 19) + vert;
+						LCD_DrawLineV(y1, y2, pixcnt++, color);
+						scrbuff[i] = y2;
+						y1 = y2;
+					}
+					break;
 				}
-				break;
-			}
-			case timeDiv_25us:{
-				y1 = 227 - (buff1[dso1.triggerPoint] / 19) + vert;// 212 comes from waveform screen size
-				scrbuff[0] = y1;
-				for(i = 1; i<X_PIXELS; i++){
-					x = ((i*30093)/8192) + dso1.triggerPoint;
-					y2 = 227 - (buff1[x] / 19) + vert;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					scrbuff[i] = y2;
-					y1 = y2;
+				case timeDiv_50us:{
+					y1 = 227 - (buff1[dso1.triggerPoint] / 19) + vert;// 212 comes from waveform screen size
+					scrbuff[0] = y1;
+					for(i = 1; i<X_PIXELS; i++){
+						x = ((i*1389865)/262144) + dso1.triggerPoint;
+						y2 = 227 - (buff1[x] / 19) + vert;
+						LCD_DrawLineV(y1, y2, pixcnt++, color);
+						scrbuff[i] = y2;
+						y1 = y2;
+					}
+					break;
 				}
-				break;
+				case timeDiv_25us:{
+					y1 = 227 - (buff1[dso1.triggerPoint] / 19) + vert;// 212 comes from waveform screen size
+					scrbuff[0] = y1;
+					for(i = 1; i<X_PIXELS; i++){
+						x = ((i*30093)/8192) + dso1.triggerPoint;
+						y2 = 227 - (buff1[x] / 19) + vert;
+						LCD_DrawLineV(y1, y2, pixcnt++, color);
+						scrbuff[i] = y2;
+						y1 = y2;
+					}
+					break;
+				}
+				default:
+					assertError(16);
+					break;
 			}
-			default:
-				assertError(16);
-				break;
 		}
 	}
 }

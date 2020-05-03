@@ -1,9 +1,37 @@
-#ifndef MAIN_H
-#define MAIN_H
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.h
+  * @brief          : Header for main.c file.
+  *                   This file contains the common defines of the application.
+  ******************************************************************************
+  * @attention
+  *
+  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
+  * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
 
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __MAIN_H
+#define __MAIN_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#include "stm32f3xx.h"
+/* Includes ------------------------------------------------------------------*/
+#include "stm32f3xx_hal.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
 
 typedef enum{
 	timeDiv_1ms,
@@ -76,23 +104,10 @@ enum button{
 	ch4_pressed,
 }currentButton, prevButton ;
 
-
-//enum button currentButton;
-//enum button prevButton;
-
-//typedef struct{
-//	uint32_t ch1Btn;
-//	uint32_t ch2Btn;
-//	uint32_t ch3Btn;
-//	uint32_t ch4Btn;
-//	uint32_t timeDivUpBtn;
-//	uint32_t timeDivDownBtn;
-//	uint32_t trgiUpBtn;
-//	uint32_t trigDwnBtn;
-//} buttons;
-
 //#include "semihosting/semihosting.h"
 //#include "struct.h"
+#include "stdint.h"
+#include "stdbool.h"
 #include "disp.h"
 #include "touch.h"
 #include "gpio.h"
@@ -103,10 +118,22 @@ enum button{
 #include "printf.h"
 #include "acquisition.h"
 #include "trigger.h"
+#include "cmsis_os.h"
 //#include "struct.h"
+/* USER CODE END Includes */
 
-//#define DEBUG_ON
+/* Exported types ------------------------------------------------------------*/
+/* USER CODE BEGIN ET */
 
+/* USER CODE END ET */
+
+/* Exported constants --------------------------------------------------------*/
+/* USER CODE BEGIN EC */
+
+/* USER CODE END EC */
+
+/* Exported macro ------------------------------------------------------------*/
+/* USER CODE BEGIN EM */
 #define CH1_XTextStart 0
 #define CH2_XTextStart 80
 #define CH3_XTextStart 160
@@ -136,9 +163,6 @@ enum button{
 #define CS_AS5_LOW GPIOB->BRR = 0x00004000; // PB13
 #define CS_AS5_HIGH GPIOB->BSRR = 0x00004000; // PB13
 
-
-
-
 #define BUFF_SIZE 2048
 volatile int flags[3];
 volatile int interrupts[5];
@@ -157,7 +181,7 @@ uint32_t *buffer3;
 uint32_t *buffer4;
 uint16_t AS1, AS2, AS3, AS4, AS5;
 extern dso dso1;
-extern uint32_t x;
+extern uint32_t channel_state;
 //extern buttons btns;
 extern char ch1[10];
 extern char ch2[10];
@@ -166,11 +190,45 @@ extern char ch4[10];
 extern char tDiv[];
 extern char trig[];
 
+extern osThreadId acquistionTaskHandle;
+extern osThreadId userInputTaskHandle;
+/* USER CODE END EM */
+
+/* Exported functions prototypes ---------------------------------------------*/
+void Error_Handler(void);
+
+/* USER CODE BEGIN EFP */
 void delay_ms(int ms);
 void assertError(uint32_t errno);
 void toggle(uint32_t *var);
 void timeDivChange(void);
 void channelChange(void);
 void setSwitch(uint32_t num);
+/* USER CODE END EFP */
 
+/* Private defines -----------------------------------------------------------*/
+#define MCO_Pin GPIO_PIN_0
+#define MCO_GPIO_Port GPIOF
+#define LD1_Pin GPIO_PIN_0
+#define LD1_GPIO_Port GPIOB
+#define LD3_Pin GPIO_PIN_14
+#define LD3_GPIO_Port GPIOB
+#define TMS_Pin GPIO_PIN_13
+#define TMS_GPIO_Port GPIOA
+#define TCK_Pin GPIO_PIN_14
+#define TCK_GPIO_Port GPIOA
+#define SWO_Pin GPIO_PIN_3
+#define SWO_GPIO_Port GPIOB
+#define LD2_Pin GPIO_PIN_7
+#define LD2_GPIO_Port GPIOB
+/* USER CODE BEGIN Private defines */
+
+/* USER CODE END Private defines */
+
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* __MAIN_H */
+
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

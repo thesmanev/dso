@@ -107,7 +107,7 @@ void pollForTouch(void){
 					incDec(0);
 				}
 			}
-			
+
 			//trigger source
 			if((yt >= 0) && (yt <= (fontYSizeSmall)) && (xt >= (4*fontXSizeSmall)) && (xt <= (7*fontXSizeSmall))){
 				currentButton = trigSource_pressed;
@@ -119,7 +119,7 @@ void pollForTouch(void){
 					}
 				}
 			}
-			
+
 			//trigger edge
 			if((yt >= 0) && (yt <= (fontYSizeSmall)) && (xt >= (7*fontXSizeSmall)) && (xt <= ((8*fontXSizeSmall)))){
 				currentButton = trigEdge_pressed;
@@ -131,7 +131,7 @@ void pollForTouch(void){
 					}
 				}
 			}
-			
+
 			//trigger value
 			if((yt >= 0) && (yt <= (fontYSizeSmall)) && (xt >= (8*fontXSizeSmall)) && (xt <= (TRIG_STR_LNGTH*fontXSizeSmall))){
 				currentButton = trigValue_pressed;
@@ -143,7 +143,7 @@ void pollForTouch(void){
 					}
 				}
 			}
-			
+
 			//timeDiv
 			if((yt >= 0) && (yt <= (fontYSizeSmall)) && (xt >= (TRIG_STR_LNGTH*fontXSizeSmall)) && (xt <= ((TDIV_STR_LNGTH*fontXSizeSmall) + (TRIG_STR_LNGTH*fontXSizeSmall)))){
 				currentButton = timeDiv_pressed;
@@ -155,7 +155,7 @@ void pollForTouch(void){
 					}
 				}
 			}
-			
+
 			//CH1 voltsDiv
 			if((yt >= CH1_YTextStart) && (yt <= MAX_Y) && (xt >= (2*fontXSizeSmall + CH1_XTextStart)) && (xt <= (6*fontXSizeSmall + CH2_XTextStart))){
 				currentButton = ch1VDiv_pressed;
@@ -167,7 +167,7 @@ void pollForTouch(void){
 					}
 				}
 			}
-			
+
 			//ch1 coupling
 			if((yt >= CH1_YTextStart) && (yt <= MAX_Y) && (xt >= (6*fontXSizeSmall + CH1_XTextStart)) && (xt <= (9*fontXSizeSmall + CH2_XTextStart))){
 				currentButton = ch1Cpl_pressed;
@@ -179,8 +179,8 @@ void pollForTouch(void){
 					}
 				}
 			}
-			
-			
+
+
 			//CH2 voltsDiv
 			if((yt >= CH1_YTextStart) && (yt <= MAX_Y) && (xt >= (2*fontXSizeSmall + CH2_XTextStart)) && (xt <= (6*fontXSizeSmall + CH2_XTextStart))){
 				currentButton = ch2VDiv_pressed;
@@ -192,7 +192,7 @@ void pollForTouch(void){
 					}
 				}
 			}
-			
+
 			//ch2 coupling
 			if((yt >= CH1_YTextStart) && (yt <= MAX_Y) && (xt >= (6*fontXSizeSmall + CH2_XTextStart)) && (xt <= (9*fontXSizeSmall + CH2_XTextStart))){
 				currentButton = ch2Cpl_pressed;
@@ -204,7 +204,7 @@ void pollForTouch(void){
 					}
 				}
 			}
-			
+
 			//CH3 voltsDiv
 			if((yt >= CH1_YTextStart) && (yt <= MAX_Y) && (xt >= (2*fontXSizeSmall + CH3_XTextStart)) && (xt <= (6*fontXSizeSmall + CH3_XTextStart))){
 				currentButton = ch3VDiv_pressed;
@@ -216,7 +216,7 @@ void pollForTouch(void){
 					}
 				}
 			}
-			
+
 			//ch3 coupling
 			if((yt >= CH1_YTextStart) && (yt <= MAX_Y) && (xt >= (6*fontXSizeSmall + CH3_XTextStart)) && (xt <= (9*fontXSizeSmall + CH3_XTextStart))){
 				currentButton = ch3Cpl_pressed;
@@ -228,7 +228,7 @@ void pollForTouch(void){
 					}
 				}
 			}
-			
+
 			//CH4 voltsDiv
 			if((yt >= CH1_YTextStart) && (yt <= MAX_Y) && (xt >= (2*fontXSizeSmall + CH4_XTextStart)) && (xt <= (5*fontXSizeSmall + CH4_XTextStart))){
 				currentButton = ch4VDiv_pressed;
@@ -240,7 +240,7 @@ void pollForTouch(void){
 					}
 				}
 			}
-			
+
 			//ch4 coupling
 			if((yt >= CH1_YTextStart) && (yt <= MAX_Y) && (xt >= (6*fontXSizeSmall + CH4_XTextStart)) && (xt <= (9*fontXSizeSmall + CH4_XTextStart))){
 				currentButton = ch4Cpl_pressed;
@@ -252,7 +252,7 @@ void pollForTouch(void){
 					}
 				}
 			}
-			
+
 
 			// ch1
 			if((yt <= MAX_Y) && (yt >= CH1_YTextStart) && (xt >= CH1_XTextStart) && (xt <= CH1_XTextStart+16)){

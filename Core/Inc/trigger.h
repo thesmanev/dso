@@ -9,6 +9,7 @@
 #define INC_TRIGGER_H_
 
 void displayWaveformTrig(uint32_t chNum, uint32_t mode);
+void clearWaveform(void);
 void findTrigger(void);
 
 

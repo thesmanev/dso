@@ -1,5 +1,6 @@
 #include "disp.h"
 
+/* Initial screen test strings */
 char ch1[CH_STR_LNGTH] = {'1',':',' ',' ','1','V',' ',' ','D','C'};
 char ch2[CH_STR_LNGTH] = {'2',':',' ',' ','1','V',' ',' ','D','C'};
 char ch3[CH_STR_LNGTH] = {'3',':',' ',' ','1','V',' ',' ','D','C'};
@@ -7,6 +8,9 @@ char ch4[CH_STR_LNGTH] = {'4',':',' ',' ','1','V',' ',' ','D','C'};
 char trig[TRIG_STR_LNGTH] = {'T', 'r', 'i', 'g', ':', 'C', 'H', '1', 128, ' ', '0', '.', '0', '0', 'V', ' '};
 char tDiv[TDIV_STR_LNGTH] = {'T', 'i', 'm', 'e', '/', 'D', 'i', 'v', ':', ' ', '5', '0', 'u', 's'};
 
+/**
+ * @brief Initialize LCD and LCD driver chip (ILI9341)
+ */
 void LCD_Init(void)
 {
 	// VCI=2.8V
@@ -135,33 +139,33 @@ void LCD_Init(void)
 	displayInit();
 }
 
+/**
+ * @brief Draw initial screen
+ */
 void displayInit(void){
 	LCD_Background(ILI9341_BLACK);
-//	char x[4], y[4];
-//	aquireData4ch();
+
 	LCD_RectFill(288, 75, 321, 137, ILI9341_LIGHTGREY);
 	LCD_RectFill(289, 139, 321, 201, ILI9341_LIGHTGREY);
-//	LCD_DrawRect(289, 75, 321, 137, ILI9341_WHITE);
-//	LCD_DrawRect(289, 138, 321, 200, ILI9341_WHITE);
 	LCD_DrawLineX(292, 120, 304, 90, ILI9341_BLACK);
 	LCD_DrawLineX(304, 90, 316, 120, ILI9341_BLACK);
 	LCD_DrawLineX(292, 150, 304, 180, ILI9341_BLACK);
 	LCD_DrawLineX(304, 180, 316, 150, ILI9341_BLACK);
 
 	LCD_DrawReticle();
-//	PutSignedInt(x, 'h', 3, cnt1);
-//	PutUnsignedInt(x, ' ', 4, dso1.triggerValue);
-//	PutUnsignedInt(y, ' ', 1, dso1.timeDiv);
+
 	LCD_Print(0, 0, trig, TRIG_STR_LNGTH, ILI9341_YELLOW);
 	LCD_Print(TRIG_STR_LNGTH*fontXSizeSmall, 0, tDiv, TDIV_STR_LNGTH, ILI9341_YELLOW);
 	LCD_Print(CH1_XTextStart, CH1_YTextStart, ch1, CH_STR_LNGTH, CH1_COLOR);
 	LCD_Print(CH2_XTextStart, CH2_YTextStart, ch2, CH_STR_LNGTH, CH2_COLOR);
 	LCD_Print(CH3_XTextStart, CH3_YTextStart, ch3, CH_STR_LNGTH, CH3_COLOR);
 	LCD_Print(CH4_XTextStart, CH4_YTextStart, ch4, CH_STR_LNGTH, CH4_COLOR);
-//	LCD_DrawLine(17, 17, 220, 220, ILI9341_CYAN);
-//	LCD_DrawLine(17, 160, 220, 17, ILI9341_CYAN);
 }
 
+/**
+ * @brief Function for sending commands to the ILI9341
+ * @param command The command to be sent. Check macros in disp.h
+ */
 void LCD_WriteCommand(uint32_t command){
 //	RS_COMMAND;//!
 //	CSD_LOW;
@@ -173,6 +177,11 @@ void LCD_WriteCommand(uint32_t command){
 	CONTROL_PORT->BSRR = 0x001C0000;
 	CONTROL_PORT->BSRR = 0x00000014;
 }
+
+/**
+ * @brief Send data to the ILI9341
+ * @param data The 16 bits of data to be sent.
+ */
 void LCD_WriteData(uint32_t data){
 //	RS_DATA;//!
 //	CSD_LOW;
@@ -185,6 +194,12 @@ void LCD_WriteData(uint32_t data){
 	CONTROL_PORT->BSRR = 0x00000014;
 }
 
+/**
+ * @brief Set a pixel on the display to the specified color
+ * @param x X coordinate of the pixel
+ * @param y Y coordinate of the pixel
+ * @param color The pixel color. Check disp.h macros for guidance.
+ */
 void LCD_PutPixel(uint32_t x, uint32_t y, uint32_t color)
 {
 	LCD_WriteCommand(ILI9341_PASET);
@@ -199,12 +214,17 @@ void LCD_PutPixel(uint32_t x, uint32_t y, uint32_t color)
 	LCD_WriteData((y+1)>>8);
 	LCD_WriteData((y+1)&0x000000ff);
 
-//	LCD_SetWindow(x, y, x+1, y+1);
-
 	LCD_WriteCommand(ILI9341_RAMWR); // write data
 	LCD_WriteData(color);
 }
 
+/**
+ * @brief Set a window where pixels are going to be modified
+ * @param x0 X coordinate of the top-left of the window rectangle
+ * @param y0 Y coordinate of the top-left of the window rectangle
+ * @param x1 X coordinate of the bottom-right of the window rectangle
+ * @param y1 Y coordinate of the bottom-right of the window rectangle
+ */
 void LCD_SetWindow(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1){
 //	if (x1 >= MAX_X)
 //	{
@@ -236,6 +256,13 @@ void LCD_SetWindow(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1){
 	LCD_WriteData(y1&0x000000ff);
 }
 
+/**
+ * @brief Draw a horizontal line with a width of 1 pixel
+ * @param x0 Starting coordinate on the X axis
+ * @param x1 End coordinate on the X axis
+ * @param y Y coordinate of the line
+ * @param color line color
+ */
 void LCD_DrawLineH(uint32_t x0, uint32_t x1, uint32_t y, uint32_t color){
 	LCD_SetWindow(x0, y, x1, y);
 	int Xlength = x1 - x0 + 1;

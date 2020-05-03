@@ -1,4 +1,5 @@
 #include "dma.h"
+#include "cmsis_os.h"
 
 void DMA1_Channel1_IRQHandler(void){
 	if(DMA1->ISR & DMA_ISR_TCIF1){
@@ -15,6 +16,7 @@ void DMA1_Channel1_IRQHandler(void){
 			DMA1->IFCR = DMA_IFCR_CGIF1; // clear global interrupt flag
 		}
 	}
+	vTaskNotifyGiveFromISR(acquistionTaskHandle, NULL);
 }
 
 void DMA2_Channel1_IRQHandler(void){
@@ -32,6 +34,7 @@ void DMA2_Channel1_IRQHandler(void){
 			DMA2->IFCR = DMA_IFCR_CGIF1; // clear global interrupt flag
 		}
 	}
+	vTaskNotifyGiveFromISR(acquistionTaskHandle, NULL);
 }
 
 void DMA2_Channel5_IRQHandler(void){
@@ -53,6 +56,7 @@ void DMA2_Channel5_IRQHandler(void){
 			DMA2->IFCR = DMA_IFCR_CGIF5;; // clear global interrupt flag
 		}
 	}
+	vTaskNotifyGiveFromISR(acquistionTaskHandle, NULL);
 }
 
 void DMA2_Channel2_IRQHandler(void){
@@ -71,6 +75,7 @@ void DMA2_Channel2_IRQHandler(void){
 		}
 	}
 	interrupts[0] = 1;
+	vTaskNotifyGiveFromISR(acquistionTaskHandle, NULL);
 }
 
 void setupDMA(channel *chx){

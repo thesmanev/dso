@@ -1,109 +1,18 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-
-
 #include "stm32f3xx.h"
-
-typedef enum{
-	timeDiv_1ms,
-	timeDiv_500us,
-	timeDiv_250us,
-	timeDiv_100us,
-	timeDiv_50us,
-	timeDiv_25us,
-	timeDiv_10us,
-	timeDiv_5us,
-	timeDiv_2_5us,
-	timeDiv_1us
-}tmdv;
-
-typedef enum{
-	v_100mDiv,
-	v_200mDiv,
-	v_500mDiv,
-	v_1Div,
-	v_2Div,
-	v_5Div,
-	v_10Div
-}voltDiv;
-
-typedef struct{
-	uint32_t id;
-	uint32_t enabled;
-	uint32_t selected;
-	voltDiv voltsDiv;
-	uint32_t vertical;
-	uint32_t coupling;
-	uint32_t buffSize;
-} channel;
-
-typedef struct{
-	tmdv timeDiv;
-	uint32_t horizontal;
-	uint32_t triggerPoint;
-	uint32_t triggerEdge;
-	uint32_t triggerSource;
-	uint32_t triggerValue;
-	uint32_t quad;
-	uint32_t dual1;
-	uint32_t dual2;
-	channel ch1;
-	channel ch2;
-	channel ch3;
-	channel ch4;
-} dso;
-
-enum button{
-	none_pressed,
-	inc_pressed,
-	dec_pressed,
-	trigSource_pressed,
-	trigEdge_pressed,
-	trigValue_pressed,
-	timeDiv_pressed,
-	ch1VDiv_pressed,
-	ch1Cpl_pressed,
-	ch2VDiv_pressed,
-	ch2Cpl_pressed,
-	ch3VDiv_pressed,
-	ch3Cpl_pressed,
-	ch4VDiv_pressed,
-	ch4Cpl_pressed,
-	ch1_pressed,
-	ch2_pressed,
-	ch3_pressed,
-	ch4_pressed,
-}currentButton, prevButton ;
-
-
-//enum button currentButton;
-//enum button prevButton;
-
-//typedef struct{
-//	uint32_t ch1Btn;
-//	uint32_t ch2Btn;
-//	uint32_t ch3Btn;
-//	uint32_t ch4Btn;
-//	uint32_t timeDivUpBtn;
-//	uint32_t timeDivDownBtn;
-//	uint32_t trgiUpBtn;
-//	uint32_t trigDwnBtn;
-//} buttons;
-
-//#include "semihosting/semihosting.h"
-//#include "struct.h"
-#include "disp.h"
+#include "stdint.h"
+#include "acquisition.h"
 #include "touch.h"
+#include "disp.h"
 #include "gpio.h"
 #include "dma.h"
 #include "adc.h"
 #include "font.h"
 #include "uart.h"
 #include "printf.h"
-#include "acquisition.h"
 #include "trigger.h"
-//#include "struct.h"
 
 //#define DEBUG_ON
 
@@ -136,28 +45,31 @@ enum button{
 #define CS_AS5_LOW GPIOB->BRR = 0x00004000; // PB13
 #define CS_AS5_HIGH GPIOB->BSRR = 0x00004000; // PB13
 
-
-
-
 #define BUFF_SIZE 2048
-volatile int flags[3];
-volatile int interrupts[5];
-volatile int flags2[3];
-volatile int overrun;
-volatile int inc;
-uint8_t sendScreenBuffer[X_PIXELS*4];
-uint8_t *sendScreenBuffer1;
-uint8_t *sendScreenBuffer2;
-uint8_t *sendScreenBuffer3;
-uint8_t *sendScreenBuffer4;
-uint8_t setup[11];
-uint32_t buffer1[BUFF_SIZE*4];
-uint32_t *buffer2;
-uint32_t *buffer3;
-uint32_t *buffer4;
-uint16_t AS1, AS2, AS3, AS4, AS5;
+
+extern volatile int flags[3];
+extern volatile int interrupts[5];
+extern volatile int flags2[3];
+extern volatile int overrun;
+extern volatile int inc;
+extern uint8_t sendScreenBuffer[X_PIXELS*4];
+extern uint8_t *sendScreenBuffer1;
+extern uint8_t *sendScreenBuffer2;
+extern uint8_t *sendScreenBuffer3;
+extern uint8_t *sendScreenBuffer4;
+extern uint8_t setup[11];
+extern uint32_t buffer1[BUFF_SIZE*4];
+extern uint32_t *buffer2;
+extern uint32_t *buffer3;
+extern uint32_t *buffer4;
+extern uint16_t AS1, AS2, AS3, AS4, AS5;
+
 extern dso dso1;
-extern uint32_t x;
+extern uint32_t channel_state;
+
+extern button currentButton;
+extern button prevButton;
+
 //extern buttons btns;
 extern char ch1[10];
 extern char ch2[10];

@@ -1,30 +1,6 @@
 #ifndef DISP_H
 #define DISP_H
 
-#include "main.h"
-
-
-// functions
-
-void LCD_Init(void);
-void LCD_PutPixel(uint32_t x, uint32_t y, uint32_t color);
-void LCD_WriteCommand(uint32_t command);
-void LCD_WriteData(uint32_t data);
-void LCD_DrawLineH(uint32_t x0, uint32_t x1, uint32_t y, uint32_t color);
-void LCD_SetWindow(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1);
-void LCD_Background(uint32_t color);
-void LCD_DrawLineV(uint32_t y0, uint32_t y1, uint32_t x, uint32_t color);
-//void LCD_image();
-int LCD_Print(uint32_t x, uint32_t y, char *text, uint32_t length, uint32_t color);
-void LCD_RectFill(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color);
-void LCD_DrawRect(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color);
-void LCD_DrawReticle(void);
-void displayInit(void);
-void LCD_DrawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color);
-void LCD_DrawLineX(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color);
-
-int32_t P_Graphic2D_sgn(int32_t x);
-
 #define DATA_PORT GPIOG
 // D0-D15 -> PF0-PF15
 #define CONTROL_PORT GPIOD
@@ -184,5 +160,22 @@ int32_t P_Graphic2D_sgn(int32_t x);
 #define CH_STR_LNGTH 10
 #define TRIG_STR_LNGTH 16
 #define TDIV_STR_LNGTH 14
+
+// functions
+void LCD_Init(void);
+void LCD_PutPixel(uint32_t x, uint32_t y, uint32_t color);
+void LCD_WriteCommand(uint32_t command);
+void LCD_WriteData(uint32_t data);
+void LCD_DrawLineH(uint32_t x0, uint32_t x1, uint32_t y, uint32_t color);
+void LCD_SetWindow(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1);
+void LCD_Background(uint32_t color);
+void LCD_DrawLineV(uint32_t y0, uint32_t y1, uint32_t x, uint32_t color);
+void LCD_Print(uint32_t x, uint32_t y, char *text, uint32_t length, uint32_t color);
+void LCD_RectFill(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color);
+void LCD_DrawRect(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color);
+void LCD_DrawReticle(void);
+void displayInit(void);
+void LCD_DrawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color);
+void LCD_DrawLineX(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color);
 
 #endif

@@ -1,8 +1,6 @@
 #ifndef ADC_H
 #define ADC_H
 
-#include "main.h"
-
 void setupADCs(void);
 void calibrateADCs(void);
 void initADC(channel *chx);

@@ -1,0 +1,15 @@
+acquisition.a1::C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c
+adc.a1::C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/adc.c
+disp.a1::C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c
+dma1.a1::C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/dma1.c
+font.a1::C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/font.c
+gpio.a1::C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/gpio.c
+main.a1::C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/main.c
+printf.a1::C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c
+stm32f3xx_it.a1::C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/stm32f3xx_it.c
+syscalls.a1::C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/syscalls.c
+sysmem.a1::C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/sysmem.c
+system_stm32f3xx.a1::C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/system_stm32f3xx.c
+touch.a1::C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/touch.c
+trigger.a1::C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/trigger.c
+uart.a1::C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/uart.c

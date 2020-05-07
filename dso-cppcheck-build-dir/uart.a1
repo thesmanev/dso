@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="214315045">
+  <FileInfo check="ctu">
+<function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/uart.c:20:13" call-funcname="UART_send" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/uart.c" line="132" col="14" call-argexpr="&ack" call-argvaluetype="7" call-argvalue="1"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/uart.c:36:13" call-funcname="UART_receive" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/uart.c" line="133" col="17" call-argexpr="uart_setup_buff" call-argvaluetype="7" call-argvalue="11"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/uart.c:20:13" call-funcname="UART_send" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/uart.c" line="190" col="14" call-argexpr="uart_setup_buff" call-argvaluetype="7" call-argvalue="11"/>  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="setupUART" lineNumber="8"/>
+    <functiondecl functionName="UART_send" lineNumber="20"/>
+    <functiondecl functionName="UART_receive" lineNumber="36"/>
+    <functiondecl functionName="serial" lineNumber="50"/>
+    <functioncall functionName="RDR"/>
+    <functioncall functionName="UART_receive"/>
+    <functioncall functionName="UART_send"/>
+    <functioncall functionName="USART_CR1_TE"/>
+    <functioncall functionName="ack"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="ch1Cpl_pressed"/>
+    <functioncall functionName="ch1VDiv_pressed"/>
+    <functioncall functionName="ch1_pressed"/>
+    <functioncall functionName="ch2Cpl_pressed"/>
+    <functioncall functionName="ch2VDiv_pressed"/>
+    <functioncall functionName="ch2_pressed"/>
+    <functioncall functionName="ch3Cpl_pressed"/>
+    <functioncall functionName="ch3VDiv_pressed"/>
+    <functioncall functionName="ch3_pressed"/>
+    <functioncall functionName="ch4Cpl_pressed"/>
+    <functioncall functionName="ch4VDiv_pressed"/>
+    <functioncall functionName="ch4_pressed"/>
+    <functioncall functionName="channelChange"/>
+    <functioncall functionName="channel_state"/>
+    <functioncall functionName="cnt"/>
+    <functioncall functionName="dec_pressed"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc_pressed"/>
+    <functioncall functionName="none_pressed"/>
+    <functioncall functionName="sendScreenBuffer1"/>
+    <functioncall functionName="sendScreenBuffer2"/>
+    <functioncall functionName="sendScreenBuffer3"/>
+    <functioncall functionName="sendScreenBuffer4"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="timeDiv_100us"/>
+    <functioncall functionName="timeDiv_10us"/>
+    <functioncall functionName="timeDiv_1ms"/>
+    <functioncall functionName="timeDiv_1us"/>
+    <functioncall functionName="timeDiv_250us"/>
+    <functioncall functionName="timeDiv_25us"/>
+    <functioncall functionName="timeDiv_2_5us"/>
+    <functioncall functionName="timeDiv_500us"/>
+    <functioncall functionName="timeDiv_50us"/>
+    <functioncall functionName="timeDiv_5us"/>
+    <functioncall functionName="timeDiv_pressed"/>
+    <functioncall functionName="tmdv_t"/>
+    <functioncall functionName="trigEdge_pressed"/>
+    <functioncall functionName="trigSource_pressed"/>
+    <functioncall functionName="trigValue_pressed"/>
+    <functioncall functionName="uart_setup_buff"/>
+    <functioncall functionName="uint32_t"/>
+    <functioncall functionName="uint8_t"/>
+    <functioncall functionName="v_100mDiv"/>
+    <functioncall functionName="v_10Div"/>
+    <functioncall functionName="v_1Div"/>
+    <functioncall functionName="v_200mDiv"/>
+    <functioncall functionName="v_2Div"/>
+    <functioncall functionName="v_500mDiv"/>
+    <functioncall functionName="v_5Div"/>
+    <functioncall functionName="vertical"/>
+    <functioncall functionName="voltDiv_t"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

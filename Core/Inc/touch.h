@@ -1,14 +1,14 @@
 #ifndef TOUCH_H
 #define TOUCH_H
 
-#define SPIx SPI4
+#define SPIx 			SPI4
 
 // setup for SPI4
-#define CST_LOW GPIOE->BRR = 0x00000008; // PE3
-#define CST_HIGH GPIOE->BSRR = 0x00000008; // PE3
+#define CST_LOW 		(GPIOE->BRR = 0x00000008)   // PE3
+#define CST_HIGH 		(GPIOE->BSRR = 0x00000008)  // PE3
 
-#define touchReadXcmd 0xD000
-#define touchReadYcmd 0x9000
+#define touchReadXcmd 	0xD000
+#define touchReadYcmd 	0x9000
 
 typedef enum{
 	none_pressed,
@@ -30,14 +30,9 @@ typedef enum{
 	ch2_pressed,
 	ch3_pressed,
 	ch4_pressed,
-}button;
+}button_t;
 
 void setupTouch(void);
-uint32_t touch_readY(void);
-uint32_t touch_readX(void);
-uint32_t get_X_touch(void);
-uint32_t get_Y_touch(void);
 void pollForTouch(void);
-void deselectChannel(void);
 
 #endif

@@ -3,12 +3,12 @@
 static int32_t P_Graphic2D_sgn(int32_t x);
 
 /* Initial screen test strings */
-char ch1[CH_STR_LNGTH] = { '1', ':', ' ', ' ', '1', 'V', ' ', ' ', 'D', 'C' };
-char ch2[CH_STR_LNGTH] = { '2', ':', ' ', ' ', '1', 'V', ' ', ' ', 'D', 'C' };
-char ch3[CH_STR_LNGTH] = { '3', ':', ' ', ' ', '1', 'V', ' ', ' ', 'D', 'C' };
-char ch4[CH_STR_LNGTH] = { '4', ':', ' ', ' ', '1', 'V', ' ', ' ', 'D', 'C' };
-char trig[TRIG_STR_LNGTH] = { 'T', 'r', 'i', 'g', ':', 'C', 'H', '1', 128, ' ', '0', '.', '0', '0', 'V', ' ' };
-char tDiv[TDIV_STR_LNGTH] = { 'T', 'i', 'm', 'e', '/', 'D', 'i', 'v', ':', ' ', '5', '0', 'u', 's' };
+uint8_t ch1[CH_STR_LNGTH] = { '1', ':', ' ', ' ', '1', 'V', ' ', ' ', 'D', 'C' };
+uint8_t ch2[CH_STR_LNGTH] = { '2', ':', ' ', ' ', '1', 'V', ' ', ' ', 'D', 'C' };
+uint8_t ch3[CH_STR_LNGTH] = { '3', ':', ' ', ' ', '1', 'V', ' ', ' ', 'D', 'C' };
+uint8_t ch4[CH_STR_LNGTH] = { '4', ':', ' ', ' ', '1', 'V', ' ', ' ', 'D', 'C' };
+uint8_t trig[TRIG_STR_LNGTH] = { 'T', 'r', 'i', 'g', ':', 'C', 'H', '1', 128, ' ', '0', '.', '0', '0', 'V', ' ' };
+uint8_t tDiv[TDIV_STR_LNGTH] = { 'T', 'i', 'm', 'e', '/', 'D', 'i', 'v', ':', ' ', '5', '0', 'u', 's' };
 
 /**
  * @brief Initialize LCD and LCD driver chip (ILI9341)
@@ -158,7 +158,7 @@ void displayInit(void)
 	LCD_DrawReticle();
 
 	LCD_Print(0, 0, trig, TRIG_STR_LNGTH, ILI9341_YELLOW);
-	LCD_Print(TRIG_STR_LNGTH * fontXSizeSmall, 0, tDiv, TDIV_STR_LNGTH,
+	LCD_Print(TRIG_STR_LNGTH * FONTXSIZESMALL, 0, tDiv, TDIV_STR_LNGTH,
 			ILI9341_YELLOW);
 	LCD_Print(CH1_XTextStart, CH1_YTextStart, ch1, CH_STR_LNGTH, CH1_COLOR);
 	LCD_Print(CH2_XTextStart, CH2_YTextStart, ch2, CH_STR_LNGTH, CH2_COLOR);
@@ -273,9 +273,9 @@ void LCD_SetWindow(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1)
 void LCD_DrawLineH(uint32_t x0, uint32_t x1, uint32_t y, uint32_t color)
 {
 	LCD_SetWindow(x0, y, x1, y);
-	int Xlength = x1 - x0 + 1;
+	uint32_t Xlength = x1 - x0 + 1;
 	LCD_WriteCommand(ILI9341_RAMWR); // write data
-	while (Xlength)
+	while(Xlength)
 	{
 		LCD_WriteData(color);
 		Xlength--;
@@ -376,32 +376,27 @@ void LCD_Background(uint32_t color)
  * @param length The number of characters to be printed out
  * @param color The color of the text
  */
-void LCD_Print(uint32_t x, uint32_t y, char *text, uint32_t length,
+void LCD_Print(uint32_t x, uint32_t y, uint8_t *text, uint32_t length,
 		uint32_t color)
 {
-//	if(length*fontXSizeSmall + x > RESX)
-//		return 1;
-//	if(fontYSizeSmall + y > RESY)
-//		return 2;
 	uint32_t l;
 	uint32_t i;
 	uint32_t j;
-	char *ptr = text;
+	uint8_t *ptr = text;
 	uint8_t line;
 	for (l = 0; l < length; l++)
 	{
-		for (j = 0; j < fontYSizeSmall; j++)
+		for (j = 0; j < FONTYSIZESMALL; j++)
 		{
-			line = smallFont[((*ptr - 32) * fontYSizeSmall) + j];
-//			line = console_font_6x8[((*ptr)*fontYSizeSmall)+j];
-			for (i = 0; i < fontXSizeSmall; i++)
+			line = smallFont[((uint32_t)(*ptr - 32) * FONTYSIZESMALL) + j];
+			for (i = 0; i < FONTXSIZESMALL; i++)
 			{
 				if (line & 0x80)
 				{
-					LCD_PutPixel((x + (l * (fontXSizeSmall)) + i), y + j,
+					LCD_PutPixel((x + (l * (FONTXSIZESMALL)) + i), y + j,
 							color);
 				}
-				line = line << 1;
+				line = (uint8_t)(line << 1u);
 			}
 		}
 		ptr++;
@@ -501,8 +496,8 @@ void LCD_DrawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1,
 	if (y1 <= 11)
 		y1 = 12;
 
-	dx = x1 - x0;
-	dy = y1 - y0;
+	dx = (int32_t)x1 - (int32_t)x0;
+	dy = (int32_t)y1 - (int32_t)y0;
 
 	incx = P_Graphic2D_sgn(dx);
 	incy = P_Graphic2D_sgn(dy);
@@ -530,10 +525,10 @@ void LCD_DrawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1,
 		el = dy;
 	}
 
-	x = x0;
-	y = y0;
+	x = (int32_t)x0;
+	y = (int32_t)y0;
 	err = (el >> 1);
-	LCD_PutPixel(x, y, color);
+	LCD_PutPixel((uint32_t)x, (uint32_t)y, color);
 
 	for (t = 0; t < el; ++t)
 	{
@@ -549,7 +544,7 @@ void LCD_DrawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1,
 			x += pdx;
 			y += pdy;
 		}
-		LCD_PutPixel(x, y, color);
+		LCD_PutPixel((uint32_t)x, (uint32_t)y, color);
 	}
 }
 
@@ -572,23 +567,13 @@ void LCD_DrawLineX(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1,
 	if (y0 >= 240)
 		y0 = 239;
 
-	if (x0 < 0)
-		x0 = 0;
-	if (y0 < 0)
-		y0 = 0;
-
 	if (x1 >= 320)
 		x1 = 319;
 	if (y1 >= 240)
 		y1 = 239;
 
-	if (x1 < 0)
-		x1 = 0;
-	if (y1 < 0)
-		y1 = 0;
-
-	dx = x1 - x0;
-	dy = y1 - y0;
+	dx = (int32_t)x1 - (int32_t)x0;
+	dy = (int32_t)y1 - (int32_t)y0;
 
 	incx = P_Graphic2D_sgn(dx);
 	incy = P_Graphic2D_sgn(dy);
@@ -616,10 +601,10 @@ void LCD_DrawLineX(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1,
 		el = dy;
 	}
 
-	x = x0;
-	y = y0;
+	x = (int32_t)x0;
+	y = (int32_t)y0;
 	err = (el >> 1);
-	LCD_PutPixel(x, y, color);
+	LCD_PutPixel((uint32_t)x, (uint32_t)y, color);
 
 	for (t = 0; t < el; ++t)
 	{
@@ -635,7 +620,7 @@ void LCD_DrawLineX(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1,
 			x += pdx;
 			y += pdy;
 		}
-		LCD_PutPixel(x, y, color);
+		LCD_PutPixel((uint32_t)x, (uint32_t)y, color);
 	}
 }
 

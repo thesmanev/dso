@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results version="2">
+    <cppcheck version="1.90"/>
+    <errors>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="385"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="467"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="470"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="478"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="481"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="489"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="492"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="500"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="503"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="522"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="530"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="538"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="546"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="565"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="573"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="581"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="589"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;ADC1_2_IRQHandler&amp;#039; is never used." verbose="The function &amp;#039;ADC1_2_IRQHandler&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="401"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;ADC3_IRQHandler&amp;#039; is never used." verbose="The function &amp;#039;ADC3_IRQHandler&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="416"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;ADC4_IRQHandler&amp;#039; is never used." verbose="The function &amp;#039;ADC4_IRQHandler&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="431"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;ADC1_2_IRQHandler&amp;#039; is never used." verbose="The function &amp;#039;ADC1_2_IRQHandler&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="399"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;ADC3_IRQHandler&amp;#039; is never used." verbose="The function &amp;#039;ADC3_IRQHandler&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="414"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;ADC4_IRQHandler&amp;#039; is never used." verbose="The function &amp;#039;ADC4_IRQHandler&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\adc.c" line="429"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\main.c" line="142"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\main.c" line="153"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\main.c" line="706"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\main.c" line="707"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\main.c" line="715"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\main.c" line="716"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\main.c" line="724"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\main.c" line="725"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\main.c" line="733"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\main.c" line="734"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\main.c" line="742"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\main.c" line="743"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;pError&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;pError&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here\012        for (int n = 0; n &amp;lt; 10; ++n) {\012            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here\012            do_something(&amp;amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." sinceDate="07.5.2020">
+            <location file="Core\Src\printf.c" line="407"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\printf.c" line="413"/>
+        </error>
+        <error id="cert-STR05-C" severity="style" msg="Use pointers to const when referring to string literals" verbose="Use pointers to const when referring to string literals" sinceDate="07.5.2020">
+            <location file="Core\Src\printf.c" line="407"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;fprintf&amp;#039; is never used." verbose="The function &amp;#039;fprintf&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\printf.c" line="441"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;printf&amp;#039; is never used." verbose="The function &amp;#039;printf&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\printf.c" line="461"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;puts&amp;#039; is never used." verbose="The function &amp;#039;puts&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\printf.c" line="500"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;snprintf&amp;#039; is never used." verbose="The function &amp;#039;snprintf&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\printf.c" line="367"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;sprintf&amp;#039; is never used." verbose="The function &amp;#039;sprintf&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\printf.c" line="481"/>
+        </error>
+        <error id="threadsafety-threadsafety" severity="warning" msg="Local static variable: heap_end" verbose="Local static variable: heap_end" sinceDate="07.5.2020">
+            <location file="Core\Src\sysmem.c" line="41"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;_sbrk&amp;#039; is never used." verbose="The function &amp;#039;_sbrk&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\sysmem.c" line="38"/>
+        </error>
+        <error id="ConfigurationNotChecked" severity="information" msg="Skipping configuration &amp;#039;STM32F303xE;HSE_VALUE&amp;#039; since the value of &amp;#039;HSE_VALUE&amp;#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly." verbose="Skipping configuration &amp;#039;STM32F303xE;HSE_VALUE&amp;#039; since the value of &amp;#039;HSE_VALUE&amp;#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly." sinceDate="07.5.2020">
+            <location file="Core\Src\system_stm32f3xx.c" line="214"/>
+        </error>
+        <error id="ConfigurationNotChecked" severity="information" msg="Skipping configuration &amp;#039;STM32F303xE;HSE_VALUE&amp;#039; since the value of &amp;#039;HSE_VALUE&amp;#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly." verbose="Skipping configuration &amp;#039;STM32F303xE;HSE_VALUE&amp;#039; since the value of &amp;#039;HSE_VALUE&amp;#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly." sinceDate="07.5.2020">
+            <location file="Core\Src\system_stm32f3xx.c" line="227"/>
+        </error>
+        <error id="ConfigurationNotChecked" severity="information" msg="Skipping configuration &amp;#039;STM32F303xE;HSI_VALUE&amp;#039; since the value of &amp;#039;HSI_VALUE&amp;#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly." verbose="Skipping configuration &amp;#039;STM32F303xE;HSI_VALUE&amp;#039; since the value of &amp;#039;HSI_VALUE&amp;#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly." sinceDate="07.5.2020">
+            <location file="Core\Src\system_stm32f3xx.c" line="211"/>
+        </error>
+        <error id="ConfigurationNotChecked" severity="information" msg="Skipping configuration &amp;#039;STM32F303xE;HSI_VALUE&amp;#039; since the value of &amp;#039;HSI_VALUE&amp;#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly." verbose="Skipping configuration &amp;#039;STM32F303xE;HSI_VALUE&amp;#039; since the value of &amp;#039;HSI_VALUE&amp;#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly." sinceDate="07.5.2020">
+            <location file="Core\Src\system_stm32f3xx.c" line="232"/>
+        </error>
+        <error id="ConfigurationNotChecked" severity="information" msg="Skipping configuration &amp;#039;STM32F303xE;HSI_VALUE&amp;#039; since the value of &amp;#039;HSI_VALUE&amp;#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly." verbose="Skipping configuration &amp;#039;STM32F303xE;HSI_VALUE&amp;#039; since the value of &amp;#039;HSI_VALUE&amp;#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly." sinceDate="07.5.2020">
+            <location file="Core\Src\system_stm32f3xx.c" line="249"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;SystemCoreClockUpdate&amp;#039; is never used." verbose="The function &amp;#039;SystemCoreClockUpdate&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\system_stm32f3xx.c" line="201"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;SystemInit&amp;#039; is never used." verbose="The function &amp;#039;SystemInit&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\system_stm32f3xx.c" line="151"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;xt&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;xt&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here\012        for (int n = 0; n &amp;lt; 10; ++n) {\012            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here\012            do_something(&amp;amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." sinceDate="07.5.2020">
+            <location file="Core\Src\touch.c" line="111"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;yt&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;yt&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here\012        for (int n = 0; n &amp;lt; 10; ++n) {\012            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here\012            do_something(&amp;amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." sinceDate="07.5.2020">
+            <location file="Core\Src\touch.c" line="111"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;xt&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;xt&amp;#039; is assigned a value that is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\touch.c" line="111"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;yt&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;yt&amp;#039; is assigned a value that is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\touch.c" line="111"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\touch.c" line="34"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\touch.c" line="35"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\touch.c" line="38"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\touch.c" line="39"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\touch.c" line="57"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\touch.c" line="58"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\touch.c" line="61"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\touch.c" line="62"/>
+        </error>
+        <error id="cert-INT31-c" severity="style" msg="Ensure that integer conversions do not result in lost or misinterpreted data (casting -1 to unsigned int)" verbose="Ensure that integer conversions do not result in lost or misinterpreted data (casting -1 to unsigned int)" sinceDate="07.5.2020">
+            <location file="Core\Src\touch.c" line="1112"/>
+        </error>
+        <error id="cert-INT31-c" severity="style" msg="Ensure that integer conversions do not result in lost or misinterpreted data (casting -1 to unsigned int)" verbose="Ensure that integer conversions do not result in lost or misinterpreted data (casting -1 to unsigned int)" sinceDate="07.5.2020">
+            <location file="Core\Src\touch.c" line="1151"/>
+        </error>
+        <error id="cert-INT31-c" severity="style" msg="Ensure that integer conversions do not result in lost or misinterpreted data (casting -1 to unsigned int)" verbose="Ensure that integer conversions do not result in lost or misinterpreted data (casting -1 to unsigned int)" sinceDate="07.5.2020">
+            <location file="Core\Src\touch.c" line="1190"/>
+        </error>
+        <error id="cert-INT31-c" severity="style" msg="Ensure that integer conversions do not result in lost or misinterpreted data (casting -1 to unsigned int)" verbose="Ensure that integer conversions do not result in lost or misinterpreted data (casting -1 to unsigned int)" sinceDate="07.5.2020">
+            <location file="Core\Src\touch.c" line="1229"/>
+        </error>
+        <error id="cert-INT31-c" severity="style" msg="Ensure that integer conversions do not result in lost or misinterpreted data (casting -1 to unsigned int)" verbose="Ensure that integer conversions do not result in lost or misinterpreted data (casting -1 to unsigned int)" sinceDate="07.5.2020">
+            <location file="Core\Src\touch.c" line="1268"/>
+        </error>
+        <error id="cert-INT31-c" severity="style" msg="Ensure that integer conversions do not result in lost or misinterpreted data (casting -1 to unsigned int)" verbose="Ensure that integer conversions do not result in lost or misinterpreted data (casting -1 to unsigned int)" sinceDate="07.5.2020">
+            <location file="Core\Src\touch.c" line="1322"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;i&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;i&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here\012        for (int n = 0; n &amp;lt; 10; ++n) {\012            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here\012            do_something(&amp;amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." sinceDate="07.5.2020">
+            <location file="Core\Src\trigger.c" line="83"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;pixcnt&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;pixcnt&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here\012        for (int n = 0; n &amp;lt; 10; ++n) {\012            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here\012            do_something(&amp;amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." sinceDate="07.5.2020">
+            <location file="Core\Src\trigger.c" line="84"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;color&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;color&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here\012        for (int n = 0; n &amp;lt; 10; ++n) {\012            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here\012            do_something(&amp;amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." sinceDate="07.5.2020">
+            <location file="Core\Src\trigger.c" line="85"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;x0&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;x0&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here\012        for (int n = 0; n &amp;lt; 10; ++n) {\012            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here\012            do_something(&amp;amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." sinceDate="07.5.2020">
+            <location file="Core\Src\trigger.c" line="97"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;x1&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;x1&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here\012        for (int n = 0; n &amp;lt; 10; ++n) {\012            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here\012            do_something(&amp;amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." sinceDate="07.5.2020">
+            <location file="Core\Src\trigger.c" line="97"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;y0&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;y0&amp;#039; is assigned a value that is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\trigger.c" line="20"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;y1&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;y1&amp;#039; is assigned a value that is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\trigger.c" line="21"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\uart.c" line="25"/>
+        </error>
+        <error id="cert-EXP15-C" severity="style" msg="Do not place a semicolon on the same line as an IF, FOR or WHILE" verbose="Do not place a semicolon on the same line as an IF, FOR or WHILE" sinceDate="07.5.2020">
+            <location file="Core\Src\uart.c" line="41"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;BusFault_Handler&amp;#039; is never used." verbose="The function &amp;#039;BusFault_Handler&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\stm32f3xx_it.c" line="113"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;DebugMon_Handler&amp;#039; is never used." verbose="The function &amp;#039;DebugMon_Handler&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\stm32f3xx_it.c" line="156"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;HardFault_Handler&amp;#039; is never used." verbose="The function &amp;#039;HardFault_Handler&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\stm32f3xx_it.c" line="83"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;MemManage_Handler&amp;#039; is never used." verbose="The function &amp;#039;MemManage_Handler&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\stm32f3xx_it.c" line="98"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;NMI_Handler&amp;#039; is never used." verbose="The function &amp;#039;NMI_Handler&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\stm32f3xx_it.c" line="70"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;PendSV_Handler&amp;#039; is never used." verbose="The function &amp;#039;PendSV_Handler&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\stm32f3xx_it.c" line="169"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;SVC_Handler&amp;#039; is never used." verbose="The function &amp;#039;SVC_Handler&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\stm32f3xx_it.c" line="143"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;SysTick_Handler&amp;#039; is never used." verbose="The function &amp;#039;SysTick_Handler&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\stm32f3xx_it.c" line="182"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;UsageFault_Handler&amp;#039; is never used." verbose="The function &amp;#039;UsageFault_Handler&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\stm32f3xx_it.c" line="128"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;DMA1_Channel1_IRQHandler&amp;#039; is never used." verbose="The function &amp;#039;DMA1_Channel1_IRQHandler&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\dma1.c" line="6"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;DMA2_Channel1_IRQHandler&amp;#039; is never used." verbose="The function &amp;#039;DMA2_Channel1_IRQHandler&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\dma1.c" line="31"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;DMA2_Channel2_IRQHandler&amp;#039; is never used." verbose="The function &amp;#039;DMA2_Channel2_IRQHandler&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\dma1.c" line="82"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;DMA2_Channel5_IRQHandler&amp;#039; is never used." verbose="The function &amp;#039;DMA2_Channel5_IRQHandler&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\dma1.c" line="56"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;_close&amp;#039; is never used." verbose="The function &amp;#039;_close&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\syscalls.c" line="92"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;_execve&amp;#039; is never used." verbose="The function &amp;#039;_execve&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\syscalls.c" line="155"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;_exit&amp;#039; is never used." verbose="The function &amp;#039;_exit&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\syscalls.c" line="63"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;_fork&amp;#039; is never used." verbose="The function &amp;#039;_fork&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\syscalls.c" line="149"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;_fstat&amp;#039; is never used." verbose="The function &amp;#039;_fstat&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\syscalls.c" line="98"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;_getpid&amp;#039; is never used." verbose="The function &amp;#039;_getpid&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\syscalls.c" line="52"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;_isatty&amp;#039; is never used." verbose="The function &amp;#039;_isatty&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\syscalls.c" line="104"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;_link&amp;#039; is never used." verbose="The function &amp;#039;_link&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\syscalls.c" line="143"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;_lseek&amp;#039; is never used." verbose="The function &amp;#039;_lseek&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\syscalls.c" line="109"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;_open&amp;#039; is never used." verbose="The function &amp;#039;_open&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\syscalls.c" line="114"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;_read&amp;#039; is never used." verbose="The function &amp;#039;_read&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\syscalls.c" line="69"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;_stat&amp;#039; is never used." verbose="The function &amp;#039;_stat&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\syscalls.c" line="137"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;_times&amp;#039; is never used." verbose="The function &amp;#039;_times&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\syscalls.c" line="132"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;_unlink&amp;#039; is never used." verbose="The function &amp;#039;_unlink&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\syscalls.c" line="126"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;_wait&amp;#039; is never used." verbose="The function &amp;#039;_wait&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\syscalls.c" line="120"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;_write&amp;#039; is never used." verbose="The function &amp;#039;_write&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\syscalls.c" line="81"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;initialise_monitor_handles&amp;#039; is never used." verbose="The function &amp;#039;initialise_monitor_handles&amp;#039; is never used." sinceDate="07.5.2020">
+            <location file="Core\Src\syscalls.c" line="48"/>
+        </error>
+    </errors>
+</results>

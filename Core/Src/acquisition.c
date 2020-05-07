@@ -12,8 +12,8 @@
 void aquireDataQuad(void)
 {
 	setupDMAQuad();
-	setDMACntr(&dso1.ch1); //master1
-	setDMACntr(&dso1.ch3); //master3
+	setDMACntr(&dso.ch1); //master1
+	setDMACntr(&dso.ch3); //master3
 	asm("mov.w r2, #1342177280");
 	// 0x50000000
 	asm("ldr r3, [r2, #8]");
@@ -44,8 +44,8 @@ void aquireDataQuad(void)
  */
 void aquireDataDualParallel(void)
 {
-	setDMACntr(&dso1.ch1);	//master1
-	setDMACntr(&dso1.ch3);	//master3
+	setDMACntr(&dso.ch1);	//master1
+	setDMACntr(&dso.ch3);	//master3
 	asm("mov.w r2, #1342177280");
 	// 0x50000000
 	asm("ldr r3, [r2, #8]");
@@ -68,10 +68,10 @@ void aquireDataDualParallel(void)
  */
 void aquireDataDual(uint32_t num)
 {
-	if (num)
+	if(num)
 	{
 		setupDMADual(1);
-		setDMACntr(&dso1.ch3);	//master1
+		setDMACntr(&dso.ch3);	//master1
 		asm("mov.w r2, #1342177280");
 		// 0x50000000
 		asm("ldr r3, [r2, #1032]");
@@ -84,7 +84,7 @@ void aquireDataDual(uint32_t num)
 	else
 	{
 		setupDMADual(0);
-		setDMACntr(&dso1.ch1); //master1
+		setDMACntr(&dso.ch1); //master1
 		asm("mov.w r2, #1342177280");
 		// 0x50000000
 		asm("ldr r3, [r2, #8]");
@@ -102,10 +102,10 @@ void aquireDataDual(uint32_t num)
  */
 void aquireDataParallel(uint32_t num)
 {
-	if (num)
+	if(num)
 	{
-		setDMACntr(&dso1.ch3); //master1
-		setDMACntr(&dso1.ch4); //master1
+		setDMACntr(&dso.ch3); //master1
+		setDMACntr(&dso.ch4); //master1
 		asm("mov.w r2, #1342177280");
 		// 0x50000000
 		asm("ldr r3, [r2, #1032]");
@@ -118,8 +118,8 @@ void aquireDataParallel(uint32_t num)
 	}
 	else
 	{
-		setDMACntr(&dso1.ch1); //master1
-		setDMACntr(&dso1.ch2); //master1
+		setDMACntr(&dso.ch1); //master1
+		setDMACntr(&dso.ch2); //master1
 		asm("mov.w r2, #1342177280");
 		// 0x50000000
 		asm("ldr r3, [r2, #8]");
@@ -137,10 +137,10 @@ void aquireDataParallel(uint32_t num)
  */
 void aquireDataAllParallel(void)
 {
-	setDMACntr(&dso1.ch1); //master1
-	setDMACntr(&dso1.ch2); //slave2
-	setDMACntr(&dso1.ch3); //master3
-	setDMACntr(&dso1.ch4); //slave4
+	setDMACntr(&dso.ch1); //master1
+	setDMACntr(&dso.ch2); //slave2
+	setDMACntr(&dso.ch3); //master3
+	setDMACntr(&dso.ch4); //slave4
 	asm("mov.w r2, #1342177280");
 	// 0x50000000
 	asm("ldr r3, [r2, #8]");
@@ -152,8 +152,8 @@ void aquireDataAllParallel(void)
 	DMA1_Channel1->CCR = 0x0000268b; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
 	DMA2_Channel1->CCR = 0x0000268b; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
 	// expected duration 5 cycles
-	DMA2_Channel5->CCR = 0x0000268b;// Configure and start DMA2 channel 5, mem 16bit, periph 32bit
-	DMA2_Channel2->CCR = 0x0000268b;// Configure and start DMA1 channel 1, mem 16bit, periph 32bit
+	DMA2_Channel5->CCR = 0x0000268b;	// Configure and start DMA2 channel 5, mem 16bit, periph 32bit
+	DMA2_Channel2->CCR = 0x0000268b;	// Configure and start DMA1 channel 1, mem 16bit, periph 32bit
 	// length of line : expected to be 7 cycles
 	asm("wfi");
 }
@@ -162,68 +162,69 @@ void aquireDataAllParallel(void)
  * @brief Acquire data on a single channel
  * @param chx Pointer to a channel structure
  */
-void aquireDataSingle(channel *chx)
+void aquireDataSingle(channel_t *chx)
 {
 	switch (chx->id)
 	{
-	case 1:
-	{
-		setDMACntr(&dso1.ch1);	//master1
-		asm("mov.w r2, #1342177280");
-		// 0x50000000
-		asm("ldr r3, [r2, #8]");
-		asm("orr.w r3, r3, #4");
-		asm("str r3, [r2, #8]");
-		// ADC1 started
-		DMA1_Channel1->CCR = 0x0000268b; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
-		//asm("wfi");
-		break;
-	}
-	case 2:
-	{
-		setDMACntr(&dso1.ch2);			//master1
-		asm("mov.w r2, #1342177280");
-		// 0x50000000
-		// ADC1 base + ADC slave offset + CR register offset
-		asm("ldr r3, [r2, #264]");
-		// 0x50000000 + 0x0100 + 0x08
-		asm("orr.w r3, r3, #4");
-		asm("str r3, [r2, #264]");
-		// ADC2 started
-		DMA2_Channel1->CCR = 0x0000268b; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
-		asm("wfi");
-		break;
-	}
-	case 3:
-	{
-		setDMACntr(&dso1.ch3); //master1
-		asm("mov.w r2, #1342177280");
-		// 0x50000000
-		// ADC1 base + 1k (adc3 offset) + CR register offset
-		asm("ldr r3, [r2, #1032]");
-		// 0x50000000 + 0x0400 + 0x08
-		asm("orr.w r3, r3, #4");
-		asm("str r3, [r2, #1032]");
-		// ADC3 started
-		DMA2_Channel5->CCR = 0x0000268b; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
-		asm("wfi");
-		break;
-	}
-	case 4:
-	{
-		setDMACntr(&dso1.ch4); //master1
-		asm("mov.w r2, #1342177280");
-		// 0x50000000
-		// ADC1 base + 1k (adc3 offset) + ADC slave offset + CR register offset
-		asm("ldr r3, [r2, #1288]");
-		// 0x50000000 + 0x0400 + 0x0100 + 0x08
-		asm("orr.w r3, r3, #4");
-		asm("str r3, [r2, #1288]");
-		// ADC4 started
-		DMA2_Channel2->CCR = 0x0000268b; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
-		asm("wfi");
-		break;
-	}
+		default:
+		case 1:
+		{
+			setDMACntr(&dso.ch1);	//master1
+			asm("mov.w r2, #1342177280");
+			// 0x50000000
+			asm("ldr r3, [r2, #8]");
+			asm("orr.w r3, r3, #4");
+			asm("str r3, [r2, #8]");
+			// ADC1 started
+			DMA1_Channel1->CCR = 0x0000268b; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
+			//asm("wfi");
+			break;
+		}
+		case 2:
+		{
+			setDMACntr(&dso.ch2);			//master1
+			asm("mov.w r2, #1342177280");
+			// 0x50000000
+			// ADC1 base + ADC slave offset + CR register offset
+			asm("ldr r3, [r2, #264]");
+			// 0x50000000 + 0x0100 + 0x08
+			asm("orr.w r3, r3, #4");
+			asm("str r3, [r2, #264]");
+			// ADC2 started
+			DMA2_Channel1->CCR = 0x0000268b; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
+			asm("wfi");
+			break;
+		}
+		case 3:
+		{
+			setDMACntr(&dso.ch3); //master1
+			asm("mov.w r2, #1342177280");
+			// 0x50000000
+			// ADC1 base + 1k (adc3 offset) + CR register offset
+			asm("ldr r3, [r2, #1032]");
+			// 0x50000000 + 0x0400 + 0x08
+			asm("orr.w r3, r3, #4");
+			asm("str r3, [r2, #1032]");
+			// ADC3 started
+			DMA2_Channel5->CCR = 0x0000268b; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
+			asm("wfi");
+			break;
+		}
+		case 4:
+		{
+			setDMACntr(&dso.ch4); //master1
+			asm("mov.w r2, #1342177280");
+			// 0x50000000
+			// ADC1 base + 1k (adc3 offset) + ADC slave offset + CR register offset
+			asm("ldr r3, [r2, #1288]");
+			// 0x50000000 + 0x0400 + 0x0100 + 0x08
+			asm("orr.w r3, r3, #4");
+			asm("str r3, [r2, #1288]");
+			// ADC4 started
+			DMA2_Channel2->CCR = 0x0000268b; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
+			asm("wfi");
+			break;
+		}
 	}
 }
 
@@ -232,8 +233,8 @@ void aquireDataSingle(channel *chx)
  */
 void aquireDataParallel_23(void)
 {
-	setDMACntr(&dso1.ch2);
-	setDMACntr(&dso1.ch3);
+	setDMACntr(&dso.ch2);
+	setDMACntr(&dso.ch3);
 	asm("mov.w r2, #1342177280");
 	// 0x50000000
 	// ADC1 base + ADC slave offset + CR register offset
@@ -254,9 +255,9 @@ void aquireDataParallel_23(void)
  */
 void aquireDataParallel_234(void)
 {
-	setDMACntr(&dso1.ch2);
-	setDMACntr(&dso1.ch3);
-	setDMACntr(&dso1.ch4);
+	setDMACntr(&dso.ch2);
+	setDMACntr(&dso.ch3);
+	setDMACntr(&dso.ch4);
 	asm("mov.w r2, #1342177280");
 	// 0x50000000
 //	asm("mov.w r3, #1342177280"); // 0x50000000
@@ -277,8 +278,8 @@ void aquireDataParallel_234(void)
 
 void aquireDataParallel_24(void)
 {
-	setDMACntr(&dso1.ch2);
-	setDMACntr(&dso1.ch4);
+	setDMACntr(&dso.ch2);
+	setDMACntr(&dso.ch4);
 	asm("mov.w r2, #1342177280");
 	// 0x50000000
 	// ADC1 base + ADC slave offset + CR register offset
@@ -299,8 +300,8 @@ void aquireDataParallel_24(void)
  */
 void aquireDataParallel_14(void)
 {
-	setDMACntr(&dso1.ch1);
-	setDMACntr(&dso1.ch4);
+	setDMACntr(&dso.ch1);
+	setDMACntr(&dso.ch4);
 	asm("mov.w r2, #1342177280");
 	// 0x50000000
 	// ADC1 base + ADC slave offset + CR register offset
@@ -321,9 +322,9 @@ void aquireDataParallel_14(void)
  */
 void aquireDataParallel_124(void)
 {
-	setDMACntr(&dso1.ch1);
-	setDMACntr(&dso1.ch2);
-	setDMACntr(&dso1.ch4);
+	setDMACntr(&dso.ch1);
+	setDMACntr(&dso.ch2);
+	setDMACntr(&dso.ch4);
 	asm("mov.w r2, #1342177280");
 	// 0x50000000
 	// ADC1 base + ADC slave offset + CR register offset
@@ -345,8 +346,8 @@ void aquireDataParallel_124(void)
  */
 void aquireDataParallel_13(void)
 {
-	setDMACntr(&dso1.ch1); //master1
-	setDMACntr(&dso1.ch3); //master3
+	setDMACntr(&dso.ch1); //master1
+	setDMACntr(&dso.ch3); //master3
 	asm("mov.w r2, #1342177280");
 	// 0x50000000
 	asm("ldr r3, [r2, #8]");
@@ -369,489 +370,489 @@ void aquireData(uint32_t mode)
 {
 	switch (channel_state)
 	{
-	case 0:
-		break;
-	case 1:
-	{
-		if (dso1.timeDiv < timeDiv_10us)
+		case 0:
+			break;
+		case 1:
 		{
-			if (mode)
-				displayWaveformTrig(1, mode);
+			if(dso.timeDiv < timeDiv_10us)
+			{
+				if(mode)
+					displayWaveformTrig(1, mode);
+				else
+				{
+					aquireDataSingle(&dso.ch1);
+					findTrigger();
+					displayWaveformTrig(1, mode);
+				}
+			}
+			else if(dso.timeDiv < timeDiv_2_5us)
+			{
+				if(mode)
+					displayWaveformTrig(0, mode);
+				else
+				{
+					aquireDataDual(0);
+					findTrigger();
+					displayWaveformTrig(0, mode);
+				}
+			}
 			else
 			{
-				aquireDataSingle(&dso1.ch1);
-				findTrigger();
-				displayWaveformTrig(1, mode);
+				if(mode)
+					displayWaveformTrig(0, mode);
+				else
+				{
+					aquireDataQuad();
+					findTrigger();
+					displayWaveformTrig(0, mode);
+				}
 			}
+			break;
 		}
-		else if (dso1.timeDiv < timeDiv_2_5us)
+		case 2:
 		{
-			if (mode)
-				displayWaveformTrig(0, mode);
-			else
+			if(dso.timeDiv < timeDiv_10us)
 			{
-				aquireDataDual(0);
-				findTrigger();
-				displayWaveformTrig(0, mode);
+				if(mode)
+					displayWaveformTrig(2, mode);
+				else
+				{
+					aquireDataSingle(&dso.ch2);
+					findTrigger();
+					displayWaveformTrig(2, mode);
+				}
 			}
-		}
-		else
-		{
-			if (mode)
-				displayWaveformTrig(0, mode);
-			else
+			//unavailable
+			else if(dso.timeDiv < timeDiv_2_5us)
 			{
-				aquireDataQuad();
-				findTrigger();
-				displayWaveformTrig(0, mode);
-			}
-		}
-		break;
-	}
-	case 2:
-	{
-		if (dso1.timeDiv < timeDiv_10us)
-		{
-			if (mode)
-				displayWaveformTrig(2, mode);
-			else
-			{
-				aquireDataSingle(&dso1.ch2);
-				findTrigger();
-				displayWaveformTrig(2, mode);
-			}
-		}
-		//unavailable
-		else if (dso1.timeDiv < timeDiv_2_5us)
-		{
 //				aquireDataDual(0);
 //				//find trigger
-			//display waveform
-		}
-		else
-		{
+				//display waveform
+			}
+			else
+			{
 //     			aquireDataQuad();
 //				//find trigger
 //				//display waveform
-		}
-		break;
-	}
-	case 3:
-	{
-		if (dso1.timeDiv < timeDiv_10us)
-		{
-			if (mode)
-			{
-				displayWaveformTrig(1, mode);
-				displayWaveformTrig(2, mode);
 			}
-			else
-			{
-				aquireDataParallel(0);
-				findTrigger();
-				displayWaveformTrig(1, mode);
-				displayWaveformTrig(2, mode);
-			}
+			break;
 		}
-		//unavailable
-		else if (dso1.timeDiv < timeDiv_2_5us)
+		case 3:
 		{
+			if(dso.timeDiv < timeDiv_10us)
+			{
+				if(mode)
+				{
+					displayWaveformTrig(1, mode);
+					displayWaveformTrig(2, mode);
+				}
+				else
+				{
+					aquireDataParallel(0);
+					findTrigger();
+					displayWaveformTrig(1, mode);
+					displayWaveformTrig(2, mode);
+				}
+			}
+			//unavailable
+			else if(dso.timeDiv < timeDiv_2_5us)
+			{
 //				aquireDataDual(0);
 //				//find trigger
 //				//display waveform
-		}
-		else
-		{
+			}
+			else
+			{
 //				aquireDataQuad();
 //				//find trigger
 //				//display waveform
+			}
+			break;
 		}
-		break;
-	}
-	case 4:
-	{
-		if (dso1.timeDiv < timeDiv_10us)
+		case 4:
 		{
-			if (mode)
-				displayWaveformTrig(3, mode);
+			if(dso.timeDiv < timeDiv_10us)
+			{
+				if(mode)
+					displayWaveformTrig(3, mode);
+				else
+				{
+					aquireDataSingle(&dso.ch3);
+					findTrigger();
+					displayWaveformTrig(3, mode);
+				}
+			}
+			else if(dso.timeDiv < timeDiv_2_5us)
+			{
+				if(mode)
+					displayWaveformTrig(0, mode);
+				else
+				{
+					aquireDataDual(1);
+					findTrigger();
+					displayWaveformTrig(0, mode);
+				}
+			}
 			else
 			{
-				aquireDataSingle(&dso1.ch3);
-				findTrigger();
-				displayWaveformTrig(3, mode);
-			}
-		}
-		else if (dso1.timeDiv < timeDiv_2_5us)
-		{
-			if (mode)
-				displayWaveformTrig(0, mode);
-			else
-			{
-				aquireDataDual(1);
-				findTrigger();
-				displayWaveformTrig(0, mode);
-			}
-		}
-		else
-		{
-			//unavailable
+				//unavailable
 //				aquireDataQuad();
 //				//find trigger
 //				//display waveform
+			}
+			break;
 		}
-		break;
-	}
-	case 5:
-	{
-		if (dso1.timeDiv < timeDiv_10us)
+		case 5:
 		{
-			if (mode)
+			if(dso.timeDiv < timeDiv_10us)
 			{
-				displayWaveformTrig(1, mode);
-				displayWaveformTrig(3, mode);
+				if(mode)
+				{
+					displayWaveformTrig(1, mode);
+					displayWaveformTrig(3, mode);
+				}
+				else
+				{
+					aquireDataParallel_13();
+					findTrigger();
+					displayWaveformTrig(1, mode);
+					displayWaveformTrig(3, mode);
+				}
+			}
+			else if(dso.timeDiv < timeDiv_2_5us)
+			{
+				if(mode)
+					displayWaveformTrig(0, mode);
+				else
+				{
+					aquireDataDualParallel();
+					findTrigger();
+					displayWaveformTrig(0, mode);
+				}
 			}
 			else
 			{
-				aquireDataParallel_13();
-				findTrigger();
-				displayWaveformTrig(1, mode);
-				displayWaveformTrig(3, mode);
-			}
-		}
-		else if (dso1.timeDiv < timeDiv_2_5us)
-		{
-			if (mode)
-				displayWaveformTrig(0, mode);
-			else
-			{
-				aquireDataDualParallel();
-				findTrigger();
-				displayWaveformTrig(0, mode);
-			}
-		}
-		else
-		{
 //				aquireDataQuad();
 //				//find trigger
 //				//display waveform
-		}
-		break;
-	}
-	case 6:
-	{
-		if (dso1.timeDiv < timeDiv_10us)
-		{
-			if (mode)
-			{
-				displayWaveformTrig(2, mode);
-				displayWaveformTrig(3, mode);
 			}
-			else
-			{
-				aquireDataParallel_23();
-				findTrigger();
-				displayWaveformTrig(2, mode);
-				displayWaveformTrig(3, mode);
-			}
+			break;
 		}
-		else if (dso1.timeDiv < timeDiv_2_5us)
+		case 6:
 		{
+			if(dso.timeDiv < timeDiv_10us)
+			{
+				if(mode)
+				{
+					displayWaveformTrig(2, mode);
+					displayWaveformTrig(3, mode);
+				}
+				else
+				{
+					aquireDataParallel_23();
+					findTrigger();
+					displayWaveformTrig(2, mode);
+					displayWaveformTrig(3, mode);
+				}
+			}
+			else if(dso.timeDiv < timeDiv_2_5us)
+			{
 //				aquireDataDualParallel();
 //				//find trigger
 //				//display waveform
-		}
-		else
-		{
+			}
+			else
+			{
 //				aquireDataQuad();
 //				//find trigger
 //				//display waveform
+			}
+			break;
 		}
-		break;
-	}
-	case 7:
-	{
-		if (dso1.timeDiv < timeDiv_10us)
+		case 7:
 		{
-			if (mode)
+			if(dso.timeDiv < timeDiv_10us)
 			{
-				displayWaveformTrig(1, mode);
-				displayWaveformTrig(2, mode);
-				displayWaveformTrig(3, mode);
+				if(mode)
+				{
+					displayWaveformTrig(1, mode);
+					displayWaveformTrig(2, mode);
+					displayWaveformTrig(3, mode);
+				}
+				else
+				{
+					aquireDataAllParallel();
+					findTrigger();
+					displayWaveformTrig(1, mode);
+					displayWaveformTrig(2, mode);
+					displayWaveformTrig(3, mode);
+				}
+			}
+			else if(dso.timeDiv < timeDiv_2_5us)
+			{
 			}
 			else
 			{
-				aquireDataAllParallel();
-				findTrigger();
-				displayWaveformTrig(1, mode);
-				displayWaveformTrig(2, mode);
-				displayWaveformTrig(3, mode);
 			}
+			break;
 		}
-		else if (dso1.timeDiv < timeDiv_2_5us)
+		case 8:
 		{
-		}
-		else
-		{
-		}
-		break;
-	}
-	case 8:
-	{
-		if (dso1.timeDiv < timeDiv_10us)
-		{
-			if (mode)
-				displayWaveformTrig(4, mode);
-			else
+			if(dso.timeDiv < timeDiv_10us)
 			{
-				aquireDataSingle(&dso1.ch4);
-				findTrigger();
-				displayWaveformTrig(4, mode);
+				if(mode)
+					displayWaveformTrig(4, mode);
+				else
+				{
+					aquireDataSingle(&dso.ch4);
+					findTrigger();
+					displayWaveformTrig(4, mode);
+				}
 			}
-		}
-		else if (dso1.timeDiv < timeDiv_2_5us)
-		{
+			else if(dso.timeDiv < timeDiv_2_5us)
+			{
 //				aquireDataDualParallel();
 //				//find trigger
 //				//display waveform
-		}
-		else
-		{
-//				aquireDataQuad();
-//				//find trigger
-//				//display waveform
-		}
-		break;
-	}
-	case 9:
-	{
-		if (dso1.timeDiv < timeDiv_10us)
-		{
-			if (mode)
-			{
-				displayWaveformTrig(1, mode);
-				displayWaveformTrig(4, mode);
 			}
 			else
 			{
-				aquireDataParallel_14();
-				findTrigger();
-				displayWaveformTrig(1, mode);
-				displayWaveformTrig(4, mode);
+//				aquireDataQuad();
+//				//find trigger
+//				//display waveform
 			}
+			break;
 		}
-		else if (dso1.timeDiv < timeDiv_2_5us)
+		case 9:
 		{
+			if(dso.timeDiv < timeDiv_10us)
+			{
+				if(mode)
+				{
+					displayWaveformTrig(1, mode);
+					displayWaveformTrig(4, mode);
+				}
+				else
+				{
+					aquireDataParallel_14();
+					findTrigger();
+					displayWaveformTrig(1, mode);
+					displayWaveformTrig(4, mode);
+				}
+			}
+			else if(dso.timeDiv < timeDiv_2_5us)
+			{
 //				aquireDataDualParallel();
 //				//find trigger
 //				//display waveform
-		}
-		else
-		{
-//				aquireDataQuad();
-//				//find trigger
-//				//display waveform
-		}
-		break;
-	}
-	case 10:
-	{
-		if (dso1.timeDiv < timeDiv_10us)
-		{
-			if (mode)
-			{
-				displayWaveformTrig(2, mode);
-				displayWaveformTrig(4, mode);
 			}
 			else
 			{
-				aquireDataParallel_24();
-				findTrigger();
-				displayWaveformTrig(2, mode);
-				displayWaveformTrig(4, mode);
+//				aquireDataQuad();
+//				//find trigger
+//				//display waveform
 			}
+			break;
 		}
-		else if (dso1.timeDiv < timeDiv_2_5us)
+		case 10:
 		{
+			if(dso.timeDiv < timeDiv_10us)
+			{
+				if(mode)
+				{
+					displayWaveformTrig(2, mode);
+					displayWaveformTrig(4, mode);
+				}
+				else
+				{
+					aquireDataParallel_24();
+					findTrigger();
+					displayWaveformTrig(2, mode);
+					displayWaveformTrig(4, mode);
+				}
+			}
+			else if(dso.timeDiv < timeDiv_2_5us)
+			{
 //				aquireDataDualParallel();
 //				//find trigger
 //				//display waveform
-		}
-		else
-		{
-//				aquireDataQuad();
-//				//find trigger
-//				//display waveform
-		}
-		break;
-	}
-	case 11:
-	{
-		if (dso1.timeDiv < timeDiv_10us)
-		{
-			if (mode)
-			{
-				displayWaveformTrig(1, mode);
-				displayWaveformTrig(2, mode);
-				displayWaveformTrig(4, mode);
 			}
 			else
 			{
-				aquireDataParallel_124();
-				findTrigger();
-				displayWaveformTrig(1, mode);
-				displayWaveformTrig(2, mode);
-				displayWaveformTrig(4, mode);
+//				aquireDataQuad();
+//				//find trigger
+//				//display waveform
 			}
+			break;
 		}
-		else if (dso1.timeDiv < timeDiv_2_5us)
+		case 11:
 		{
+			if(dso.timeDiv < timeDiv_10us)
+			{
+				if(mode)
+				{
+					displayWaveformTrig(1, mode);
+					displayWaveformTrig(2, mode);
+					displayWaveformTrig(4, mode);
+				}
+				else
+				{
+					aquireDataParallel_124();
+					findTrigger();
+					displayWaveformTrig(1, mode);
+					displayWaveformTrig(2, mode);
+					displayWaveformTrig(4, mode);
+				}
+			}
+			else if(dso.timeDiv < timeDiv_2_5us)
+			{
 //				aquireDataDualParallel();
 //				//find trigger
 //				//display waveform
-		}
-		else
-		{
-//				aquireDataQuad();
-//				//find trigger
-//				//display waveform
-		}
-		break;
-	}
-	case 12:
-	{
-		if (dso1.timeDiv < timeDiv_10us)
-		{
-			if (mode)
-			{
-				displayWaveformTrig(3, mode);
-				displayWaveformTrig(4, mode);
 			}
 			else
 			{
-				aquireDataParallel(1);
-				findTrigger();
-				displayWaveformTrig(3, mode);
-				displayWaveformTrig(4, mode);
+//				aquireDataQuad();
+//				//find trigger
+//				//display waveform
 			}
-			//display waveform
+			break;
 		}
-		else if (dso1.timeDiv < timeDiv_2_5us)
+		case 12:
 		{
+			if(dso.timeDiv < timeDiv_10us)
+			{
+				if(mode)
+				{
+					displayWaveformTrig(3, mode);
+					displayWaveformTrig(4, mode);
+				}
+				else
+				{
+					aquireDataParallel(1);
+					findTrigger();
+					displayWaveformTrig(3, mode);
+					displayWaveformTrig(4, mode);
+				}
+				//display waveform
+			}
+			else if(dso.timeDiv < timeDiv_2_5us)
+			{
 //				aquireDataParallel(1);
 //				//find trigger
 //				//display waveform
-		}
-		else
-		{
-//				aquireDataQuad();
-//				//find trigger
-//				//display waveform
-		}
-		break;
-	}
-	case 13:
-	{
-		if (dso1.timeDiv < timeDiv_10us)
-		{
-			if (mode)
-			{
-				displayWaveformTrig(1, mode);
-				displayWaveformTrig(3, mode);
-				displayWaveformTrig(4, mode);
 			}
 			else
 			{
-				aquireDataAllParallel();
-				findTrigger();
-				displayWaveformTrig(1, mode);
-				displayWaveformTrig(3, mode);
-				displayWaveformTrig(4, mode);
-			}
-			//display waveform
-		}
-		else if (dso1.timeDiv < timeDiv_2_5us)
-		{
-//				aquireDataDualParallel();
-//				//find trigger
-//				//display waveform
-		}
-		else
-		{
 //				aquireDataQuad();
 //				//find trigger
 //				//display waveform
+			}
+			break;
 		}
-		break;
-	}
-	case 14:
-	{
-		if (dso1.timeDiv < timeDiv_10us)
+		case 13:
 		{
-			if (mode)
+			if(dso.timeDiv < timeDiv_10us)
 			{
-				displayWaveformTrig(2, mode);
-				displayWaveformTrig(3, mode);
-				displayWaveformTrig(4, mode);
+				if(mode)
+				{
+					displayWaveformTrig(1, mode);
+					displayWaveformTrig(3, mode);
+					displayWaveformTrig(4, mode);
+				}
+				else
+				{
+					aquireDataAllParallel();
+					findTrigger();
+					displayWaveformTrig(1, mode);
+					displayWaveformTrig(3, mode);
+					displayWaveformTrig(4, mode);
+				}
+				//display waveform
+			}
+			else if(dso.timeDiv < timeDiv_2_5us)
+			{
+//				aquireDataDualParallel();
+//				//find trigger
+//				//display waveform
 			}
 			else
 			{
-				aquireDataParallel_234();
-				findTrigger();
-				displayWaveformTrig(2, mode);
-				displayWaveformTrig(3, mode);
-				displayWaveformTrig(4, mode);
-			}
-		}
-		else if (dso1.timeDiv < timeDiv_2_5us)
-		{
-//				aquireDataDualParallel();
-//				//find trigger
-//				//display waveform
-		}
-		else
-		{
 //				aquireDataQuad();
 //				//find trigger
 //				//display waveform
+			}
+			break;
 		}
-		break;
-	}
-	case 15:
-	{
-		if (dso1.timeDiv < timeDiv_10us)
+		case 14:
 		{
-			if (mode)
+			if(dso.timeDiv < timeDiv_10us)
 			{
-				displayWaveformTrig(1, mode);
-				displayWaveformTrig(2, mode);
-				displayWaveformTrig(3, mode);
-				displayWaveformTrig(4, mode);
+				if(mode)
+				{
+					displayWaveformTrig(2, mode);
+					displayWaveformTrig(3, mode);
+					displayWaveformTrig(4, mode);
+				}
+				else
+				{
+					aquireDataParallel_234();
+					findTrigger();
+					displayWaveformTrig(2, mode);
+					displayWaveformTrig(3, mode);
+					displayWaveformTrig(4, mode);
+				}
+			}
+			else if(dso.timeDiv < timeDiv_2_5us)
+			{
+//				aquireDataDualParallel();
+//				//find trigger
+//				//display waveform
 			}
 			else
 			{
-				aquireDataAllParallel();
-				findTrigger();
-				displayWaveformTrig(1, mode);
-				displayWaveformTrig(2, mode);
-				displayWaveformTrig(3, mode);
-				displayWaveformTrig(4, mode);
-			}
-		}
-		else if (dso1.timeDiv < timeDiv_2_5us)
-		{
-//				aquireDataDualParallel();
-//				//find trigger
-//				//display waveform
-		}
-		else
-		{
 //				aquireDataQuad();
 //				//find trigger
 //				//display waveform
+			}
+			break;
 		}
-		break;
-	}
-	default:
-		break;
+		case 15:
+		{
+			if(dso.timeDiv < timeDiv_10us)
+			{
+				if(mode)
+				{
+					displayWaveformTrig(1, mode);
+					displayWaveformTrig(2, mode);
+					displayWaveformTrig(3, mode);
+					displayWaveformTrig(4, mode);
+				}
+				else
+				{
+					aquireDataAllParallel();
+					findTrigger();
+					displayWaveformTrig(1, mode);
+					displayWaveformTrig(2, mode);
+					displayWaveformTrig(3, mode);
+					displayWaveformTrig(4, mode);
+				}
+			}
+			else if(dso.timeDiv < timeDiv_2_5us)
+			{
+//				aquireDataDualParallel();
+//				//find trigger
+//				//display waveform
+			}
+			else
+			{
+//				aquireDataQuad();
+//				//find trigger
+//				//display waveform
+			}
+			break;
+		}
+		default:
+			break;
 	}
 }

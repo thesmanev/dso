@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="147760849">
+  <FileInfo check="ctu">
+<function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:174:6" call-funcname="LCD_WriteData" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="38" col="15" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:174:6" call-funcname="LCD_WriteData" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="43" col="15" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:174:6" call-funcname="LCD_WriteData" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="49" col="15" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:174:6" call-funcname="LCD_WriteData" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="53" col="15" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:174:6" call-funcname="LCD_WriteData" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="54" col="15" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:174:6" call-funcname="LCD_WriteData" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="84" col="15" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:174:6" call-funcname="LCD_WriteData" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="98" col="15" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:177:6" call-funcname="LCD_Background" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="149" col="16" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:185:6" call-funcname="LCD_DrawLineX" call-argnr="5" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="153" col="15" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:185:6" call-funcname="LCD_DrawLineX" call-argnr="5" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="154" col="15" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:185:6" call-funcname="LCD_DrawLineX" call-argnr="5" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="155" col="15" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:185:6" call-funcname="LCD_DrawLineX" call-argnr="5" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="156" col="15" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:179:6" call-funcname="LCD_Print" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="160" col="11" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:179:6" call-funcname="LCD_Print" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="160" col="11" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:179:6" call-funcname="LCD_Print" call-argnr="3" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="160" col="11" call-argexpr="trig" call-argvaluetype="7" call-argvalue="16"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:179:6" call-funcname="LCD_Print" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="161" col="11" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:179:6" call-funcname="LCD_Print" call-argnr="3" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="161" col="11" call-argexpr="tDiv" call-argvaluetype="7" call-argvalue="14"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:179:6" call-funcname="LCD_Print" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="163" col="11" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:179:6" call-funcname="LCD_Print" call-argnr="3" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="163" col="11" call-argexpr="ch1" call-argvaluetype="7" call-argvalue="10"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:179:6" call-funcname="LCD_Print" call-argnr="3" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="164" col="11" call-argexpr="ch2" call-argvaluetype="7" call-argvalue="10"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:179:6" call-funcname="LCD_Print" call-argnr="3" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="165" col="11" call-argexpr="ch3" call-argvaluetype="7" call-argvalue="10"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:179:6" call-funcname="LCD_Print" call-argnr="3" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="166" col="11" call-argexpr="ch4" call-argvaluetype="7" call-argvalue="10"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:174:6" call-funcname="LCD_WriteData" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="212" col="15" call-argexpr="x>>8" call-argvaluetype="0" call-argvalue="0">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\disp.c" line="485" col="8" info="Assignment 'x0=8', assigned value is 8"/>
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\disp.c" line="528" col="6" info="Assignment 'x=(int32_t)x0', assigned value is 8"/>
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\disp.c" line="531" col="15" info="Calling function 'LCD_PutPixel', 1st argument '(uint32_t)x' value is 8"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:174:6" call-funcname="LCD_WriteData" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="214" col="15" call-argexpr="(x+1)>>8" call-argvaluetype="0" call-argvalue="0">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\disp.c" line="485" col="8" info="Assignment 'x0=8', assigned value is 8"/>
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\disp.c" line="528" col="6" info="Assignment 'x=(int32_t)x0', assigned value is 8"/>
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\disp.c" line="531" col="15" info="Calling function 'LCD_PutPixel', 1st argument '(uint32_t)x' value is 8"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:174:6" call-funcname="LCD_WriteData" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="254" col="15" call-argexpr="x0>>8" call-argvaluetype="0" call-argvalue="0">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\disp.c" line="361" col="16" info="Calling function 'LCD_SetWindow', 1st argument '0' value is 0"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:174:6" call-funcname="LCD_WriteData" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="255" col="15" call-argexpr="x0&255" call-argvaluetype="0" call-argvalue="0">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\disp.c" line="361" col="16" info="Calling function 'LCD_SetWindow', 1st argument '0' value is 0"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:176:6" call-funcname="LCD_SetWindow" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="361" col="15" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:176:6" call-funcname="LCD_SetWindow" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="361" col="15" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:174:6" call-funcname="LCD_WriteData" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="366" col="16" call-argexpr="color" call-argvaluetype="0" call-argvalue="0">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\disp.c" line="149" col="17" info="Calling function 'LCD_Background', 1st argument '0' value is 0"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c:3:16" call-funcname="P_Graphic2D_sgn" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="502" col="24" call-argexpr="dx" call-argvaluetype="0" call-argvalue="0">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\disp.c" line="490" col="12" info="Assignment 'x1=288-1', assigned value is 287"/>
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\disp.c" line="499" col="19" info="Assignment 'dx=(int32_t)x1-(int32_t)x0', assigned value is 0"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c:3:16" call-funcname="P_Graphic2D_sgn" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="503" col="24" call-argexpr="dy" call-argvaluetype="0" call-argvalue="0">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\disp.c" line="492" col="12" info="Assignment 'y1=228-1', assigned value is 227"/>
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\disp.c" line="500" col="19" info="Assignment 'dy=(int32_t)y1-(int32_t)y0', assigned value is 0"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c:3:16" call-funcname="P_Graphic2D_sgn" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="578" col="24" call-argexpr="dx" call-argvaluetype="0" call-argvalue="0">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\disp.c" line="571" col="8" info="Assignment 'x1=319', assigned value is 319"/>
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\disp.c" line="575" col="19" info="Assignment 'dx=(int32_t)x1-(int32_t)x0', assigned value is 0"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c:3:16" call-funcname="P_Graphic2D_sgn" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/disp.c" line="579" col="24" call-argexpr="dy" call-argvaluetype="0" call-argvalue="0">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\disp.c" line="573" col="8" info="Assignment 'y1=239', assigned value is 239"/>
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\disp.c" line="576" col="19" info="Assignment 'dy=(int32_t)y1-(int32_t)y0', assigned value is 0"/>
+</function-call>  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="LCD_Init" lineNumber="16"/>
+    <functiondecl functionName="displayInit" lineNumber="147"/>
+    <functiondecl functionName="LCD_WriteCommand" lineNumber="173"/>
+    <functiondecl functionName="LCD_WriteData" lineNumber="190"/>
+    <functiondecl functionName="LCD_PutPixel" lineNumber="209"/>
+    <functiondecl functionName="LCD_SetWindow" lineNumber="234"/>
+    <functiondecl functionName="LCD_DrawLineH" lineNumber="273"/>
+    <functiondecl functionName="LCD_DrawLineVX" lineNumber="293"/>
+    <functiondecl functionName="LCD_DrawLineV" lineNumber="318"/>
+    <functiondecl functionName="LCD_Background" lineNumber="359"/>
+    <functiondecl functionName="LCD_Print" lineNumber="379"/>
+    <functiondecl functionName="LCD_RectFill" lineNumber="414"/>
+    <functiondecl functionName="LCD_DrawRect" lineNumber="435"/>
+    <functiondecl functionName="LCD_DrawReticle" lineNumber="447"/>
+    <functiondecl functionName="LCD_DrawLine" lineNumber="472"/>
+    <functiondecl functionName="LCD_DrawLineX" lineNumber="559"/>
+    <functiondecl functionName="P_Graphic2D_sgn" lineNumber="634"/>
+    <functioncall functionName="LCD_Background"/>
+    <functioncall functionName="LCD_DrawLineH"/>
+    <functioncall functionName="LCD_DrawLineVX"/>
+    <functioncall functionName="LCD_DrawLineX"/>
+    <functioncall functionName="LCD_DrawRect"/>
+    <functioncall functionName="LCD_DrawReticle"/>
+    <functioncall functionName="LCD_Print"/>
+    <functioncall functionName="LCD_PutPixel"/>
+    <functioncall functionName="LCD_RectFill"/>
+    <functioncall functionName="LCD_SetWindow"/>
+    <functioncall functionName="LCD_WriteCommand"/>
+    <functioncall functionName="LCD_WriteData"/>
+    <functioncall functionName="P_Graphic2D_sgn"/>
+    <functioncall functionName="Xlength"/>
+    <functioncall functionName="ch1"/>
+    <functioncall functionName="ch1Cpl_pressed"/>
+    <functioncall functionName="ch1VDiv_pressed"/>
+    <functioncall functionName="ch1_pressed"/>
+    <functioncall functionName="ch2"/>
+    <functioncall functionName="ch2Cpl_pressed"/>
+    <functioncall functionName="ch2VDiv_pressed"/>
+    <functioncall functionName="ch2_pressed"/>
+    <functioncall functionName="ch3"/>
+    <functioncall functionName="ch3Cpl_pressed"/>
+    <functioncall functionName="ch3VDiv_pressed"/>
+    <functioncall functionName="ch3_pressed"/>
+    <functioncall functionName="ch4"/>
+    <functioncall functionName="ch4Cpl_pressed"/>
+    <functioncall functionName="ch4VDiv_pressed"/>
+    <functioncall functionName="ch4_pressed"/>
+    <functioncall functionName="cnt"/>
+    <functioncall functionName="color"/>
+    <functioncall functionName="command"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="dec_pressed"/>
+    <functioncall functionName="delay_ms"/>
+    <functioncall functionName="displayInit"/>
+    <functioncall functionName="dx"/>
+    <functioncall functionName="dy"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc_pressed"/>
+    <functioncall functionName="incx"/>
+    <functioncall functionName="incy"/>
+    <functioncall functionName="int32_t"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="none_pressed"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="tDiv"/>
+    <functioncall functionName="temp"/>
+    <functioncall functionName="text"/>
+    <functioncall functionName="timeDiv_100us"/>
+    <functioncall functionName="timeDiv_10us"/>
+    <functioncall functionName="timeDiv_1ms"/>
+    <functioncall functionName="timeDiv_1us"/>
+    <functioncall functionName="timeDiv_250us"/>
+    <functioncall functionName="timeDiv_25us"/>
+    <functioncall functionName="timeDiv_2_5us"/>
+    <functioncall functionName="timeDiv_500us"/>
+    <functioncall functionName="timeDiv_50us"/>
+    <functioncall functionName="timeDiv_5us"/>
+    <functioncall functionName="timeDiv_pressed"/>
+    <functioncall functionName="trig"/>
+    <functioncall functionName="trigEdge_pressed"/>
+    <functioncall functionName="trigSource_pressed"/>
+    <functioncall functionName="trigValue_pressed"/>
+    <functioncall functionName="uint32_t"/>
+    <functioncall functionName="uint8_t"/>
+    <functioncall functionName="v_100mDiv"/>
+    <functioncall functionName="v_10Div"/>
+    <functioncall functionName="v_1Div"/>
+    <functioncall functionName="v_200mDiv"/>
+    <functioncall functionName="v_2Div"/>
+    <functioncall functionName="v_500mDiv"/>
+    <functioncall functionName="v_5Div"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="x"/>
+    <functioncall functionName="x0"/>
+    <functioncall functionName="x1"/>
+    <functioncall functionName="y"/>
+    <functioncall functionName="y0"/>
+    <functioncall functionName="y1"/>
+  </FileInfo>
+</analyzerinfo>

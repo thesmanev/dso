@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2821800191">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="setupGPIO" lineNumber="6"/>
+    <functioncall functionName="ch1Cpl_pressed"/>
+    <functioncall functionName="ch1VDiv_pressed"/>
+    <functioncall functionName="ch1_pressed"/>
+    <functioncall functionName="ch2Cpl_pressed"/>
+    <functioncall functionName="ch2VDiv_pressed"/>
+    <functioncall functionName="ch2_pressed"/>
+    <functioncall functionName="ch3Cpl_pressed"/>
+    <functioncall functionName="ch3VDiv_pressed"/>
+    <functioncall functionName="ch3_pressed"/>
+    <functioncall functionName="ch4Cpl_pressed"/>
+    <functioncall functionName="ch4VDiv_pressed"/>
+    <functioncall functionName="ch4_pressed"/>
+    <functioncall functionName="dec_pressed"/>
+    <functioncall functionName="inc_pressed"/>
+    <functioncall functionName="none_pressed"/>
+    <functioncall functionName="timeDiv_100us"/>
+    <functioncall functionName="timeDiv_10us"/>
+    <functioncall functionName="timeDiv_1ms"/>
+    <functioncall functionName="timeDiv_1us"/>
+    <functioncall functionName="timeDiv_250us"/>
+    <functioncall functionName="timeDiv_25us"/>
+    <functioncall functionName="timeDiv_2_5us"/>
+    <functioncall functionName="timeDiv_500us"/>
+    <functioncall functionName="timeDiv_50us"/>
+    <functioncall functionName="timeDiv_5us"/>
+    <functioncall functionName="timeDiv_pressed"/>
+    <functioncall functionName="trigEdge_pressed"/>
+    <functioncall functionName="trigSource_pressed"/>
+    <functioncall functionName="trigValue_pressed"/>
+    <functioncall functionName="v_100mDiv"/>
+    <functioncall functionName="v_10Div"/>
+    <functioncall functionName="v_1Div"/>
+    <functioncall functionName="v_200mDiv"/>
+    <functioncall functionName="v_2Div"/>
+    <functioncall functionName="v_500mDiv"/>
+    <functioncall functionName="v_5Div"/>
+  </FileInfo>
+</analyzerinfo>

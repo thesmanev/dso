@@ -1,0 +1,3 @@
+Checking C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/dso-cppcheck-build-dir/printf.a1.dump...
+{"column": 18, "severity": "style", "file": "C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c", "extra": "", "linenr": 413, "message": "Do not place a semicolon on the same line as an IF, FOR or WHILE", "errorId": "EXP15-C", "addon": "cert"}
+{"column": 16, "severity": "style", "file": "C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c", "extra": "", "linenr": 407, "message": "Use pointers to const when referring to string literals", "errorId": "STR05-C", "addon": "cert"}

@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="832250324">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;i&apos; can be reduced." verbose="The scope of the variable &apos;i&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\trigger.c" file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\trigger.c" line="83" column="11"/>
+            <symbol>i</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;pixcnt&apos; can be reduced." verbose="The scope of the variable &apos;pixcnt&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\trigger.c" file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\trigger.c" line="84" column="11"/>
+            <symbol>pixcnt</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;color&apos; can be reduced." verbose="The scope of the variable &apos;color&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\trigger.c" file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\trigger.c" line="85" column="11"/>
+            <symbol>color</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;x0&apos; can be reduced." verbose="The scope of the variable &apos;x0&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\trigger.c" file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\trigger.c" line="97" column="45"/>
+            <symbol>x0</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;x1&apos; can be reduced." verbose="The scope of the variable &apos;x1&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\trigger.c" file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\trigger.c" line="97" column="53"/>
+            <symbol>x1</symbol>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &apos;y0&apos; is assigned a value that is never used." verbose="Variable &apos;y0&apos; is assigned a value that is never used." cwe="563">
+            <location file0="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\trigger.c" file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\trigger.c" line="20" column="13"/>
+            <symbol>y0</symbol>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &apos;y1&apos; is assigned a value that is never used." verbose="Variable &apos;y1&apos; is assigned a value that is never used." cwe="563">
+            <location file0="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\trigger.c" file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\trigger.c" line="21" column="13"/>
+            <symbol>y1</symbol>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:178:6" call-funcname="LCD_DrawLineV" call-argnr="4" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/trigger.c" line="30" col="17" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:178:6" call-funcname="LCD_DrawLineV" call-argnr="4" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/trigger.c" line="43" col="17" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:178:6" call-funcname="LCD_DrawLineV" call-argnr="4" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/trigger.c" line="56" col="17" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:178:6" call-funcname="LCD_DrawLineV" call-argnr="4" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/trigger.c" line="69" col="17" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/>  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="clearWaveform" lineNumber="18"/>
+    <functiondecl functionName="displayWaveformTrig" lineNumber="81"/>
+    <functiondecl functionName="findTrigger" lineNumber="418"/>
+    <functioncall functionName="LCD_DrawLine"/>
+    <functioncall functionName="LCD_DrawLineV"/>
+    <functioncall functionName="assertError"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="buffer1"/>
+    <functioncall functionName="buffer2"/>
+    <functioncall functionName="buffer3"/>
+    <functioncall functionName="buffer4"/>
+    <functioncall functionName="ch1Cpl_pressed"/>
+    <functioncall functionName="ch1VDiv_pressed"/>
+    <functioncall functionName="ch1_pressed"/>
+    <functioncall functionName="ch2Cpl_pressed"/>
+    <functioncall functionName="ch2VDiv_pressed"/>
+    <functioncall functionName="ch2_pressed"/>
+    <functioncall functionName="ch3Cpl_pressed"/>
+    <functioncall functionName="ch3VDiv_pressed"/>
+    <functioncall functionName="ch3_pressed"/>
+    <functioncall functionName="ch4Cpl_pressed"/>
+    <functioncall functionName="ch4VDiv_pressed"/>
+    <functioncall functionName="ch4_pressed"/>
+    <functioncall functionName="chNum"/>
+    <functioncall functionName="clearWaveform"/>
+    <functioncall functionName="clear_framebuffer1_f"/>
+    <functioncall functionName="clear_framebuffer2_f"/>
+    <functioncall functionName="clear_framebuffer3_f"/>
+    <functioncall functionName="clear_framebuffer4_f"/>
+    <functioncall functionName="color"/>
+    <functioncall functionName="dec_pressed"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="dual1"/>
+    <functioncall functionName="dual2"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc_pressed"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="mode"/>
+    <functioncall functionName="none_pressed"/>
+    <functioncall functionName="quad"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="sendScreenBuffer1"/>
+    <functioncall functionName="sendScreenBuffer2"/>
+    <functioncall functionName="sendScreenBuffer3"/>
+    <functioncall functionName="sendScreenBuffer4"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="timeDiv"/>
+    <functioncall functionName="timeDiv_100us"/>
+    <functioncall functionName="timeDiv_10us"/>
+    <functioncall functionName="timeDiv_1ms"/>
+    <functioncall functionName="timeDiv_1us"/>
+    <functioncall functionName="timeDiv_250us"/>
+    <functioncall functionName="timeDiv_25us"/>
+    <functioncall functionName="timeDiv_2_5us"/>
+    <functioncall functionName="timeDiv_500us"/>
+    <functioncall functionName="timeDiv_50us"/>
+    <functioncall functionName="timeDiv_5us"/>
+    <functioncall functionName="timeDiv_pressed"/>
+    <functioncall functionName="trigEdge_pressed"/>
+    <functioncall functionName="trigSource_pressed"/>
+    <functioncall functionName="trigValue_pressed"/>
+    <functioncall functionName="triggerEdge"/>
+    <functioncall functionName="triggerPoint"/>
+    <functioncall functionName="triggerSource"/>
+    <functioncall functionName="triggerValue"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="uint8_t"/>
+    <functioncall functionName="v_100mDiv"/>
+    <functioncall functionName="v_10Div"/>
+    <functioncall functionName="v_1Div"/>
+    <functioncall functionName="v_200mDiv"/>
+    <functioncall functionName="v_2Div"/>
+    <functioncall functionName="v_500mDiv"/>
+    <functioncall functionName="v_5Div"/>
+    <functioncall functionName="vert"/>
+    <functioncall functionName="vertical"/>
+    <functioncall functionName="x"/>
+    <functioncall functionName="x0"/>
+    <functioncall functionName="x1"/>
+    <functioncall functionName="y0"/>
+    <functioncall functionName="y1"/>
+    <functioncall functionName="y2"/>
+    <functioncall functionName="y3"/>
+    <functioncall functionName="y4"/>
+  </FileInfo>
+</analyzerinfo>

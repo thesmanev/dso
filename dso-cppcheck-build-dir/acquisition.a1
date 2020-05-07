@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2758844121">
+  <FileInfo check="ctu">
+<function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/dma.h:5:6" call-funcname="setupDMADual" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="86" col="15" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="385" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="379" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="391" col="25" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c:69:6" call-funcname="aquireDataDual" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="394" col="20" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="396" col="25" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="396" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="390" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="402" col="25" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="407" col="25" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="407" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="401" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="422" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="416" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c:103:6" call-funcname="aquireDataParallel" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="451" col="24" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="453" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="444" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="454" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="444" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="482" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="476" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="488" col="25" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="493" col="25" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="493" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="487" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="518" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="509" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="519" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="509" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="525" col="25" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="530" col="25" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="530" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="524" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="554" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="545" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="555" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="545" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="586" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="576" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="587" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="576" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="588" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="576" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="609" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="603" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="639" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="630" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="640" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="630" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="670" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="661" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="671" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="661" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="702" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="692" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="703" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="692" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="704" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="692" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="734" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="725" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="735" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="725" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="767" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="757" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="768" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="757" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="769" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="757" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="801" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="791" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="802" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="791" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="803" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="791" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="835" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="824" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="836" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="824" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="837" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="824" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/trigger.h:11:6" call-funcname="displayWaveformTrig" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="838" col="25" call-argexpr="mode" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\acquisition.c" line="824" col="8" info="Assuming that condition 'mode' is not redundant"/>
+</function-call>  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c:165:6" my-argnr="1" my-argname="chx" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/acquisition.c" line="167" col="10" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="aquireDataQuad" lineNumber="12"/>
+    <functiondecl functionName="aquireDataDualParallel" lineNumber="45"/>
+    <functiondecl functionName="aquireDataDual" lineNumber="69"/>
+    <functiondecl functionName="aquireDataParallel" lineNumber="103"/>
+    <functiondecl functionName="aquireDataAllParallel" lineNumber="138"/>
+    <functiondecl functionName="aquireDataSingle" lineNumber="165"/>
+    <functiondecl functionName="aquireDataParallel_23" lineNumber="234"/>
+    <functiondecl functionName="aquireDataParallel_234" lineNumber="256"/>
+    <functiondecl functionName="aquireDataParallel_24" lineNumber="279"/>
+    <functiondecl functionName="aquireDataParallel_14" lineNumber="301"/>
+    <functiondecl functionName="aquireDataParallel_124" lineNumber="323"/>
+    <functiondecl functionName="aquireDataParallel_13" lineNumber="347"/>
+    <functiondecl functionName="aquireData" lineNumber="369"/>
+    <functioncall functionName="aquireDataAllParallel"/>
+    <functioncall functionName="aquireDataDual"/>
+    <functioncall functionName="aquireDataDualParallel"/>
+    <functioncall functionName="aquireDataParallel"/>
+    <functioncall functionName="aquireDataParallel_124"/>
+    <functioncall functionName="aquireDataParallel_13"/>
+    <functioncall functionName="aquireDataParallel_14"/>
+    <functioncall functionName="aquireDataParallel_23"/>
+    <functioncall functionName="aquireDataParallel_234"/>
+    <functioncall functionName="aquireDataParallel_24"/>
+    <functioncall functionName="aquireDataQuad"/>
+    <functioncall functionName="aquireDataSingle"/>
+    <functioncall functionName="asm"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="ch1"/>
+    <functioncall functionName="ch1Cpl_pressed"/>
+    <functioncall functionName="ch1VDiv_pressed"/>
+    <functioncall functionName="ch1_pressed"/>
+    <functioncall functionName="ch2"/>
+    <functioncall functionName="ch2Cpl_pressed"/>
+    <functioncall functionName="ch2VDiv_pressed"/>
+    <functioncall functionName="ch2_pressed"/>
+    <functioncall functionName="ch3"/>
+    <functioncall functionName="ch3Cpl_pressed"/>
+    <functioncall functionName="ch3VDiv_pressed"/>
+    <functioncall functionName="ch3_pressed"/>
+    <functioncall functionName="ch4"/>
+    <functioncall functionName="ch4Cpl_pressed"/>
+    <functioncall functionName="ch4VDiv_pressed"/>
+    <functioncall functionName="ch4_pressed"/>
+    <functioncall functionName="channel_state"/>
+    <functioncall functionName="dec_pressed"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="displayWaveformTrig"/>
+    <functioncall functionName="findTrigger"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc_pressed"/>
+    <functioncall functionName="mode"/>
+    <functioncall functionName="none_pressed"/>
+    <functioncall functionName="num"/>
+    <functioncall functionName="setDMACntr"/>
+    <functioncall functionName="setupDMADual"/>
+    <functioncall functionName="setupDMAQuad"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="timeDiv_100us"/>
+    <functioncall functionName="timeDiv_10us"/>
+    <functioncall functionName="timeDiv_1ms"/>
+    <functioncall functionName="timeDiv_1us"/>
+    <functioncall functionName="timeDiv_250us"/>
+    <functioncall functionName="timeDiv_25us"/>
+    <functioncall functionName="timeDiv_2_5us"/>
+    <functioncall functionName="timeDiv_500us"/>
+    <functioncall functionName="timeDiv_50us"/>
+    <functioncall functionName="timeDiv_5us"/>
+    <functioncall functionName="timeDiv_pressed"/>
+    <functioncall functionName="trigEdge_pressed"/>
+    <functioncall functionName="trigSource_pressed"/>
+    <functioncall functionName="trigValue_pressed"/>
+    <functioncall functionName="v_100mDiv"/>
+    <functioncall functionName="v_10Div"/>
+    <functioncall functionName="v_1Div"/>
+    <functioncall functionName="v_200mDiv"/>
+    <functioncall functionName="v_2Div"/>
+    <functioncall functionName="v_500mDiv"/>
+    <functioncall functionName="v_5Div"/>
+  </FileInfo>
+</analyzerinfo>

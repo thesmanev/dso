@@ -5,7 +5,7 @@
  */
 void DMA1_Channel1_IRQHandler(void)
 {
-	if (DMA1->ISR & DMA_ISR_TCIF1)
+	if(DMA1->ISR & DMA_ISR_TCIF1)
 	{
 		ADC1->CR |= ADC_CR_ADSTP; //stop adc1 (and ADC2 bcs dual mode)
 		DMA1_Channel1->CCR = 0x00002aaa; // disable dma1
@@ -13,7 +13,7 @@ void DMA1_Channel1_IRQHandler(void)
 	}
 	else
 	{
-		if (DMA1->ISR & DMA_ISR_TEIF1)
+		if(DMA1->ISR & DMA_ISR_TEIF1)
 		{
 			DMA1->IFCR = DMA_IFCR_CGIF1 | DMA_IFCR_CTEIF1; // clear transfer error interrupt flag, and global interrupt flag
 			assertError(12);
@@ -30,7 +30,7 @@ void DMA1_Channel1_IRQHandler(void)
  */
 void DMA2_Channel1_IRQHandler(void)
 {
-	if (DMA2->ISR & DMA_ISR_TCIF1)
+	if(DMA2->ISR & DMA_ISR_TCIF1)
 	{
 		ADC2->CR |= ADC_CR_ADSTP; //stop adc1 (and ADC2 bcs dual mode)
 		DMA2_Channel1->CCR = 0x00002aaa; // disable dma1
@@ -38,7 +38,7 @@ void DMA2_Channel1_IRQHandler(void)
 	}
 	else
 	{
-		if (DMA2->ISR & DMA_ISR_TEIF1)
+		if(DMA2->ISR & DMA_ISR_TEIF1)
 		{
 			DMA2->IFCR = DMA_IFCR_CGIF1 | DMA_IFCR_CTEIF1; // clear transfer error interrupt flag, and global interrupt flag
 			assertError(12);
@@ -55,7 +55,7 @@ void DMA2_Channel1_IRQHandler(void)
  */
 void DMA2_Channel5_IRQHandler(void)
 {
-	if (DMA2->ISR & DMA_ISR_TCIF5)
+	if(DMA2->ISR & DMA_ISR_TCIF5)
 	{ // if transfer complete interrupt flag for ch5
 		ADC3->CR |= ADC_CR_ADSTP; //stop adc3
 		DMA2_Channel5->CCR = 0x00002aaa; // disable dma2
@@ -63,14 +63,15 @@ void DMA2_Channel5_IRQHandler(void)
 	}
 	else
 	{
-		if (DMA2->ISR & DMA_ISR_TEIF5)
+		if(DMA2->ISR & DMA_ISR_TEIF5)
 		{
 			DMA2->IFCR = DMA_IFCR_CGIF5 | DMA_IFCR_CTEIF5; // clear transfer error interrupt flag, and global interrupt flag
 			assertError(12);
 		}
 		else
 		{
-			DMA2->IFCR = DMA_IFCR_CGIF5;; // clear global interrupt flag
+			DMA2->IFCR = DMA_IFCR_CGIF5;
+			; // clear global interrupt flag
 		}
 	}
 }
@@ -80,7 +81,7 @@ void DMA2_Channel5_IRQHandler(void)
  */
 void DMA2_Channel2_IRQHandler(void)
 {
-	if (DMA2->ISR & DMA_ISR_TCIF2)
+	if(DMA2->ISR & DMA_ISR_TCIF2)
 	{
 		ADC4->CR |= ADC_CR_ADSTP; //stop adc1 (and ADC2 bcs dual mode)
 		DMA2_Channel2->CCR = 0x00002aaa; // disable dma1
@@ -88,7 +89,7 @@ void DMA2_Channel2_IRQHandler(void)
 	}
 	else
 	{
-		if (DMA2->ISR & DMA_ISR_TEIF2)
+		if(DMA2->ISR & DMA_ISR_TEIF2)
 		{
 			DMA2->IFCR = DMA_IFCR_CGIF2 | DMA_IFCR_CTEIF2; // clear transfer error interrupt flag, and global interrupt flag
 			assertError(12);
@@ -98,41 +99,41 @@ void DMA2_Channel2_IRQHandler(void)
 			DMA2->IFCR = DMA_IFCR_CGIF2; // clear global interrupt flag
 		}
 	}
-	interrupts[0] = 1;
 }
 
 /**
  * @brief Setup DMA for the given channel
  * @param chx Pointer to a channel structure.
  */
-void setupDMA(channel *chx)
+void setupDMA(channel_t *chx)
 {
 	switch (chx->id)
 	{
-	case 1:
-	{
-		DMA1_Channel1->CPAR = (uint32_t) (&ADC1->DR); // address of peripheral
-		DMA1_Channel1->CMAR = buffer1; // base address of memory buffer
-		break;
-	}
-	case 2:
-	{
-		DMA2_Channel1->CPAR = (uint32_t) (&ADC2->DR);
-		DMA2_Channel1->CMAR = buffer2;
-		break;
-	}
-	case 3:
-	{
-		DMA2_Channel5->CPAR = (uint32_t) (&ADC3->DR); // address of peripheral
-		DMA2_Channel5->CMAR = buffer3; // base address of memory buffer
-		break;
-	}
-	case 4:
-	{
-		DMA2_Channel2->CPAR = (uint32_t) (&ADC4->DR);
-		DMA2_Channel2->CMAR = buffer4;
-		break;
-	}
+		default:
+		case 1:
+		{
+			DMA1_Channel1->CPAR = (uint32_t) (&ADC1->DR); // address of peripheral
+			DMA1_Channel1->CMAR = (uint32_t) buffer1; 	  // base address of memory buffer
+			break;
+		}
+		case 2:
+		{
+			DMA2_Channel1->CPAR = (uint32_t) (&ADC2->DR);
+			DMA2_Channel1->CMAR = (uint32_t) buffer2;
+			break;
+		}
+		case 3:
+		{
+			DMA2_Channel5->CPAR = (uint32_t) (&ADC3->DR); // address of peripheral
+			DMA2_Channel5->CMAR = (uint32_t) buffer3;      // base address of memory buffer
+			break;
+		}
+		case 4:
+		{
+			DMA2_Channel2->CPAR = (uint32_t) (&ADC4->DR);
+			DMA2_Channel2->CMAR = (uint32_t) buffer4;
+			break;
+		}
 	}
 }
 
@@ -142,15 +143,15 @@ void setupDMA(channel *chx)
  */
 void setupDMADual(uint32_t num)
 {
-	if (num)
+	if(num)
 	{
-		DMA2_Channel5->CPAR = &ADC34_COMMON->CDR; // address of peripheral
-		DMA2_Channel5->CMAR = buffer3; // base address of memory buffer
+		DMA2_Channel5->CPAR = (uint32_t) (&ADC34_COMMON->CDR); // address of peripheral
+		DMA2_Channel5->CMAR = (uint32_t) buffer3;  // base address of memory buffer
 	}
 	else
 	{
-		DMA1_Channel1->CPAR = &ADC12_COMMON->CDR; // address of peripheral
-		DMA1_Channel1->CMAR = buffer1; // base address of memory buffer
+		DMA1_Channel1->CPAR = (uint32_t) (&ADC12_COMMON->CDR); // address of peripheral
+		DMA1_Channel1->CMAR = (uint32_t) buffer1;  // base address of memory buffer
 	}
 }
 
@@ -160,15 +161,15 @@ void setupDMADual(uint32_t num)
  */
 void setupDMAParallel(uint32_t num)
 {
-	if (num)
+	if(num)
 	{
-		setupDMA(&dso1.ch3);
-		setupDMA(&dso1.ch4);
+		setupDMA(&dso.ch3);
+		setupDMA(&dso.ch4);
 	}
 	else
 	{
-		setupDMA(&dso1.ch1);
-		setupDMA(&dso1.ch2);
+		setupDMA(&dso.ch1);
+		setupDMA(&dso.ch2);
 	}
 }
 
@@ -177,10 +178,10 @@ void setupDMAParallel(uint32_t num)
  */
 void setupDMAQuad(void)
 {
-	DMA1_Channel1->CPAR = &ADC12_COMMON->CDR; // address of peripheral
-	DMA1_Channel1->CMAR = buffer1; // base address of memory buffer
-	DMA2_Channel5->CPAR = &ADC34_COMMON->CDR; // address of peripheral
-	DMA2_Channel5->CMAR = buffer3; // base address of memory buffer
+	DMA1_Channel1->CPAR = (uint32_t) (&ADC12_COMMON->CDR);  // address of peripheral
+	DMA1_Channel1->CMAR = (uint32_t) buffer1;               // base address of memory buffer
+	DMA2_Channel5->CPAR = (uint32_t) (&ADC34_COMMON->CDR); // address of peripheral
+	DMA2_Channel5->CMAR = (uint32_t) buffer3;               // base address of memory buffer
 
 }
 
@@ -188,29 +189,30 @@ void setupDMAQuad(void)
  * @brief Set the DMA counter for each channel
  * @param chx Pointer to a channel structure
  */
-void setDMACntr(channel *chx)
+void setDMACntr(channel_t *chx)
 {
 	switch (chx->id)
 	{
-	case 1:
-		DMA1_Channel1->CNDTR = 2 * BUFF_SIZE; // size of memory target
-		break;
-	case 2:
-		DMA2_Channel1->CNDTR = 2 * BUFF_SIZE; // size of memory target
-		break;
-	case 3:
-		DMA2_Channel5->CNDTR = 2 * BUFF_SIZE;
-		break;
-	case 4:
-		DMA2_Channel2->CNDTR = 2 * BUFF_SIZE;
-		break;
+		default:
+		case 1:
+			DMA1_Channel1->CNDTR = 2 * BUFF_SIZE; // size of memory target
+			break;
+		case 2:
+			DMA2_Channel1->CNDTR = 2 * BUFF_SIZE; // size of memory target
+			break;
+		case 3:
+			DMA2_Channel5->CNDTR = 2 * BUFF_SIZE;
+			break;
+		case 4:
+			DMA2_Channel2->CNDTR = 2 * BUFF_SIZE;
+			break;
 	}
 }
 
 //void setDMACntr(channel *chx){
 //	switch(chx->id){
 //		case 1:{
-//			switch(dso1.timeDiv){
+//			switch(dso.timeDiv){
 //				case 0:{ // 1 ms
 //					DMA1_Channel1->CNDTR = 2048; // size of memory target
 //					break;
@@ -254,7 +256,7 @@ void setDMACntr(channel *chx)
 //			}
 //		}
 //		case 2:{
-//			switch(dso1.timeDiv){
+//			switch(dso.timeDiv){
 //				case 0:{ // 1 ms
 //					ADC2->SMPR1 = 0x00000030; // => sampling time 194 cycles (371,13 KS/s)
 //					break;
@@ -298,7 +300,7 @@ void setDMACntr(channel *chx)
 //			}
 //		}
 //		case 3:{
-//			switch(dso1.timeDiv){
+//			switch(dso.timeDiv){
 //				case 0:{ // 1 ms
 //					ADC3->SMPR1 = 0x00000030; // => sampling time 194 cycles (371,13 KS/s)
 //					break;
@@ -342,7 +344,7 @@ void setDMACntr(channel *chx)
 //			}
 //		}
 //		case 4:{
-//			switch(dso1.timeDiv){
+//			switch(dso.timeDiv){
 //				case 0:{ // 1 ms
 //					ADC4->SMPR1 = 0x00000030; // => sampling time 194 cycles (371,13 KS/s)
 //					break;

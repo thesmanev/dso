@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2727030602">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;pError&apos; can be reduced." verbose="The scope of the variable &apos;pError&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398">
+            <location file0="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\printf.c" file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\printf.c" line="407" column="10"/>
+            <symbol>pError</symbol>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:202:12" call-funcname="PutHexa" call-argnr="4" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="217" col="23" call-argexpr="maj" call-argvaluetype="0" call-argvalue="0">
+  <path file="C:\Users\Stanimir Manev\STM32CubeIDE\workspace_1.3.0\dso\Core\Src\printf.c" line="327" col="56" info="Calling function 'PutHexa', 4th argument '0' value is 0"/>
+</function-call><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:202:12" call-funcname="PutHexa" call-argnr="4" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="327" col="36" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:391:12" call-funcname="vsprintf" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="410" col="17" call-argexpr="pStr" call-argvaluetype="7" call-argvalue="100"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:540:12" call-funcname="fputs" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="412" col="14" call-argexpr="pError" call-argvaluetype="7" call-argvalue="36"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:540:12" call-funcname="fputs" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="417" col="17" call-argexpr="pStr" call-argvaluetype="7" call-argvalue="100"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:77:12" call-funcname="PutUnsignedInt" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="91" col="15" my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:77:12" my-argnr="1"/>
+<function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:123:12" call-funcname="PutSignedInt" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="150" col="19" my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:123:12" my-argnr="1"/>
+<function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:202:12" call-funcname="PutHexa" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="217" col="16" my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:202:12" my-argnr="1"/>
+<function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:266:12" call-funcname="vsnprintf" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="373" col="10" my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:367:12" my-argnr="1"/>
+<function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:266:12" call-funcname="vsnprintf" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="393" col="11" my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:391:12" my-argnr="1"/>
+<function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:266:12" call-funcname="vsnprintf" call-argnr="3" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="393" col="11" my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:391:12" my-argnr="2"/>
+<function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:540:12" call-funcname="fputs" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="417" col="12" my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:404:12" my-argnr="1"/>
+<function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:391:12" call-funcname="vsprintf" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="410" col="9" my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:404:12" my-argnr="2"/>
+<function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:404:12" call-funcname="vfprintf" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="430" col="12" my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:428:12" my-argnr="1"/>
+<function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:404:12" call-funcname="vfprintf" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="448" col="14" my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:441:12" my-argnr="1"/>
+<function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:391:12" call-funcname="vsprintf" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="488" col="14" my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:481:12" my-argnr="1"/>
+<function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:540:12" call-funcname="fputs" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="502" col="12" my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:500:12" my-argnr="1"/>
+<function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:515:12" call-funcname="fputc" call-argnr="2" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="546" col="13" my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:540:12" my-argnr="2"/>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:40:12" my-argnr="1" my-argname="pStr" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="42" col="6" value="0"/>
+    <unsafe-usage my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:54:12" my-argnr="2" my-argname="pSource" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="58" col="13" value="0"/>
+    <unsafe-usage my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:266:12" my-argnr="3" my-argname="pFormat" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="280" col="13" value="0"/>
+    <unsafe-usage my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:391:12" my-argnr="2" my-argname="pFormat" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="393" col="47" value="0"/>
+    <unsafe-usage my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:404:12" my-argnr="1" my-argname="pStream" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="417" col="24" value="0"/>
+    <unsafe-usage my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:404:12" my-argnr="2" my-argname="pFormat" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="410" col="24" value="0"/>
+    <unsafe-usage my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:441:12" my-argnr="1" my-argname="pStream" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="448" col="23" value="0"/>
+    <unsafe-usage my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:500:12" my-argnr="1" my-argname="pStr" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="502" col="18" value="0"/>
+    <unsafe-usage my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:540:12" my-argnr="1" my-argname="pStr" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="544" col="13" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:54:12" my-argnr="2" my-argname="pSource" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="58" col="13" value="0"/>
+    <unsafe-usage my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:266:12" my-argnr="3" my-argname="pFormat" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="280" col="13" value="0"/>
+    <unsafe-usage my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c:540:12" my-argnr="1" my-argname="pStr" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/printf.c" line="544" col="13" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="PrintChar" lineNumber="18"/>
+    <functiondecl functionName="PutChar" lineNumber="40"/>
+    <functiondecl functionName="PutString" lineNumber="54"/>
+    <functiondecl functionName="PutUnsignedInt" lineNumber="77"/>
+    <functiondecl functionName="PutSignedInt" lineNumber="123"/>
+    <functiondecl functionName="PutHexa" lineNumber="202"/>
+    <functiondecl functionName="vsnprintf" lineNumber="266"/>
+    <functiondecl functionName="snprintf" lineNumber="367"/>
+    <functiondecl functionName="vsprintf" lineNumber="391"/>
+    <functiondecl functionName="vfprintf" lineNumber="404"/>
+    <functiondecl functionName="vprintf" lineNumber="428"/>
+    <functiondecl functionName="fprintf" lineNumber="441"/>
+    <functiondecl functionName="printf" lineNumber="461"/>
+    <functiondecl functionName="sprintf" lineNumber="481"/>
+    <functiondecl functionName="puts" lineNumber="500"/>
+    <functiondecl functionName="fputc" lineNumber="515"/>
+    <functiondecl functionName="fputs" lineNumber="540"/>
+    <functioncall functionName="PrintChar"/>
+    <functioncall functionName="PutChar"/>
+    <functioncall functionName="PutHexa"/>
+    <functioncall functionName="PutSignedInt"/>
+    <functioncall functionName="PutString"/>
+    <functioncall functionName="PutUnsignedInt"/>
+    <functioncall functionName="ap"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="c"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="fill"/>
+    <functioncall functionName="fputc"/>
+    <functioncall functionName="fputs"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="length"/>
+    <functioncall functionName="maj"/>
+    <functioncall functionName="pError"/>
+    <functioncall functionName="pFormat"/>
+    <functioncall functionName="pStr"/>
+    <functioncall functionName="pStream"/>
+    <functioncall functionName="pString"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="stderr"/>
+    <functioncall functionName="stdout"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="va_arg"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="value"/>
+    <functioncall functionName="vfprintf"/>
+    <functioncall functionName="vprintf"/>
+    <functioncall functionName="vsnprintf"/>
+    <functioncall functionName="vsprintf"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="width"/>
+  </FileInfo>
+</analyzerinfo>

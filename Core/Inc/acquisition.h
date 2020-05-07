@@ -19,7 +19,7 @@ typedef enum{
 	timeDiv_5us,
 	timeDiv_2_5us,
 	timeDiv_1us
-}tmdv;
+}tmdv_t;
 
 typedef enum{
 	v_100mDiv,
@@ -29,20 +29,20 @@ typedef enum{
 	v_2Div,
 	v_5Div,
 	v_10Div
-}voltDiv;
+}voltDiv_t;
 
 typedef struct{
 	uint32_t id;
 	uint32_t enabled;
 	uint32_t selected;
-	voltDiv voltsDiv;
+	voltDiv_t voltsDiv;
 	uint32_t vertical;
 	uint32_t coupling;
 	uint32_t buffSize;
-} channel;
+} channel_t;
 
 typedef struct{
-	tmdv timeDiv;
+	tmdv_t timeDiv;
 	uint32_t horizontal;
 	uint32_t triggerPoint;
 	uint32_t triggerEdge;
@@ -51,11 +51,11 @@ typedef struct{
 	uint32_t quad;
 	uint32_t dual1;
 	uint32_t dual2;
-	channel ch1;
-	channel ch2;
-	channel ch3;
-	channel ch4;
-} dso;
+	channel_t ch1;
+	channel_t ch2;
+	channel_t ch3;
+	channel_t ch4;
+} dso_config_t;
 
 void aquireData(uint32_t mode);
 

@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="34624096">
+  <FileInfo check="ctu">
+<function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/disp.h:179:6" call-funcname="LCD_Print" call-argnr="3" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/main.c" line="141" col="11" call-argexpr="str" call-argvaluetype="7" call-argvalue="7"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/adc.h:8:6" call-funcname="setupADCDual" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/main.c" line="257" col="17" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/dma.h:5:6" call-funcname="setupDMADual" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/main.c" line="258" col="17" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/adc.h:9:6" call-funcname="setupADCParallel" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/main.c" line="310" col="20" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/dma.h:6:6" call-funcname="setupDMAParallel" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/main.c" line="311" col="20" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/adc.h:8:6" call-funcname="setupADCDual" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/main.c" line="390" col="17" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/dma.h:5:6" call-funcname="setupDMADual" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/main.c" line="391" col="17" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/adc.h:9:6" call-funcname="setupADCParallel" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/main.c" line="441" col="20" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/dma.h:6:6" call-funcname="setupDMAParallel" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/main.c" line="442" col="20" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/adc.h:9:6" call-funcname="setupADCParallel" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/main.c" line="541" col="20" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/dma.h:6:6" call-funcname="setupDMAParallel" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/main.c" line="542" col="20" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/adc.h:9:6" call-funcname="setupADCParallel" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/main.c" line="643" col="20" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/dma.h:6:6" call-funcname="setupDMAParallel" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/main.c" line="644" col="20" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/acquisition.h:60:6" call-funcname="aquireData" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/main.c" line="796" col="16" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/>  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/main.h:76:6" my-argnr="1" my-argname="var" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/main.c" line="212" col="7" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/main.h:76:6" my-argnr="1" my-argname="var" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/main.c" line="212" col="7" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="SystemClock_Config" lineNumber="32"/>
+    <functiondecl functionName="setupClocks" lineNumber="77"/>
+    <functiondecl functionName="enableInterrupts" lineNumber="95"/>
+    <functiondecl functionName="delay_ms" lineNumber="111"/>
+    <functiondecl functionName="assertError" lineNumber="136"/>
+    <functiondecl functionName="Error_Handler" lineNumber="149"/>
+    <functiondecl functionName="initDSO" lineNumber="160"/>
+    <functiondecl functionName="toggle" lineNumber="210"/>
+    <functiondecl functionName="channelChange" lineNumber="224"/>
+    <functiondecl functionName="setupSwitches" lineNumber="675"/>
+    <functiondecl functionName="setSwitch" lineNumber="698"/>
+    <functiondecl functionName="main" lineNumber="756"/>
+    <functioncall functionName="ADC_Clocks"/>
+    <functioncall functionName="AS1"/>
+    <functioncall functionName="AS2"/>
+    <functioncall functionName="AS3"/>
+    <functioncall functionName="AS4"/>
+    <functioncall functionName="AS5"/>
+    <functioncall functionName="DMA1_Channel1_IRQn"/>
+    <functioncall functionName="DMA2_Channel1_IRQn"/>
+    <functioncall functionName="DMA2_Channel2_IRQn"/>
+    <functioncall functionName="DMA2_Channel5_IRQn"/>
+    <functioncall functionName="Error_Handler"/>
+    <functioncall functionName="FLASH_LATENCY_2"/>
+    <functioncall functionName="HAL_NVIC_SetPriority"/>
+    <functioncall functionName="HAL_RCCEx_PeriphCLKConfig"/>
+    <functioncall functionName="HAL_RCC_ClockConfig"/>
+    <functioncall functionName="HAL_RCC_OscConfig"/>
+    <functioncall functionName="LCD_Background"/>
+    <functioncall functionName="LCD_DrawReticle"/>
+    <functioncall functionName="LCD_Init"/>
+    <functioncall functionName="LCD_Print"/>
+    <functioncall functionName="NVIC_EnableIRQ"/>
+    <functioncall functionName="PeriphClkInit"/>
+    <functioncall functionName="RCC_AHBENR_GPIODEN"/>
+    <functioncall functionName="RCC_AHBENR_GPIOEEN"/>
+    <functioncall functionName="RCC_APB2ENR_SPI1EN"/>
+    <functioncall functionName="RCC_CLOCKTYPE_PCLK2"/>
+    <functioncall functionName="RCC_ClkInitStruct"/>
+    <functioncall functionName="RCC_HCLK_DIV1"/>
+    <functioncall functionName="RCC_HCLK_DIV2"/>
+    <functioncall functionName="RCC_HSE_BYPASS"/>
+    <functioncall functionName="RCC_HSI_ON"/>
+    <functioncall functionName="RCC_LSI_ON"/>
+    <functioncall functionName="RCC_OSCILLATORTYPE_HSE"/>
+    <functioncall functionName="RCC_OscInitStruct"/>
+    <functioncall functionName="RCC_PERIPHCLK_RTC"/>
+    <functioncall functionName="RCC_PLLSOURCE_HSE"/>
+    <functioncall functionName="RCC_PLL_MUL9"/>
+    <functioncall functionName="RCC_PLL_ON"/>
+    <functioncall functionName="RCC_PREDIV_DIV1"/>
+    <functioncall functionName="RCC_RTCCLKSOURCE_LSI"/>
+    <functioncall functionName="RCC_SYSCLKSOURCE_PLLCLK"/>
+    <functioncall functionName="RCC_SYSCLK_DIV1"/>
+    <functioncall functionName="RCC_USART3CLKSOURCE_PCLK1"/>
+    <functioncall functionName="SystemClock_Config"/>
+    <functioncall functionName="aquireData"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="ch1"/>
+    <functioncall functionName="ch1Cpl_pressed"/>
+    <functioncall functionName="ch1VDiv_pressed"/>
+    <functioncall functionName="ch1_pressed"/>
+    <functioncall functionName="ch2"/>
+    <functioncall functionName="ch2Cpl_pressed"/>
+    <functioncall functionName="ch2VDiv_pressed"/>
+    <functioncall functionName="ch2_pressed"/>
+    <functioncall functionName="ch3"/>
+    <functioncall functionName="ch3Cpl_pressed"/>
+    <functioncall functionName="ch3VDiv_pressed"/>
+    <functioncall functionName="ch3_pressed"/>
+    <functioncall functionName="ch4"/>
+    <functioncall functionName="ch4Cpl_pressed"/>
+    <functioncall functionName="ch4VDiv_pressed"/>
+    <functioncall functionName="ch4_pressed"/>
+    <functioncall functionName="channel_state"/>
+    <functioncall functionName="clearWaveform"/>
+    <functioncall functionName="dec_pressed"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="delay_ms"/>
+    <functioncall functionName="enableInterrupts"/>
+    <functioncall functionName="enabled"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc_pressed"/>
+    <functioncall functionName="initADC"/>
+    <functioncall functionName="initDSO"/>
+    <functioncall functionName="ms"/>
+    <functioncall functionName="none_pressed"/>
+    <functioncall functionName="num"/>
+    <functioncall functionName="pollForTouch"/>
+    <functioncall functionName="sendScreenBuffer"/>
+    <functioncall functionName="serial"/>
+    <functioncall functionName="setSwitch"/>
+    <functioncall functionName="setupADCDual"/>
+    <functioncall functionName="setupADCParallel"/>
+    <functioncall functionName="setupADCQuad"/>
+    <functioncall functionName="setupADCSingle"/>
+    <functioncall functionName="setupClocks"/>
+    <functioncall functionName="setupDMA"/>
+    <functioncall functionName="setupDMADual"/>
+    <functioncall functionName="setupDMAParallel"/>
+    <functioncall functionName="setupDMAQuad"/>
+    <functioncall functionName="setupGPIO"/>
+    <functioncall functionName="setupSwitches"/>
+    <functioncall functionName="setupTouch"/>
+    <functioncall functionName="setupUART"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="timeDiv_100us"/>
+    <functioncall functionName="timeDiv_10us"/>
+    <functioncall functionName="timeDiv_1ms"/>
+    <functioncall functionName="timeDiv_1us"/>
+    <functioncall functionName="timeDiv_250us"/>
+    <functioncall functionName="timeDiv_25us"/>
+    <functioncall functionName="timeDiv_2_5us"/>
+    <functioncall functionName="timeDiv_500us"/>
+    <functioncall functionName="timeDiv_50us"/>
+    <functioncall functionName="timeDiv_5us"/>
+    <functioncall functionName="timeDiv_pressed"/>
+    <functioncall functionName="trigEdge_pressed"/>
+    <functioncall functionName="trigSource_pressed"/>
+    <functioncall functionName="trigValue_pressed"/>
+    <functioncall functionName="uint8_t"/>
+    <functioncall functionName="v_100mDiv"/>
+    <functioncall functionName="v_10Div"/>
+    <functioncall functionName="v_1Div"/>
+    <functioncall functionName="v_200mDiv"/>
+    <functioncall functionName="v_2Div"/>
+    <functioncall functionName="v_500mDiv"/>
+    <functioncall functionName="v_5Div"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

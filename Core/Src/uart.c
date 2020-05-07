@@ -1,5 +1,7 @@
 #include "main.h"
 
+static uint8_t uart_setup_buff[11];		/**< UART buffer for the DSO setup */
+
 /**
  * @brief Setup UAR
  */
@@ -15,7 +17,7 @@ void setupUART(void)
  * @param buff Pointer to the buffer containing the data to be sent
  * @param bytes Number of bytes to send
  */
-void UART_send(uint8_t *buff, uint32_t bytes)
+static void UART_send(uint8_t *buff, uint32_t bytes)
 {
 	uint32_t cnt = 0;
 	while (cnt < bytes)
@@ -31,7 +33,7 @@ void UART_send(uint8_t *buff, uint32_t bytes)
  * @param buff Pointer to a buffer where the received data will be placed
  * @param bytes Number of bytes to receive
  */
-void UART_receive(uint8_t *buff, uint32_t bytes)
+static void UART_receive(uint8_t *buff, uint32_t bytes)
 {
 	uint32_t cnt = 0;
 	while (cnt < bytes)
@@ -128,71 +130,64 @@ void serial(void)
 			{
 				uint8_t ack = 0xAC;
 				UART_send(&ack, 1);
-				UART_receive(setup, 11);
-				dso1.timeDiv = (tmdv) (setup[0] & 0x0F);
-				dso1.triggerEdge = (uint32_t) ((setup[0] & 0x10) >> 4);
-				dso1.quad = (uint32_t) ((setup[0] & 0x20) >> 5);
-				dso1.dual1 = (uint32_t) ((setup[0] & 0x40) >> 6);
-				dso1.dual2 = (uint32_t) ((setup[0] & 0x80) >> 7);
-				dso1.triggerValue = (uint32_t) setup[1];
-				dso1.triggerValue = dso1.triggerValue
-						+ (uint32_t) ((setup[2] & 0x0F) << 8);
-				dso1.triggerSource = (uint32_t) ((setup[2] & 0x30) >> 4);
+				UART_receive(uart_setup_buff, 11);
+				dso.timeDiv = (tmdv_t) (uart_setup_buff[0] & 0x0F);
+				dso.triggerEdge = (uint32_t) ((uart_setup_buff[0] & 0x10) >> 4);
+				dso.quad = (uint32_t) ((uart_setup_buff[0] & 0x20) >> 5);
+				dso.dual1 = (uint32_t) ((uart_setup_buff[0] & 0x40) >> 6);
+				dso.dual2 = (uint32_t) ((uart_setup_buff[0] & 0x80) >> 7);
+				dso.triggerValue = (uint32_t) uart_setup_buff[1];
+				dso.triggerValue = dso.triggerValue
+						+ (uint32_t) ((uart_setup_buff[2] & 0x0F) << 8);
+				dso.triggerSource = (uint32_t) ((uart_setup_buff[2] & 0x30) >> 4);
 
-				dso1.ch1.enabled = (uint32_t) (setup[3] & 0x01);
-				dso1.ch1.voltsDiv = (voltDiv) ((setup[3] & 0x0E) >> 1);
-				dso1.ch1.coupling = (uint32_t) ((setup[3] & 0x30) >> 4);
-				dso1.ch1.vertical = (uint32_t) setup[4];
+				dso.ch1.enabled = (uint32_t) (uart_setup_buff[3] & 0x01);
+				dso.ch1.voltsDiv = (voltDiv_t) ((uart_setup_buff[3] & 0x0E) >> 1);
+				dso.ch1.coupling = (uint32_t) ((uart_setup_buff[3] & 0x30) >> 4);
+				dso.ch1.vertical = (uint32_t) uart_setup_buff[4];
 
-				dso1.ch2.enabled = (uint32_t) (setup[5] & 0x01);
-				dso1.ch2.voltsDiv = (voltDiv) ((setup[5] & 0x0E) >> 1);
-				dso1.ch2.coupling = (uint32_t) ((setup[5] & 0x30) >> 4);
-				dso1.ch2.vertical = (uint32_t) setup[6];
+				dso.ch2.enabled = (uint32_t) (uart_setup_buff[5] & 0x01);
+				dso.ch2.voltsDiv = (voltDiv_t) ((uart_setup_buff[5] & 0x0E) >> 1);
+				dso.ch2.coupling = (uint32_t) ((uart_setup_buff[5] & 0x30) >> 4);
+				dso.ch2.vertical = (uint32_t) uart_setup_buff[6];
 
-				dso1.ch3.enabled = (uint32_t) (setup[7] & 0x01);
-				dso1.ch3.voltsDiv = (voltDiv) ((setup[7] & 0x0E) >> 1);
-				dso1.ch3.coupling = (uint32_t) ((setup[7] & 0x30) >> 4);
-				dso1.ch3.vertical = (uint32_t) setup[8];
+				dso.ch3.enabled = (uint32_t) (uart_setup_buff[7] & 0x01);
+				dso.ch3.voltsDiv = (voltDiv_t) ((uart_setup_buff[7] & 0x0E) >> 1);
+				dso.ch3.coupling = (uint32_t) ((uart_setup_buff[7] & 0x30) >> 4);
+				dso.ch3.vertical = (uint32_t) uart_setup_buff[8];
 
-				dso1.ch4.enabled = (uint32_t) (setup[9] & 0x01);
-				dso1.ch4.voltsDiv = (voltDiv) ((setup[9] & 0x0E) >> 1);
-				dso1.ch4.coupling = (uint32_t) ((setup[9] & 0x30) >> 4);
-				dso1.ch4.vertical = (uint32_t) setup[10];
+				dso.ch4.enabled = (uint32_t) (uart_setup_buff[9] & 0x01);
+				dso.ch4.voltsDiv = (voltDiv_t) ((uart_setup_buff[9] & 0x0E) >> 1);
+				dso.ch4.coupling = (uint32_t) ((uart_setup_buff[9] & 0x30) >> 4);
+				dso.ch4.vertical = (uint32_t) uart_setup_buff[10];
 
 				channelChange();
 			}
 			else if (cmd == 0xAA)
 			{
-				setup[0] = (uint8_t) dso1.timeDiv
-						+ ((uint8_t) dso1.triggerEdge << 4);
-				setup[0] = setup[0] + ((uint8_t) dso1.quad << 5)
-						+ ((uint8_t) dso1.dual1 << 6);
-				setup[0] = setup[0] + ((uint8_t) dso1.dual2 << 7);
-				setup[1] = (uint8_t) (dso1.triggerValue & 0x000000FF);
-				setup[2] = ((uint8_t) ((dso1.triggerValue & 0x00000F00) >> 8))
-						+ ((uint8_t) (dso1.triggerSource << 4));
+				uart_setup_buff[0] = (uint8_t)(dso.timeDiv + (dso.triggerEdge << 4));
+				uart_setup_buff[0] = (uint8_t)(uart_setup_buff[0] + (dso.quad << 5) + (dso.dual1 << 6));
+				uart_setup_buff[0] = (uint8_t)(uart_setup_buff[0] + (dso.dual2 << 7));
+				uart_setup_buff[1] = (uint8_t)(dso.triggerValue & 0x000000FF);
+				uart_setup_buff[2] = (uint8_t)(((dso.triggerValue & 0x00000F00) >> 8) + (dso.triggerSource << 4));
 
-				setup[3] = (uint8_t) dso1.ch1.enabled
-						+ (uint8_t) (dso1.ch1.voltsDiv << 1);
-				setup[3] = (uint8_t) (dso1.ch1.coupling << 4);
-				setup[4] = (uint8_t) (dso1.ch1.vertical);
+				uart_setup_buff[3] = (uint8_t)(dso.ch1.enabled + ((uint32_t)dso.ch1.voltsDiv << 1));
+				uart_setup_buff[3] = (uint8_t)(uart_setup_buff[3] + (dso.ch1.coupling << 4));
+				uart_setup_buff[4] = (uint8_t)(dso.ch1.vertical);
 
-				setup[5] = (uint8_t) dso1.ch2.enabled
-						+ (uint8_t) (dso1.ch2.voltsDiv << 1);
-				setup[5] = (uint8_t) (dso1.ch2.coupling << 4);
-				setup[6] = (uint8_t) (dso1.ch2.vertical);
+				uart_setup_buff[5] = (uint8_t)(dso.ch2.enabled + ((uint32_t)dso.ch2.voltsDiv << 1));
+				uart_setup_buff[5] = (uint8_t)(uart_setup_buff[5] + (dso.ch2.coupling << 4));
+				uart_setup_buff[6] = (uint8_t)(dso.ch2.vertical);
 
-				setup[7] = (uint8_t) dso1.ch3.enabled
-						+ (uint8_t) (dso1.ch3.voltsDiv << 1);
-				setup[7] = (uint8_t) (dso1.ch3.coupling << 4);
-				setup[8] = (uint8_t) (dso1.ch3.vertical);
+				uart_setup_buff[7] = (uint8_t)(dso.ch3.enabled + ((uint32_t)dso.ch3.voltsDiv << 1));
+				uart_setup_buff[7] = (uint8_t)(uart_setup_buff[7] + (dso.ch3.coupling << 4));
+				uart_setup_buff[8] = (uint8_t)(dso.ch3.vertical);
 
-				setup[9] = (uint8_t) dso1.ch4.enabled
-						+ (uint8_t) (dso1.ch4.voltsDiv << 1);
-				setup[9] = (uint8_t) (dso1.ch4.coupling << 4);
-				setup[10] = (uint8_t) (dso1.ch4.vertical);
+				uart_setup_buff[9] = (uint8_t)(dso.ch4.enabled + ((uint32_t)dso.ch4.voltsDiv << 1));
+				uart_setup_buff[9] = (uint8_t)(uart_setup_buff[9] + (dso.ch4.coupling << 4));
+				uart_setup_buff[10] = (uint8_t)(dso.ch4.vertical);
 
-				UART_send(setup, 11);
+				UART_send(uart_setup_buff, 11);
 			}
 		}
 	}

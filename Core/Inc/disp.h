@@ -1,39 +1,38 @@
 #ifndef DISP_H
 #define DISP_H
 
-#define DATA_PORT GPIOG
+#define DATA_PORT 			GPIOG
 // D0-D15 -> PF0-PF15
-#define CONTROL_PORT GPIOD
+#define CONTROL_PORT 		GPIOD
 // RESET -> PD0
 // RD -> PD1
 // WR -> PD2
 // RS -> PD3
 // CS -> PD4
 
-#define fontXSizeSmall 8
-#define fontYSizeSmall 12
-//#define fontYSizeSmall 8
+#define FONTXSIZESMALL 		8u
+#define FONTYSIZESMALL 		12u
 #define RESX 319
 #define RESY 239
 
 
 // bit set macros
-#define RESET_LOW 	CONTROL_PORT->BRR  = 0x00000001
-#define RESET_HIGH 	CONTROL_PORT->BSRR = 0x00000001
-#define RD_LOW 		CONTROL_PORT->BRR  = 0x00000002
-#define RD_HIGH 	CONTROL_PORT->BSRR = 0x00000002
-#define WR_LOW 		CONTROL_PORT->BRR  = 0x00000004
-#define WR_HIGH 	CONTROL_PORT->BSRR = 0x00000004
-#define RS_LOW 		CONTROL_PORT->BRR  = 0x00000008
-#define RS_HIGH 	CONTROL_PORT->BSRR = 0x00000008
-#define CSD_LOW 	CONTROL_PORT->BRR  = 0x00000010
-#define CSD_HIGH 	CONTROL_PORT->BSRR = 0x00000010
+#define RESET_LOW 			CONTROL_PORT->BRR  = 0x00000001
+#define RESET_HIGH 			CONTROL_PORT->BSRR = 0x00000001
+#define RD_LOW 				CONTROL_PORT->BRR  = 0x00000002
+#define RD_HIGH 			CONTROL_PORT->BSRR = 0x00000002
+#define WR_LOW 				CONTROL_PORT->BRR  = 0x00000004
+#define WR_HIGH 			CONTROL_PORT->BSRR = 0x00000004
+#define RS_LOW 				CONTROL_PORT->BRR  = 0x00000008
+#define RS_HIGH 			CONTROL_PORT->BSRR = 0x00000008
+#define CSD_LOW 			CONTROL_PORT->BRR  = 0x00000010
+#define CSD_HIGH 			CONTROL_PORT->BSRR = 0x00000010
 
-#define RS_COMMAND RS_LOW
-#define RS_DATA    RS_HIGH
+#define RS_COMMAND 			RS_LOW
+#define RS_DATA    			RS_HIGH
 
-#define RD_STROBE {RD_LOW; RD_HIGH;}
-#define WR_STROBE {WR_LOW; WR_HIGH;}
+#define RD_STROBE 			{RD_LOW; RD_HIGH;}
+#define WR_STROBE 			{WR_LOW; WR_HIGH;}
 
 //comands
 #define ILI9341_NOP     	0x00000000
@@ -149,17 +148,24 @@
 #define ILI9341_GREENYELLOW 0x0000AFE5      /* 173, 255,  47 */
 #define ILI9341_PINK 		0x0000F81F
 
-#define MAX_X 240
-#define MAX_Y 320
+#define MAX_X 				40
+#define MAX_Y 				320
 
-#define CH1_COLOR ILI9341_GREEN
-#define CH2_COLOR ILI9341_BLUE
-#define CH3_COLOR ILI9341_RED
-#define CH4_COLOR ILI9341_ORANGE
+#define CH1_COLOR 			ILI9341_GREEN
+#define CH2_COLOR 			ILI9341_BLUE
+#define CH3_COLOR 			ILI9341_RED
+#define CH4_COLOR 			ILI9341_ORANGE
 
-#define CH_STR_LNGTH 10
-#define TRIG_STR_LNGTH 16
-#define TDIV_STR_LNGTH 14
+#define CH_STR_LNGTH 		10
+#define TRIG_STR_LNGTH 		16
+#define TDIV_STR_LNGTH 		14
+
+extern uint8_t ch1[CH_STR_LNGTH];
+extern uint8_t ch2[CH_STR_LNGTH];
+extern uint8_t ch3[CH_STR_LNGTH];
+extern uint8_t ch4[CH_STR_LNGTH];
+extern uint8_t tDiv[TDIV_STR_LNGTH];
+extern uint8_t trig[TRIG_STR_LNGTH];
 
 // functions
 void LCD_Init(void);
@@ -170,7 +176,7 @@ void LCD_DrawLineH(uint32_t x0, uint32_t x1, uint32_t y, uint32_t color);
 void LCD_SetWindow(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1);
 void LCD_Background(uint32_t color);
 void LCD_DrawLineV(uint32_t y0, uint32_t y1, uint32_t x, uint32_t color);
-void LCD_Print(uint32_t x, uint32_t y, char *text, uint32_t length, uint32_t color);
+void LCD_Print(uint32_t x, uint32_t y, uint8_t *text, uint32_t length, uint32_t color);
 void LCD_RectFill(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color);
 void LCD_DrawRect(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color);
 void LCD_DrawReticle(void);

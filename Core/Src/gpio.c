@@ -25,16 +25,16 @@ void setupGPIO(void)
 	GPIOE->OSPEEDR |= 0x000030F0;//
 	
 	// setup for ADCs
-	GPIOB->MODER |= (1 << 28) | (1 << 14) | 1; // setup led pins as output
-	GPIOB->MODER |= 12; // setup PB1 as analog
-	GPIOB->PUPDR &= ~(12);// setup no pull on PB1
+	GPIOB->MODER |= (1u << 28) | (1u << 14) | 1u; // setup led pins as output
+	GPIOB->MODER |= 12u; // setup PB1 as analog
+	GPIOB->PUPDR &= ~(12u);// setup no pull on PB1
 
 	GPIOA->MODER |= 3 | (3 << 8);// setup PA0 and PA4 as analog
-	GPIOA->PUPDR &= ~(3);// setup no pull-up or pull-down for PA0
-	GPIOA->PUPDR &= ~(3 << 8);// setup no pull-up or pull-down for PA4
+	GPIOA->PUPDR &= ~(3u);// setup no pull-up or pull-down for PA0
+	GPIOA->PUPDR &= ~(3u << 8);// setup no pull-up or pull-down for PA4
 
-	GPIOE->MODER |= (3 << 28); // setup PE14 as analog
-	GPIOE->PUPDR &= ~(3 << 28); // setup no pull on PE14
+	GPIOE->MODER |= (3u << 28); // setup PE14 as analog
+	GPIOE->PUPDR &= ~(3u << 28); // setup no pull on PE14
 
 	//setup for UART
 	GPIOA->AFR[1] |= 0x00000770; // AF7 (UART) for PA9(TX) and PA10(RX)

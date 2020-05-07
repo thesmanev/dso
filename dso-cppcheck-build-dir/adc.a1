@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3577959350">
+  <FileInfo check="ctu">
+<function-call call-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/adc.h:12:6" call-funcname="calibrateADC" call-argnr="1" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/adc.c" line="12" col="2" my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/adc.h:6:6" my-argnr="1"/>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/adc.h:7:6" my-argnr="1" my-argname="chx" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/adc.c" line="62" col="10" value="0"/>
+    <unsafe-usage my-id="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Inc/adc.h:12:6" my-argnr="1" my-argname="chx" file="C:/Users/Stanimir Manev/STM32CubeIDE/workspace_1.3.0/dso/Core/Src/adc.c" line="459" col="10" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="initADC" lineNumber="10"/>
+    <functiondecl functionName="setupADCSingle" lineNumber="60"/>
+    <functiondecl functionName="setupADCDual" lineNumber="316"/>
+    <functiondecl functionName="setupADCParallel" lineNumber="347"/>
+    <functiondecl functionName="setupADCQuad" lineNumber="379"/>
+    <functiondecl functionName="ADC1_2_IRQHandler" lineNumber="401"/>
+    <functiondecl functionName="ADC3_IRQHandler" lineNumber="416"/>
+    <functiondecl functionName="ADC4_IRQHandler" lineNumber="431"/>
+    <functiondecl functionName="ADC_Clocks" lineNumber="446"/>
+    <functiondecl functionName="calibrateADC" lineNumber="456"/>
+    <functiondecl functionName="disableADC" lineNumber="513"/>
+    <functiondecl functionName="enableADC" lineNumber="556"/>
+    <functioncall functionName="assertError"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="calibrateADC"/>
+    <functioncall functionName="ch1Cpl_pressed"/>
+    <functioncall functionName="ch1VDiv_pressed"/>
+    <functioncall functionName="ch1_pressed"/>
+    <functioncall functionName="ch2Cpl_pressed"/>
+    <functioncall functionName="ch2VDiv_pressed"/>
+    <functioncall functionName="ch2_pressed"/>
+    <functioncall functionName="ch3"/>
+    <functioncall functionName="ch3Cpl_pressed"/>
+    <functioncall functionName="ch3VDiv_pressed"/>
+    <functioncall functionName="ch3_pressed"/>
+    <functioncall functionName="ch4"/>
+    <functioncall functionName="ch4Cpl_pressed"/>
+    <functioncall functionName="ch4VDiv_pressed"/>
+    <functioncall functionName="ch4_pressed"/>
+    <functioncall functionName="chx"/>
+    <functioncall functionName="dec_pressed"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="disableADC"/>
+    <functioncall functionName="enableADC"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inc_pressed"/>
+    <functioncall functionName="none_pressed"/>
+    <functioncall functionName="num"/>
+    <functioncall functionName="setupADCSingle"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="timeDiv"/>
+    <functioncall functionName="timeDiv_100us"/>
+    <functioncall functionName="timeDiv_10us"/>
+    <functioncall functionName="timeDiv_1ms"/>
+    <functioncall functionName="timeDiv_1us"/>
+    <functioncall functionName="timeDiv_250us"/>
+    <functioncall functionName="timeDiv_25us"/>
+    <functioncall functionName="timeDiv_2_5us"/>
+    <functioncall functionName="timeDiv_500us"/>
+    <functioncall functionName="timeDiv_50us"/>
+    <functioncall functionName="timeDiv_5us"/>
+    <functioncall functionName="timeDiv_pressed"/>
+    <functioncall functionName="trigEdge_pressed"/>
+    <functioncall functionName="trigSource_pressed"/>
+    <functioncall functionName="trigValue_pressed"/>
+    <functioncall functionName="v_100mDiv"/>
+    <functioncall functionName="v_10Div"/>
+    <functioncall functionName="v_1Div"/>
+    <functioncall functionName="v_200mDiv"/>
+    <functioncall functionName="v_2Div"/>
+    <functioncall functionName="v_500mDiv"/>
+    <functioncall functionName="v_5Div"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

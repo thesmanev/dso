@@ -6,13 +6,24 @@
 void setupGPIO(void)
 {
 	//setup for display
-	DATA_PORT->MODER = 0x55555555;// set pins as output
-	CONTROL_PORT->MODER = 0x00000155;// set pins as output, PD15 used for touch IRQ
+	//set data port pins as output
+	DATA_PORT->MODER = GPIO_MODER_MODER0_0 | GPIO_MODER_MODER1_0 | GPIO_MODER_MODER2_0 | GPIO_MODER_MODER3_0 |
+			           GPIO_MODER_MODER4_0 | GPIO_MODER_MODER5_0 | GPIO_MODER_MODER6_0 | GPIO_MODER_MODER7_0 |
+			           GPIO_MODER_MODER8_0 | GPIO_MODER_MODER9_0 | GPIO_MODER_MODER10_0 | GPIO_MODER_MODER11_0 |
+			           GPIO_MODER_MODER12_0 | GPIO_MODER_MODER13_0 | GPIO_MODER_MODER14_0 | GPIO_MODER_MODER15_0;
 
-	DATA_PORT->OSPEEDR = 0xFFFFFFFF; // set high-speed
+	// set control port pins as output, PD15 used for touch IRQ
+	CONTROL_PORT->MODER = GPIO_MODER_MODER0_0 | GPIO_MODER_MODER1_0 | GPIO_MODER_MODER2_0 | GPIO_MODER_MODER3_0 |
+						  GPIO_MODER_MODER4_0;
+
+	// set all data port pins as high-speed
+	DATA_PORT->OSPEEDR = 0xFFFFFFFF;
+
+	// set all control pins as high speed
 	CONTROL_PORT->OSPEEDR = 0x000003FF;
 
-	CONTROL_PORT->PUPDR = 0x40000000; // pull-up on PD15
+	// pull-up on PD15
+	CONTROL_PORT->PUPDR = GPIO_PUPDR_PUPDR15_0;
 
 	DATA_PORT->ODR = 0; // set all data pins to 0;
 	
@@ -24,11 +35,12 @@ void setupGPIO(void)
 	GPIOE->MODER |= 0x00002860; // alternate function on PE6, PE5, PE2, PE3 as output
 	GPIOE->OSPEEDR |= 0x000030F0;//
 	
-	// setup for ADCs
+	// setup for board specific pins (LD1, LD2, LD3 and Pushbutton 1)
 	GPIOB->MODER |= (1u << 28) | (1u << 14) | 1u; // setup led pins as output
 	GPIOB->MODER |= 12u; // setup PB1 as analog
 	GPIOB->PUPDR &= ~(12u);// setup no pull on PB1
 
+	// setup for ADCs
 	GPIOA->MODER |= 3 | (3 << 8);// setup PA0 and PA4 as analog
 	GPIOA->PUPDR &= ~(3u);// setup no pull-up or pull-down for PA0
 	GPIOA->PUPDR &= ~(3u << 8);// setup no pull-up or pull-down for PA4

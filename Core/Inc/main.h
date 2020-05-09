@@ -28,12 +28,6 @@
 #define X_PIXELS 		280
 #define Y_PIXELS 		216
 
-#define RISING_EDGE 	1
-#define FALLING_EDGE 	0
-#define COUPLING_GND 	0
-#define COUPLING_DC 	1
-#define COUPLING_AC 	2
-
 #define CS_AS1_LOW 		GPIOB->BRR = 0x00001000;  // PB12
 #define CS_AS1_HIGH 	GPIOB->BSRR = 0x00001000; // PB12
 #define CS_AS2_LOW 		GPIOB->BRR = 0x00000800;  // PB11

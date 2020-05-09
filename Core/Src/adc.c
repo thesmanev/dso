@@ -17,36 +17,48 @@ void initADC(channel_t *chx)
 		case 1:
 		{
 			disableADC(1);
-			ADC12_COMMON->CCR = 0x00010000; //synchronous clock
-			ADC1->CFGR = 0x00003001; // Continuous mode, overrun enabled, 12bit, right align, DMA one-shot, disabled
-			ADC1->SQR1 = 0x00000040; //SQ1 = 0x01, startuvaj //konverzija na ADC1_IN1
+			//synchronous clock mode, hclk / 1
+			ADC12_COMMON->CCR = ADC12_CCR_CKMODE_0;
+			 // Continuous mode, overrun enabled, 12bit, right align, DMA one-shot, disabled
+			ADC1->CFGR = ADC_CFGR_CONT | ADC_CFGR_OVRMOD | ADC_CFGR_DMAEN;
+			//SQ1 = 0x01, startuvaj //konverzija na ADC1_IN1
+			ADC1->SQR1 = ADC_SQR1_SQ1_0;
 			enableADC(1);
 			break;
 		}
 		case 2:
 		{
 			disableADC(2);
-			ADC12_COMMON->CCR = 0x00010000; //synchronous clock
-			ADC2->CFGR = 0x00003001; // Continuous mode, overrun enabled, 12bit, right align,
-			ADC2->SQR1 = 0x00000040; //SQ1 = 0x01, startuvaj //konverzija na ADC2_IN1
+			//synchronous clock mode, hclk / 1
+			ADC12_COMMON->CCR = ADC12_CCR_CKMODE_0;
+			 // Continuous mode, overrun enabled, 12bit, right align, DMA one-shot, disabled
+			ADC2->CFGR = ADC_CFGR_CONT | ADC_CFGR_OVRMOD | ADC_CFGR_DMAEN;
+			//SQ1 = 0x01, startuvaj //konverzija na ADC2_IN1
+			ADC2->SQR1 = ADC_SQR1_SQ1_0;
 			enableADC(2);
 			break;
 		}
 		case 3:
 		{
 			disableADC(3);
-			ADC34_COMMON->CCR = 0x00010000; //synchronous clock
-			ADC3->CFGR = 0x00003001; // Continuous mode, overrun enabled, 12bit, right align,
-			ADC3->SQR1 = 0x00000040; //SQ1 = 0x01, startuvaj //konverzija na ADC2_IN1
+			//synchronous clock mode, hclk / 1
+			ADC34_COMMON->CCR = ADC34_CCR_CKMODE_0;
+			 // Continuous mode, overrun enabled, 12bit, right align, DMA one-shot, disabled
+			ADC3->CFGR = ADC_CFGR_CONT | ADC_CFGR_OVRMOD | ADC_CFGR_DMAEN;
+			//SQ1 = 0x01, startuvaj //konverzija na ADC3_IN1
+			ADC3->SQR1 = ADC_SQR1_SQ1_0;
 			enableADC(3);
 			break;
 		}
 		case 4:
 		{
 			disableADC(4);
-			ADC34_COMMON->CCR = 0x00010000; //synchronous clock
-			ADC4->CFGR = 0x00003001; // Continuous mode, overrun enabled, 12bit, right align,
-			ADC4->SQR1 = 0x00000040; //SQ1 = 0x01, startuvaj //konverzija na ADC2_IN1
+			//synchronous clock mode, hclk / 1
+			ADC34_COMMON->CCR = ADC34_CCR_CKMODE_0;
+			 // Continuous mode, overrun enabled, 12bit, right align, DMA one-shot, disabled
+			ADC4->CFGR = ADC_CFGR_CONT | ADC_CFGR_OVRMOD | ADC_CFGR_DMAEN;
+			//SQ1 = 0x01, startuvaj //konverzija na ADC4_IN1
+			ADC4->SQR1 = ADC_SQR1_SQ1_0;
 			enableADC(4);
 			break;
 		}
@@ -320,7 +332,9 @@ void setupADCDual(uint32_t num)
 	{	// ADC3_4 in dual
 		disableADC(3);
 		disableADC(4);
-		ADC34_COMMON->CCR = 0x00018407;	//mdma one shot, 12 bit, delay 5 TADC, interleaved mode
+		//mdma one shot, 12 bit, delay 5 TADC, interleaved mode
+		ADC34_COMMON->CCR = ADC34_CCR_MULTI_0 | ADC34_CCR_MULTI_1 | ADC34_CCR_MULTI_2 |
+							ADC34_CCR_DELAY_2 | ADC34_CCR_MDMA_1 | ADC34_CCR_CKMODE_0;
 		enableADC(3);
 		enableADC(4);
 		ADC3->SMPR1 = 0; // max sample rate
@@ -332,7 +346,8 @@ void setupADCDual(uint32_t num)
 		disableADC(1);
 		disableADC(2);
 		// wait for adc2 to disable
-		ADC12_COMMON->CCR = 0x00018407;	//mdma one shot, 12 bit, delay 5 TADC, interleaved mode
+		ADC12_COMMON->CCR = ADC12_CCR_MULTI_0 | ADC12_CCR_MULTI_1 | ADC12_CCR_MULTI_2 |
+							ADC12_CCR_DELAY_2 | ADC12_CCR_MDMA_1 | ADC12_CCR_CKMODE_0;
 		enableADC(1);
 		enableADC(2);
 		ADC1->SMPR1 = 0; // max sample rate
@@ -352,7 +367,8 @@ void setupADCParallel(uint32_t num)
 		disableADC(3);
 		disableADC(4);
 		// wait for adc4 to disable
-		ADC34_COMMON->CCR = 0x00010006;	//no mdma, regular simultaneous mode
+		//no mdma, regular simultaneous mode
+		ADC34_COMMON->CCR = ADC34_CCR_MULTI_1 | ADC34_CCR_MULTI_2 | ADC34_CCR_CKMODE_0;
 		enableADC(3);
 		enableADC(4);
 		setupADCSingle(&dso.ch3);
@@ -363,14 +379,15 @@ void setupADCParallel(uint32_t num)
 	{
 		disableADC(1);
 		disableADC(2);
-		// wait for adc2 to disable
-		ADC12_COMMON->CCR = 0x00010006;	// no mdma, regular simultaneous mode
+		//no mdma, regular simultaneous mode
+		ADC12_COMMON->CCR = ADC12_CCR_MULTI_1 | ADC12_CCR_MULTI_2 | ADC12_CCR_CKMODE_0;
 		enableADC(1);
 		enableADC(2);
 		setupADCSingle(&dso.ch3);
 		setupADCSingle(&dso.ch4);
 		// setup DMA
 	}
+
 }
 
 /**
@@ -382,9 +399,16 @@ void setupADCQuad(void)
 	disableADC(2);
 	disableADC(3);
 	disableADC(4);
-	while (ADC4->CR & ADC_CR_ADDIS);// ADDIS bit is high until ADC gets disabled
-	ADC12_COMMON->CCR = 0x00018107; // synchronous clock, 12 bit MDMA circular mode, delay 2 T-ADC interleaved mode only
-	ADC34_COMMON->CCR = 0x00018107; // synchronous clock, 12 bit MDMA circular mode, delay 2 T-ADC interleaved mode only
+	// ADDIS bit is high until ADC gets disabled
+	while (ADC4->CR & ADC_CR_ADDIS);
+
+	// synchronous clock, 12 bit MDMA circular mode, delay 2 T-ADC interleaved mode only
+	ADC12_COMMON->CCR = ADC12_CCR_MULTI_0 | ADC12_CCR_MULTI_1 | ADC12_CCR_MULTI_2 |
+			            ADC12_CCR_DELAY_0 | ADC12_CCR_MDMA_1 | ADC12_CCR_CKMODE_0;
+
+	// synchronous clock, 12 bit MDMA circular mode, delay 2 T-ADC interleaved mode only
+	ADC34_COMMON->CCR = ADC34_CCR_MULTI_0 | ADC34_CCR_MULTI_1 | ADC34_CCR_MULTI_2 |
+            			ADC34_CCR_DELAY_0 | ADC34_CCR_MDMA_1 | ADC34_CCR_CKMODE_0;
 	enableADC(1);
 	enableADC(2);
 	enableADC(3);
@@ -404,8 +428,8 @@ void ADC1_2_IRQHandler(void)
 	{
 		ADC1->CR |= ADC_CR_ADSTP; //stop adc1 (and ADC2 bcs dual mode)
 		ADC3->CR |= ADC_CR_ADSTP; //stop adc3 (and ADC4 bcs dual mode)
-		DMA1_Channel1->CCR = 0x00002aaa; //
-		DMA2_Channel5->CCR = 0x00002aaa; // DMA disabled
+		DMA1_Channel1->CCR &= ~DMA_CCR_EN; //
+		DMA2_Channel5->CCR &= ~DMA_CCR_EN; // DMA disabled
 		assertError(1);
 	}
 }
@@ -419,8 +443,8 @@ void ADC3_IRQHandler(void)
 	{
 		ADC3->CR |= ADC_CR_ADSTP; //stop adc3 (and ADC4 bcs dual mode)
 		ADC1->CR |= ADC_CR_ADSTP; //stop adc1 (and ADC2 bcs dual mode)
-		DMA2_Channel5->CCR = 0x00002aaa; // DMA disabled
-		DMA1_Channel1->CCR = 0x00002aaa; //
+		DMA2_Channel5->CCR &= ~DMA_CCR_EN; // DMA disabled
+		DMA1_Channel1->CCR &= ~DMA_CCR_EN; //
 		assertError(2);
 	}
 }
@@ -434,8 +458,8 @@ void ADC4_IRQHandler(void)
 	{
 		ADC3->CR |= ADC_CR_ADSTP; //stop adc3 (and ADC4 bcs dual mode)
 		ADC1->CR |= ADC_CR_ADSTP; //stop adc1 (and ADC2 bcs dual mode)
-		DMA2_Channel5->CCR = 0x00002aaa; // DMA disabled
-		DMA1_Channel1->CCR = 0x00002aaa; //
+		DMA2_Channel5->CCR &= ~DMA_CCR_EN; // DMA disabled
+		DMA1_Channel1->CCR &= ~DMA_CCR_EN; //
 		assertError(3);
 	}
 }
@@ -445,8 +469,8 @@ void ADC4_IRQHandler(void)
  */
 void ADC_Clocks(void)
 {
-	ADC12_COMMON->CCR = 0x00010000; //synchronous clock
-	ADC34_COMMON->CCR = 0x00010000; //synchronous clock
+	ADC12_COMMON->CCR = ADC12_CCR_CKMODE_0; //synchronous clock
+	ADC34_COMMON->CCR = ADC34_CCR_CKMODE_0; //synchronous clock
 }
 
 /**
@@ -462,45 +486,65 @@ void calibrateADC(channel_t *chx)
 		case 1:
 		{
 			disableADC(chx->id);
-			ADC1->CR &= ~(0x3u << 28);      	//00: ADC Intermediate state
-			ADC1->CR |= 0x1u << 28; 	    	//01: ADC Voltage regulator enabled
+			//00: ADC Intermediate state
+			ADC1->CR &= ~(ADC_CR_ADVREGEN_0 | ADC_CR_ADVREGEN_1);
+			//01: ADC Voltage regulator enabled
+			ADC1->CR |=ADC_CR_ADVREGEN_0;
 			for (i = 0; i < 1000; i++);     	// some delay
-			ADC1->CR &= ~(0x1u << 30);      	//kalibracija vo Single-ended inputs Mode.
-			ADC1->CR |= 0x1u << 31; 		    //Start ADC calibration
-			while (ADC1->CR & (0x1u << 31)); 	//wait until calibration done
+			//calibrate in Single-ended inputs Mode.
+			ADC1->CR &= ~ADC_CR_ADCALDIF;
+			//Start ADC calibration
+			ADC1->CR |= ADC_CR_ADCAL;
+			//wait until calibration done
+			while (ADC1->CR & ADC_CR_ADCAL);
 			break;
 		}
 		case 2:
 		{
 			disableADC(chx->id);
-			ADC2->CR &= ~(0x3u << 28); 			//00: ADC Intermediate state
-			ADC2->CR |= 0x1u << 28; 			//01: ADC Voltage regulator enabled
-			for (i = 0; i < 1000; i++);
-			ADC2->CR &= ~(0x1u << 30); 			//kalibracija vo Single-ended inputs Mode.
-			ADC2->CR |= 0x1u << 31; 			//Start ADC calibration
-			while (ADC2->CR & (0x1u << 31)); 	//wait until calibration done
+			//00: ADC Intermediate state
+			ADC2->CR &= ~(ADC_CR_ADVREGEN_0 | ADC_CR_ADVREGEN_1);
+			//01: ADC Voltage regulator enabled
+			ADC2->CR |=ADC_CR_ADVREGEN_0;
+			for (i = 0; i < 1000; i++);     	// some delay
+			//calibrate in Single-ended inputs Mode.
+			ADC2->CR &= ~ADC_CR_ADCALDIF;
+			//Start ADC calibration
+			ADC2->CR |= ADC_CR_ADCAL;
+			//wait until calibration done
+			while (ADC2->CR & ADC_CR_ADCAL);
 			break;
 		}
 		case 3:
 		{
 			disableADC(chx->id);
-			ADC3->CR &= ~(0x3u << 28); 		 //00: ADC Intermediate state
-			ADC3->CR |= 0x1u << 28; 		 //01: ADC Voltage regulator enabled
-			for (i = 0; i < 1000; i++);
-			ADC3->CR &= ~(0x1u << 30); 		 //kalibracija vo Single-ended inputs Mode.
-			ADC3->CR |= 0x1u << 31; 		 //Start ADC calibration
-			while(ADC3->CR & (0x1u << 31));  //wait until calibration done
+			//00: ADC Intermediate state
+			ADC3->CR &= ~(ADC_CR_ADVREGEN_0 | ADC_CR_ADVREGEN_1);
+			//01: ADC Voltage regulator enabled
+			ADC3->CR |=ADC_CR_ADVREGEN_0;
+			for (i = 0; i < 1000; i++);     	// some delay
+			//calibrate in Single-ended inputs Mode.
+			ADC3->CR &= ~ADC_CR_ADCALDIF;
+			//Start ADC calibration
+			ADC3->CR |= ADC_CR_ADCAL;
+			//wait until calibration done
+			while (ADC4->CR & ADC_CR_ADCAL);
 			break;
 		}
 		case 4:
 		{
 			disableADC(chx->id);
-			ADC4->CR &= ~(0x3u << 28); 		 //00: ADC Intermediate state
-			ADC4->CR |= 0x1u << 28; 		 //01: ADC Voltage regulator enabled
-			for (i = 0; i < 1000; i++);
-			ADC4->CR &= ~(0x1u << 30); 		 //kalibracija vo Single-ended inputs Mode.
-			ADC4->CR |= 0x1u << 31; 		 //Start ADC calibration
-			while (ADC4->CR & (0x1u << 31)); //wait until calibration done
+			//00: ADC Intermediate state
+			ADC4->CR &= ~(ADC_CR_ADVREGEN_0 | ADC_CR_ADVREGEN_1);
+			//01: ADC Voltage regulator enabled
+			ADC4->CR |=ADC_CR_ADVREGEN_0;
+			for (i = 0; i < 1000; i++);     	// some delay
+			//calibrate in Single-ended inputs Mode.
+			ADC4->CR &= ~ADC_CR_ADCALDIF;
+			//Start ADC calibration
+			ADC4->CR |= ADC_CR_ADCAL;
+			//wait until calibration done
+			while (ADC4->CR & ADC_CR_ADCAL);
 			break;
 		}
 	}

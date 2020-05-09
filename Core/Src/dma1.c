@@ -8,7 +8,7 @@ void DMA1_Channel1_IRQHandler(void)
 	if(DMA1->ISR & DMA_ISR_TCIF1)
 	{
 		ADC1->CR |= ADC_CR_ADSTP; //stop adc1 (and ADC2 bcs dual mode)
-		DMA1_Channel1->CCR = 0x00002aaa; // disable dma1
+		DMA1_Channel1->CCR &= ~DMA_CCR_EN; // disable dma1
 		DMA1->IFCR = DMA_IFCR_CGIF1 | DMA_IFCR_CTCIF1; // clear full transfer interrupt flag and global interrupt flag
 	}
 	else
@@ -33,7 +33,7 @@ void DMA2_Channel1_IRQHandler(void)
 	if(DMA2->ISR & DMA_ISR_TCIF1)
 	{
 		ADC2->CR |= ADC_CR_ADSTP; //stop adc1 (and ADC2 bcs dual mode)
-		DMA2_Channel1->CCR = 0x00002aaa; // disable dma1
+		DMA2_Channel1->CCR &= ~DMA_CCR_EN; // disable dma1
 		DMA2->IFCR = DMA_IFCR_CGIF1 | DMA_IFCR_CTCIF1; // clear full transfer interrupt flag and global interrupt flag
 	}
 	else
@@ -58,7 +58,7 @@ void DMA2_Channel5_IRQHandler(void)
 	if(DMA2->ISR & DMA_ISR_TCIF5)
 	{ // if transfer complete interrupt flag for ch5
 		ADC3->CR |= ADC_CR_ADSTP; //stop adc3
-		DMA2_Channel5->CCR = 0x00002aaa; // disable dma2
+		DMA2_Channel5->CCR &= ~DMA_CCR_EN; // disable dma2
 		DMA2->IFCR = DMA_IFCR_CGIF5 | DMA_IFCR_CTCIF5; // clear full transfer interrupt flag and global interrupt flag
 	}
 	else
@@ -84,7 +84,7 @@ void DMA2_Channel2_IRQHandler(void)
 	if(DMA2->ISR & DMA_ISR_TCIF2)
 	{
 		ADC4->CR |= ADC_CR_ADSTP; //stop adc1 (and ADC2 bcs dual mode)
-		DMA2_Channel2->CCR = 0x00002aaa; // disable dma1
+		DMA2_Channel2->CCR &= ~DMA_CCR_EN; // disable dma1
 		DMA2->IFCR = DMA_IFCR_CGIF2 | DMA_IFCR_CTCIF2; // clear full transfer interrupt flag and global interrupt flag
 	}
 	else

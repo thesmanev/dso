@@ -30,9 +30,9 @@ void aquireDataQuad(void)
 	// 1 cycle
 	asm("str r3, [r2, #1032]");
 	// ADC3_4 started // 2 cycles
-	DMA1_Channel1->CCR = 0x00002a8b; // Configure and start DMA1 channel 1
+	DMA1_Channel1->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_1 | DMA_CCR_PL_1; // Configure and start DMA1 channel 1
 	// expected duration 5 cycles
-	DMA2_Channel5->CCR = 0x00002a8b;	// Configure and start DMA2 channel 5
+	DMA2_Channel5->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_1 | DMA_CCR_PL_1;	// Configure and start DMA2 channel 5
 	// length of line : expected to be 7 cycles
 	// first DMA transfer expected 18 cycles after ADC1 start
 	asm("wfi");
@@ -54,9 +54,9 @@ void aquireDataDualParallel(void)
 	// ADC1_2 started
 	asm("str r3, [r2, #1032]");
 	// ADC3_4 started // 2 cycles
-	DMA1_Channel1->CCR = 0x00002a8b; // Configure and start DMA1 channel 1
+	DMA1_Channel1->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_1 | DMA_CCR_PL_1; // Configure and start DMA1 channel 1
 	// expected duration 5 cycles
-	DMA2_Channel5->CCR = 0x00002a8b;	// Configure and start DMA2 channel 5
+	DMA2_Channel5->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_1 | DMA_CCR_PL_1;	// Configure and start DMA2 channel 5
 	// length of line : expected to be 7 cycles
 	// first DMA transfer expected 18 cycles after ADC1 start
 	asm("wfi");
@@ -78,7 +78,7 @@ void aquireDataDual(uint32_t num)
 		asm("orr.w r3, r3, #4");
 		asm("str r3, [r2, #1032]");
 		// ADC3_4 started // 2 cycles
-		DMA2_Channel5->CCR = 0x00002a8b; // Configure and start DMA1 channel 1
+		DMA2_Channel5->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_1 | DMA_CCR_PL_1; // Configure and start DMA1 channel 1
 		asm("wfi");
 	}
 	else
@@ -91,7 +91,7 @@ void aquireDataDual(uint32_t num)
 		asm("orr.w r3, r3, #4");
 		asm("str r3, [r2, #8]");
 		// ADC1_2 started
-		DMA1_Channel1->CCR = 0x00002a8b; // Configure and start DMA1 channel 1
+		DMA1_Channel1->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_1 | DMA_CCR_PL_1; // Configure and start DMA1 channel 1
 		asm("wfi");
 	}
 }
@@ -112,8 +112,8 @@ void aquireDataParallel(uint32_t num)
 		asm("orr.w r3, r3, #4");
 		asm("str r3, [r2, #1032]");
 		// ADC3_4 started // 2 cycles
-		DMA2_Channel5->CCR = 0x0000268b; // Configure and start DMA2 channel 5, mem 16bit, periph 32bit
-		DMA2_Channel2->CCR = 0x0000268b; // Configure and start DMA2 channel 2, mem 16bit, periph 32bit
+		DMA2_Channel5->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA2 channel 5, mem 16bit, periph 32bit
+		DMA2_Channel2->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA2 channel 2, mem 16bit, periph 32bit
 		asm("wfi");
 	}
 	else
@@ -126,8 +126,8 @@ void aquireDataParallel(uint32_t num)
 		asm("orr.w r3, r3, #4");
 		asm("str r3, [r2, #8]");
 		// ADC1_2 started
-		DMA1_Channel1->CCR = 0x0000268b; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
-		DMA2_Channel1->CCR = 0x0000268b; // Configure and start DMA2 channel 1, mem 16bit, periph 32bit
+		DMA1_Channel1->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
+		DMA2_Channel1->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA2 channel 1, mem 16bit, periph 32bit
 		asm("wfi");
 	}
 }
@@ -149,11 +149,11 @@ void aquireDataAllParallel(void)
 	// ADC1_2 started
 	asm("str r3, [r2, #1032]");
 	// ADC3_4 started // 2 cycles
-	DMA1_Channel1->CCR = 0x0000268b; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
-	DMA2_Channel1->CCR = 0x0000268b; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
+	DMA1_Channel1->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
+	DMA2_Channel1->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
 	// expected duration 5 cycles
-	DMA2_Channel5->CCR = 0x0000268b;	// Configure and start DMA2 channel 5, mem 16bit, periph 32bit
-	DMA2_Channel2->CCR = 0x0000268b;	// Configure and start DMA1 channel 1, mem 16bit, periph 32bit
+	DMA2_Channel5->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1;	// Configure and start DMA2 channel 5, mem 16bit, periph 32bit
+	DMA2_Channel2->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1;	// Configure and start DMA1 channel 1, mem 16bit, periph 32bit
 	// length of line : expected to be 7 cycles
 	asm("wfi");
 }
@@ -176,8 +176,8 @@ void aquireDataSingle(channel_t *chx)
 			asm("orr.w r3, r3, #4");
 			asm("str r3, [r2, #8]");
 			// ADC1 started
-			DMA1_Channel1->CCR = 0x0000268b; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
-			//asm("wfi");
+			DMA1_Channel1->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
+			asm("wfi");
 			break;
 		}
 		case 2:
@@ -191,7 +191,7 @@ void aquireDataSingle(channel_t *chx)
 			asm("orr.w r3, r3, #4");
 			asm("str r3, [r2, #264]");
 			// ADC2 started
-			DMA2_Channel1->CCR = 0x0000268b; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
+			DMA2_Channel1->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
 			asm("wfi");
 			break;
 		}
@@ -206,7 +206,7 @@ void aquireDataSingle(channel_t *chx)
 			asm("orr.w r3, r3, #4");
 			asm("str r3, [r2, #1032]");
 			// ADC3 started
-			DMA2_Channel5->CCR = 0x0000268b; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
+			DMA2_Channel5->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
 			asm("wfi");
 			break;
 		}
@@ -221,7 +221,7 @@ void aquireDataSingle(channel_t *chx)
 			asm("orr.w r3, r3, #4");
 			asm("str r3, [r2, #1288]");
 			// ADC4 started
-			DMA2_Channel2->CCR = 0x0000268b; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
+			DMA2_Channel2->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
 			asm("wfi");
 			break;
 		}
@@ -245,8 +245,8 @@ void aquireDataParallel_23(void)
 	// ADC2 started
 	asm("str r3, [r2, #1032]");
 	// ADC3 started // 2 cycles
-	DMA2_Channel1->CCR = 0x0000268b; // Configure and start DMA2 channel 1, mem 16bit, periph 32bit
-	DMA2_Channel5->CCR = 0x0000268b; // Configure and start DMA2 channel 5, mem 16bit, periph 32bit
+	DMA2_Channel1->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA2 channel 1, mem 16bit, periph 32bit
+	DMA2_Channel5->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA2 channel 5, mem 16bit, periph 32bit
 	asm("wfi");
 }
 
@@ -269,11 +269,10 @@ void aquireDataParallel_234(void)
 	// ADC2 started
 	asm("str r3, [r2, #1032]");
 	// ADC3 started // 2 cycles
-	DMA2_Channel1->CCR = 0x0000268b; // Configure and start DMA2 channel 1, mem 16bit, periph 32bit
-	DMA2_Channel5->CCR = 0x0000268b; // Configure and start DMA2 channel 5, mem 16bit, periph 32bit
-	DMA2_Channel1->CCR = 0x0000268b; //, mem 16bit, periph 32bit
-	//asm("wfi");
-//	ulTaskNotifyTake(pdTRUE, 100);
+	DMA2_Channel1->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA2 channel 1, mem 16bit, periph 32bit
+	DMA2_Channel5->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA2 channel 5, mem 16bit, periph 32bit
+	DMA2_Channel1->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; //, mem 16bit, periph 32bit
+	asm("wfi");
 }
 
 void aquireDataParallel_24(void)
@@ -290,8 +289,8 @@ void aquireDataParallel_24(void)
 	// ADC2 started
 	asm("str r3, [r2, #1288]");
 	// ADC4 started
-	DMA2_Channel1->CCR = 0x0000268b; // Configure and start DMA2 channel 1, mem 16bit, periph 32bit
-	DMA2_Channel2->CCR = 0x0000268b; // Configure and start DMA2 channel 2, mem 16bit, periph 32bit
+	DMA2_Channel1->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA2 channel 1, mem 16bit, periph 32bit
+	DMA2_Channel2->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA2 channel 2, mem 16bit, periph 32bit
 	asm("wfi");
 }
 
@@ -312,8 +311,8 @@ void aquireDataParallel_14(void)
 	// ADC1 started
 	asm("str r3, [r2, #1288]");
 	// ADC4 started
-	DMA1_Channel1->CCR = 0x0000268b; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
-	DMA2_Channel2->CCR = 0x0000268b; // Configure and start DMA2 channel 2, mem 16bit, periph 32bit
+	DMA1_Channel1->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
+	DMA2_Channel2->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA2 channel 2, mem 16bit, periph 32bit
 	asm("wfi");
 }
 
@@ -335,9 +334,9 @@ void aquireDataParallel_124(void)
 	// ADC1 started
 	asm("str r3, [r2, #1288]");
 	// ADC4 started
-	DMA1_Channel1->CCR = 0x0000268b; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
-	DMA2_Channel1->CCR = 0x0000268b; //, mem 16bit, periph 32bit
-	DMA2_Channel2->CCR = 0x0000268b; // Configure and start DMA2 channel 2, mem 16bit, periph 32bit
+	DMA1_Channel1->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
+	DMA2_Channel1->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; //, mem 16bit, periph 32bit
+	DMA2_Channel2->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA2 channel 2, mem 16bit, periph 32bit
 	asm("wfi");
 }
 
@@ -356,9 +355,9 @@ void aquireDataParallel_13(void)
 	// ADC1_2 started
 	asm("str r3, [r2, #1032]");
 	// ADC3_4 started // 2 cycles
-	DMA1_Channel1->CCR = 0x0000268b; // Configure and start DMA1 channel 1
+	DMA1_Channel1->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA1 channel 1
 	// expected duration 5 cycles
-	DMA2_Channel5->CCR = 0x0000268b;	// Configure and start DMA2 channel 5
+	DMA2_Channel5->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1;	// Configure and start DMA2 channel 5
 	asm("wfi");
 }
 
@@ -366,489 +365,199 @@ void aquireDataParallel_13(void)
  * @Brief Depending on the enabled channels and the timebase, this function determines how to acquire/sample data.
  * @param mode
  */
-void aquireData(uint32_t mode)
+void aquireData(void)
 {
 	switch (channel_state)
 	{
-		case 0:
+		case ENABLED_CH_NONE:
 			break;
-		case 1:
+		case ENABLED_CH_1:
 		{
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				if(mode)
-					displayWaveformTrig(1, mode);
-				else
-				{
-					aquireDataSingle(&dso.ch1);
-					findTrigger();
-					displayWaveformTrig(1, mode);
-				}
+				aquireDataSingle(&dso.ch1);
+				findTrigger();
+				displayWaveformTrig(CH1_ID);
 			}
 			else if(dso.timeDiv < timeDiv_2_5us)
 			{
-				if(mode)
-					displayWaveformTrig(0, mode);
-				else
-				{
-					aquireDataDual(0);
-					findTrigger();
-					displayWaveformTrig(0, mode);
-				}
+				aquireDataDual(0);
+				findTrigger();
+				displayWaveformTrig(CH_ID_NONE);
 			}
 			else
 			{
-				if(mode)
-					displayWaveformTrig(0, mode);
-				else
-				{
-					aquireDataQuad();
-					findTrigger();
-					displayWaveformTrig(0, mode);
-				}
+				aquireDataQuad();
+				findTrigger();
+				displayWaveformTrig(CH_ID_NONE);
 			}
 			break;
 		}
-		case 2:
+		case ENABLED_CH_2:
 		{
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				if(mode)
-					displayWaveformTrig(2, mode);
-				else
-				{
-					aquireDataSingle(&dso.ch2);
-					findTrigger();
-					displayWaveformTrig(2, mode);
-				}
-			}
-			//unavailable
-			else if(dso.timeDiv < timeDiv_2_5us)
-			{
-//				aquireDataDual(0);
-//				//find trigger
-				//display waveform
-			}
-			else
-			{
-//     			aquireDataQuad();
-//				//find trigger
-//				//display waveform
+				aquireDataSingle(&dso.ch2);
+				findTrigger();
+				displayWaveformTrig(CH2_ID);
 			}
 			break;
 		}
-		case 3:
+		case ENABLED_CH_12:
 		{
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				if(mode)
-				{
-					displayWaveformTrig(1, mode);
-					displayWaveformTrig(2, mode);
-				}
-				else
-				{
-					aquireDataParallel(0);
-					findTrigger();
-					displayWaveformTrig(1, mode);
-					displayWaveformTrig(2, mode);
-				}
+				aquireDataParallel(0);
+				findTrigger();
+				displayWaveformTrig(CH1_ID);
+				displayWaveformTrig(CH2_ID);
 			}
-			//unavailable
+		}
+		case ENABLED_CH_3:
+		{
+			if(dso.timeDiv < timeDiv_10us)
+			{
+				aquireDataSingle(&dso.ch3);
+				findTrigger();
+				displayWaveformTrig(CH3_ID);
+			}
 			else if(dso.timeDiv < timeDiv_2_5us)
 			{
-//				aquireDataDual(0);
-//				//find trigger
-//				//display waveform
-			}
-			else
-			{
-//				aquireDataQuad();
-//				//find trigger
-//				//display waveform
+				aquireDataDual(1);
+				findTrigger();
+				displayWaveformTrig(CH_ID_NONE);
 			}
 			break;
 		}
-		case 4:
+		case ENABLED_CH_13:
 		{
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				if(mode)
-					displayWaveformTrig(3, mode);
-				else
-				{
-					aquireDataSingle(&dso.ch3);
-					findTrigger();
-					displayWaveformTrig(3, mode);
-				}
+				aquireDataParallel_13();
+				findTrigger();
+				displayWaveformTrig(CH1_ID);
+				displayWaveformTrig(CH3_ID);
 			}
 			else if(dso.timeDiv < timeDiv_2_5us)
 			{
-				if(mode)
-					displayWaveformTrig(0, mode);
-				else
-				{
-					aquireDataDual(1);
-					findTrigger();
-					displayWaveformTrig(0, mode);
-				}
-			}
-			else
-			{
-				//unavailable
-//				aquireDataQuad();
-//				//find trigger
-//				//display waveform
+				aquireDataDualParallel();
+				findTrigger();
+				displayWaveformTrig(CH_ID_NONE);
 			}
 			break;
 		}
-		case 5:
+		case ENABLED_CH_23:
 		{
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				if(mode)
-				{
-					displayWaveformTrig(1, mode);
-					displayWaveformTrig(3, mode);
-				}
-				else
-				{
-					aquireDataParallel_13();
-					findTrigger();
-					displayWaveformTrig(1, mode);
-					displayWaveformTrig(3, mode);
-				}
-			}
-			else if(dso.timeDiv < timeDiv_2_5us)
-			{
-				if(mode)
-					displayWaveformTrig(0, mode);
-				else
-				{
-					aquireDataDualParallel();
-					findTrigger();
-					displayWaveformTrig(0, mode);
-				}
-			}
-			else
-			{
-//				aquireDataQuad();
-//				//find trigger
-//				//display waveform
+				aquireDataParallel_23();
+				findTrigger();
+				displayWaveformTrig(CH2_ID);
+				displayWaveformTrig(CH3_ID);
 			}
 			break;
 		}
-		case 6:
+		case ENABLED_CH_123:
 		{
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				if(mode)
-				{
-					displayWaveformTrig(2, mode);
-					displayWaveformTrig(3, mode);
-				}
-				else
-				{
-					aquireDataParallel_23();
-					findTrigger();
-					displayWaveformTrig(2, mode);
-					displayWaveformTrig(3, mode);
-				}
-			}
-			else if(dso.timeDiv < timeDiv_2_5us)
-			{
-//				aquireDataDualParallel();
-//				//find trigger
-//				//display waveform
-			}
-			else
-			{
-//				aquireDataQuad();
-//				//find trigger
-//				//display waveform
+				aquireDataAllParallel();
+				findTrigger();
+				displayWaveformTrig(CH1_ID);
+				displayWaveformTrig(CH2_ID);
+				displayWaveformTrig(CH3_ID);
 			}
 			break;
 		}
-		case 7:
+		case ENABLED_CH_4:
 		{
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				if(mode)
-				{
-					displayWaveformTrig(1, mode);
-					displayWaveformTrig(2, mode);
-					displayWaveformTrig(3, mode);
-				}
-				else
-				{
-					aquireDataAllParallel();
-					findTrigger();
-					displayWaveformTrig(1, mode);
-					displayWaveformTrig(2, mode);
-					displayWaveformTrig(3, mode);
-				}
-			}
-			else if(dso.timeDiv < timeDiv_2_5us)
-			{
-			}
-			else
-			{
+				aquireDataSingle(&dso.ch4);
+				findTrigger();
+				displayWaveformTrig(CH4_ID);
 			}
 			break;
 		}
-		case 8:
+		case ENABLED_CH_14:
 		{
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				if(mode)
-					displayWaveformTrig(4, mode);
-				else
-				{
-					aquireDataSingle(&dso.ch4);
-					findTrigger();
-					displayWaveformTrig(4, mode);
-				}
-			}
-			else if(dso.timeDiv < timeDiv_2_5us)
-			{
-//				aquireDataDualParallel();
-//				//find trigger
-//				//display waveform
-			}
-			else
-			{
-//				aquireDataQuad();
-//				//find trigger
-//				//display waveform
+				aquireDataParallel_14();
+				findTrigger();
+				displayWaveformTrig(CH1_ID);
+				displayWaveformTrig(CH4_ID);
 			}
 			break;
 		}
-		case 9:
+		case ENABLED_CH_24:
 		{
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				if(mode)
-				{
-					displayWaveformTrig(1, mode);
-					displayWaveformTrig(4, mode);
-				}
-				else
-				{
-					aquireDataParallel_14();
-					findTrigger();
-					displayWaveformTrig(1, mode);
-					displayWaveformTrig(4, mode);
-				}
-			}
-			else if(dso.timeDiv < timeDiv_2_5us)
-			{
-//				aquireDataDualParallel();
-//				//find trigger
-//				//display waveform
-			}
-			else
-			{
-//				aquireDataQuad();
-//				//find trigger
-//				//display waveform
+				aquireDataParallel_24();
+				findTrigger();
+				displayWaveformTrig(CH2_ID);
+				displayWaveformTrig(CH4_ID);
 			}
 			break;
 		}
-		case 10:
+		case ENABLED_CH_124:
 		{
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				if(mode)
-				{
-					displayWaveformTrig(2, mode);
-					displayWaveformTrig(4, mode);
-				}
-				else
-				{
-					aquireDataParallel_24();
-					findTrigger();
-					displayWaveformTrig(2, mode);
-					displayWaveformTrig(4, mode);
-				}
-			}
-			else if(dso.timeDiv < timeDiv_2_5us)
-			{
-//				aquireDataDualParallel();
-//				//find trigger
-//				//display waveform
-			}
-			else
-			{
-//				aquireDataQuad();
-//				//find trigger
-//				//display waveform
+				aquireDataParallel_124();
+				findTrigger();
+				displayWaveformTrig(CH1_ID);
+				displayWaveformTrig(CH2_ID);
+				displayWaveformTrig(CH4_ID);
 			}
 			break;
 		}
-		case 11:
+		case ENABLED_CH_34:
 		{
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				if(mode)
-				{
-					displayWaveformTrig(1, mode);
-					displayWaveformTrig(2, mode);
-					displayWaveformTrig(4, mode);
-				}
-				else
-				{
-					aquireDataParallel_124();
-					findTrigger();
-					displayWaveformTrig(1, mode);
-					displayWaveformTrig(2, mode);
-					displayWaveformTrig(4, mode);
-				}
-			}
-			else if(dso.timeDiv < timeDiv_2_5us)
-			{
-//				aquireDataDualParallel();
-//				//find trigger
-//				//display waveform
-			}
-			else
-			{
-//				aquireDataQuad();
-//				//find trigger
-//				//display waveform
+				aquireDataParallel(1);
+				findTrigger();
+				displayWaveformTrig(CH3_ID);
+				displayWaveformTrig(CH4_ID);
 			}
 			break;
 		}
-		case 12:
+		case ENABLED_CH_134:
 		{
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				if(mode)
-				{
-					displayWaveformTrig(3, mode);
-					displayWaveformTrig(4, mode);
-				}
-				else
-				{
-					aquireDataParallel(1);
-					findTrigger();
-					displayWaveformTrig(3, mode);
-					displayWaveformTrig(4, mode);
-				}
-				//display waveform
-			}
-			else if(dso.timeDiv < timeDiv_2_5us)
-			{
-//				aquireDataParallel(1);
-//				//find trigger
-//				//display waveform
-			}
-			else
-			{
-//				aquireDataQuad();
-//				//find trigger
-//				//display waveform
+				aquireDataAllParallel();
+				findTrigger();
+				displayWaveformTrig(CH1_ID);
+				displayWaveformTrig(CH3_ID);
+				displayWaveformTrig(CH4_ID);
 			}
 			break;
 		}
-		case 13:
+		case ENABLED_CH_234:
 		{
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				if(mode)
-				{
-					displayWaveformTrig(1, mode);
-					displayWaveformTrig(3, mode);
-					displayWaveformTrig(4, mode);
-				}
-				else
-				{
-					aquireDataAllParallel();
-					findTrigger();
-					displayWaveformTrig(1, mode);
-					displayWaveformTrig(3, mode);
-					displayWaveformTrig(4, mode);
-				}
-				//display waveform
-			}
-			else if(dso.timeDiv < timeDiv_2_5us)
-			{
-//				aquireDataDualParallel();
-//				//find trigger
-//				//display waveform
-			}
-			else
-			{
-//				aquireDataQuad();
-//				//find trigger
-//				//display waveform
+				aquireDataParallel_234();
+				findTrigger();
+				displayWaveformTrig(CH2_ID);
+				displayWaveformTrig(CH3_ID);
+				displayWaveformTrig(CH4_ID);
 			}
 			break;
 		}
-		case 14:
+		case ENABLED_CH_1234:
 		{
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				if(mode)
-				{
-					displayWaveformTrig(2, mode);
-					displayWaveformTrig(3, mode);
-					displayWaveformTrig(4, mode);
-				}
-				else
-				{
-					aquireDataParallel_234();
-					findTrigger();
-					displayWaveformTrig(2, mode);
-					displayWaveformTrig(3, mode);
-					displayWaveformTrig(4, mode);
-				}
-			}
-			else if(dso.timeDiv < timeDiv_2_5us)
-			{
-//				aquireDataDualParallel();
-//				//find trigger
-//				//display waveform
-			}
-			else
-			{
-//				aquireDataQuad();
-//				//find trigger
-//				//display waveform
-			}
-			break;
-		}
-		case 15:
-		{
-			if(dso.timeDiv < timeDiv_10us)
-			{
-				if(mode)
-				{
-					displayWaveformTrig(1, mode);
-					displayWaveformTrig(2, mode);
-					displayWaveformTrig(3, mode);
-					displayWaveformTrig(4, mode);
-				}
-				else
-				{
-					aquireDataAllParallel();
-					findTrigger();
-					displayWaveformTrig(1, mode);
-					displayWaveformTrig(2, mode);
-					displayWaveformTrig(3, mode);
-					displayWaveformTrig(4, mode);
-				}
-			}
-			else if(dso.timeDiv < timeDiv_2_5us)
-			{
-//				aquireDataDualParallel();
-//				//find trigger
-//				//display waveform
-			}
-			else
-			{
-//				aquireDataQuad();
-//				//find trigger
-//				//display waveform
+				aquireDataAllParallel();
+				findTrigger();
+				displayWaveformTrig(CH1_ID);
+				displayWaveformTrig(CH2_ID);
+				displayWaveformTrig(CH3_ID);
+				displayWaveformTrig(CH4_ID);
 			}
 			break;
 		}

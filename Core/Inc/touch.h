@@ -7,8 +7,8 @@
 #define CST_LOW 		(GPIOE->BRR = 0x00000008)   // PE3
 #define CST_HIGH 		(GPIOE->BSRR = 0x00000008)  // PE3
 
-#define touchReadXcmd 	0xD000
-#define touchReadYcmd 	0x9000
+#define TOUCHREADXCMD 	0xD000
+#define TOUCHREADYCMD 	0x9000
 
 typedef enum{
 	none_pressed,

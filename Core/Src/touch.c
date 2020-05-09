@@ -15,8 +15,10 @@ static uint32_t selected = 0;
  */
 void setupTouch(void)
 {
-	SPIx->CR1 = 0x002C; // disabled, baud-rate fpclk/32, master
-	SPIx->CR2 = 0x0F04; // 16-bit, SS output disabled, RXNE at 1/2 full RX FIFO
+	// disabled, baud-rate fpclk/64, master
+	SPIx->CR1 = SPI_CR1_MSTR | SPI_CR1_BR_0 | SPI_CR1_BR_2;
+	// 16-bit, SS output disabled, RXNE at 1/2 full RX FIFO
+	SPIx->CR2 = SPI_CR2_DS | SPI_CR2_SSOE;
 	touch_readX();
 	touch_readY();
 }
@@ -28,9 +30,10 @@ void setupTouch(void)
 static uint16_t touch_readY(void)
 {
 	uint16_t y1, y2, y;
-	SPIx->DR = touchReadYcmd; // send read X command
+	SPIx->DR = TOUCHREADYCMD; // send read X command
 	CST_LOW;
-	SPIx->CR1 = 0x006C; // enabled, baud-rate f-pclk/64, master
+	 // enabled, baud-rate f-pclk/64, master
+	SPIx->CR1 = SPI_CR1_MSTR | SPI_CR1_BR_0 | SPI_CR1_BR_2 | SPI_CR1_SPE;
 	while (!(SPIx->SR & SPI_SR_TXE)); // wait for receiving to complete
 	while (!(SPIx->SR & SPI_SR_RXNE)); // wait for receiving to complete
 	y1 = SPIx->DR; // read input
@@ -39,7 +42,12 @@ static uint16_t touch_readY(void)
 	while (!(SPIx->SR & SPI_SR_RXNE)); // wait for receiving to complete
 	y2 = SPIx->DR; // read input
 	CST_HIGH;
-	SPIx->CR1 = 0x002C; // disabled, baud-rate fpclk/64, master
+	 // disabled, baud-rate fpclk/64, master
+	SPIx->CR1 = SPI_CR1_MSTR | SPI_CR1_BR_0 | SPI_CR1_BR_2;
+
+	/* Part of the data is received when sending the read command, and a second part with the second transmission.
+	 * Combine the data to get the 12 bit value.
+	 */
 	y = (uint16_t)(((y1 << 5) & 0x0FE0) + ((y2 >> 11) & 0x001F));
 	return y;
 }
@@ -52,8 +60,9 @@ static uint16_t touch_readX(void)
 {
 	uint16_t x1, x2, x;
 	CST_LOW;
-	SPIx->CR1 = 0x006C; // enabled, baud-rate f-pclk/64, master
-	SPIx->DR = touchReadXcmd; // send read X command
+	 // enabled, baud-rate f-pclk/64, master
+	SPIx->CR1 = SPI_CR1_MSTR | SPI_CR1_BR_0 | SPI_CR1_BR_2 | SPI_CR1_SPE;
+	SPIx->DR = TOUCHREADXCMD; // send read X command
 	while (!(SPIx->SR & SPI_SR_TXE)); // wait for receiving to complete
 	while (!(SPIx->SR & SPI_SR_RXNE)); // wait for receiving to complete
 	x1 = SPIx->DR; // read input
@@ -62,7 +71,12 @@ static uint16_t touch_readX(void)
 	while (!(SPIx->SR & SPI_SR_RXNE)); // wait for receiving to complete
 	x2 = SPIx->DR; // read input
 	CST_HIGH;
-	SPIx->CR1 = 0x002C; // disabled, baud-rate fpclk/64, master
+	 // disabled, baud-rate fpclk/64, master
+	SPIx->CR1 = SPI_CR1_MSTR | SPI_CR1_BR_0 | SPI_CR1_BR_2;
+
+	/* Part of the data is received when sending the read command, and a second part with the second transmission.
+	 * Combine the data to get the 12 bit value.
+	 */
 	x = (uint16_t) (((x1 << 5) & 0x0FE0) + ((x2 >> 11) & 0x001F));
 	return x;
 }
@@ -76,7 +90,7 @@ static uint32_t get_Y_touch(void)
 	// X and Y of touch are inverted in relation to display (X is Y and vice versa)
 	uint16_t x_touch = touch_readX();
 	int32_t pix;
-	int32_t yt = 240 - (((int32_t) x_touch - 320) / 14);
+	int32_t yt = Y_PIXELS - (((int32_t) x_touch - 320) / 14);
 	pix = (int32_t) yt;
 	if(pix > 240)
 		pix = 241;
@@ -109,6 +123,7 @@ static uint32_t get_X_touch(void)
 void pollForTouch(void)
 {
 	uint32_t xt = 0, yt = 0;
+	/* Check if touch is detected */
 	if(!(GPIOD->IDR & GPIO_IDR_15))
 	{
 		yt = get_Y_touch();
@@ -325,7 +340,7 @@ void pollForTouch(void)
 					dso.ch1.enabled = 0;
 					dso.ch1.selected = 0;
 					LCD_RectFill(CH1_XTextStart, CH1_YTextStart,
-					CH1_XTextStart + 16, (CH1_YTextStart + FONTXSIZESMALL - 2),
+					CH1_XTextStart + 16, (CH1_YTextStart + FONTYSIZESMALL - 2),
 					ILI9341_BLACK);
 					LCD_Print(CH1_XTextStart, CH1_YTextStart, ch1, 2,
 					ILI9341_GREEN);
@@ -347,7 +362,7 @@ void pollForTouch(void)
 						dso.ch4.selected = 0;
 						deselect();
 						LCD_DrawRect(CH1_XTextStart, CH1_YTextStart,
-						CH1_XTextStart + 16, (CH1_YTextStart + FONTXSIZESMALL - 2),
+						CH1_XTextStart + 16, (CH1_YTextStart + FONTYSIZESMALL - 2),
 						ILI9341_WHITE);
 					}
 					else
@@ -355,7 +370,7 @@ void pollForTouch(void)
 						dso.ch1.enabled = 1;
 						dso.ch1.selected = 0;
 						LCD_RectFill(CH1_XTextStart, CH1_YTextStart,
-						CH1_XTextStart + 16, (CH1_YTextStart + FONTXSIZESMALL - 2),
+						CH1_XTextStart + 16, (CH1_YTextStart + FONTYSIZESMALL - 2),
 						ILI9341_GREEN);
 						LCD_Print(CH1_XTextStart, CH1_YTextStart, ch1, 2,
 						ILI9341_BLACK);
@@ -376,7 +391,7 @@ void pollForTouch(void)
 					dso.ch2.enabled = 0;
 					dso.ch2.selected = 0;
 					LCD_RectFill(CH2_XTextStart, CH2_YTextStart,
-					CH2_XTextStart + 16, (CH2_YTextStart + FONTXSIZESMALL - 2),
+					CH2_XTextStart + 16, (CH2_YTextStart + FONTYSIZESMALL - 2),
 					ILI9341_BLACK);
 					LCD_Print(CH2_XTextStart, CH2_YTextStart, ch2, 2,
 					ILI9341_BLUE);
@@ -398,7 +413,7 @@ void pollForTouch(void)
 						dso.ch4.selected = 0;
 						deselect();
 						LCD_DrawRect(CH2_XTextStart, CH2_YTextStart,
-						CH2_XTextStart + 16, (CH2_YTextStart + FONTXSIZESMALL - 2),
+						CH2_XTextStart + 16, (CH2_YTextStart + FONTYSIZESMALL - 2),
 						ILI9341_WHITE);
 
 					}
@@ -407,7 +422,7 @@ void pollForTouch(void)
 						dso.ch2.enabled = 1;
 						dso.ch2.selected = 0;
 						LCD_RectFill(CH2_XTextStart, CH2_YTextStart,
-						CH2_XTextStart + 16, (CH2_YTextStart + FONTXSIZESMALL - 2),
+						CH2_XTextStart + 16, (CH2_YTextStart + FONTYSIZESMALL - 2),
 						ILI9341_BLUE);
 						LCD_Print(CH2_XTextStart, CH2_YTextStart, ch2, 2,
 						ILI9341_BLACK);
@@ -428,7 +443,7 @@ void pollForTouch(void)
 					dso.ch3.enabled = 0;
 					dso.ch3.selected = 0;
 					LCD_RectFill(CH3_XTextStart, CH3_YTextStart,
-					CH3_XTextStart + 16, (CH3_YTextStart + FONTXSIZESMALL - 2),
+					CH3_XTextStart + 16, (CH3_YTextStart + FONTYSIZESMALL - 2),
 					ILI9341_BLACK);
 					LCD_Print(CH3_XTextStart, CH3_YTextStart, ch3, 2,
 					ILI9341_RED);
@@ -450,7 +465,7 @@ void pollForTouch(void)
 						dso.ch4.selected = 0;
 						deselect();
 						LCD_DrawRect(CH3_XTextStart, CH3_YTextStart,
-						CH3_XTextStart + 16, (CH3_YTextStart + FONTXSIZESMALL - 2),
+						CH3_XTextStart + 16, (CH3_YTextStart + FONTYSIZESMALL - 2),
 						ILI9341_WHITE);
 					}
 					else
@@ -458,7 +473,7 @@ void pollForTouch(void)
 						dso.ch3.enabled = 1;
 						dso.ch3.selected = 0;
 						LCD_RectFill(CH3_XTextStart, CH3_YTextStart,
-						CH3_XTextStart + 16, (CH3_YTextStart + FONTXSIZESMALL - 2),
+						CH3_XTextStart + 16, (CH3_YTextStart + FONTYSIZESMALL - 2),
 						ILI9341_RED);
 						LCD_Print(CH3_XTextStart, CH3_YTextStart, ch3, 2,
 						ILI9341_BLACK);
@@ -479,7 +494,7 @@ void pollForTouch(void)
 					dso.ch4.enabled = 0;
 					dso.ch4.selected = 0;
 					LCD_RectFill(CH4_XTextStart, CH4_YTextStart,
-					CH4_XTextStart + 16, (CH3_YTextStart + FONTXSIZESMALL - 2),
+					CH4_XTextStart + 16, (CH3_YTextStart + FONTYSIZESMALL - 2),
 					ILI9341_BLACK);
 					LCD_Print(CH4_XTextStart, CH4_YTextStart, ch4, 2,
 					ILI9341_ORANGE);
@@ -501,7 +516,7 @@ void pollForTouch(void)
 						dso.ch4.selected = 1;
 						deselect();
 						LCD_DrawRect(CH4_XTextStart, CH4_YTextStart,
-						CH4_XTextStart + 16, (CH3_YTextStart + FONTXSIZESMALL - 2),
+						CH4_XTextStart + 16, (CH3_YTextStart + FONTYSIZESMALL - 2),
 						ILI9341_WHITE);
 					}
 					else
@@ -509,7 +524,7 @@ void pollForTouch(void)
 						dso.ch4.enabled = 1;
 						dso.ch4.selected = 0;
 						LCD_RectFill(CH4_XTextStart, CH4_YTextStart,
-						CH4_XTextStart + 16, (CH3_YTextStart + FONTXSIZESMALL - 2),
+						CH4_XTextStart + 16, (CH3_YTextStart + FONTYSIZESMALL - 2),
 						ILI9341_ORANGE);
 						LCD_Print(CH4_XTextStart, CH4_YTextStart, ch4, 2,
 						ILI9341_BLACK);
@@ -539,111 +554,111 @@ void SelectDeselect(uint32_t select)
 		case 1: // trigger source
 			if(select)
 				LCD_DrawRect(5 * FONTXSIZESMALL - 1, 0, 8 * FONTXSIZESMALL,
-				FONTXSIZESMALL - 2, ILI9341_WHITE);
+						FONTYSIZESMALL - 2, ILI9341_WHITE);
 			else
 				LCD_DrawRect(5 * FONTXSIZESMALL - 1, 0, 8 * FONTXSIZESMALL,
-				FONTXSIZESMALL - 2, ILI9341_BLACK);
+						FONTYSIZESMALL - 2, ILI9341_BLACK);
 			break;
 
 		case 2: // trigger edge
 			if(select)
 				LCD_DrawRect(8 * FONTXSIZESMALL, 0, 9 * FONTXSIZESMALL,
-				FONTXSIZESMALL - 2, ILI9341_WHITE);
+						FONTYSIZESMALL - 2, ILI9341_WHITE);
 			else
 				LCD_DrawRect(8 * FONTXSIZESMALL, 0, 9 * FONTXSIZESMALL,
-				FONTXSIZESMALL - 2, ILI9341_BLACK);
+						FONTYSIZESMALL - 2, ILI9341_BLACK);
 			break;
 
 		case 4: // trigger value
 			if(select)
 				LCD_DrawRect(9 * FONTXSIZESMALL, 0,
-				TRIG_STR_LNGTH * FONTXSIZESMALL - 1, FONTXSIZESMALL - 2,
+				TRIG_STR_LNGTH * FONTXSIZESMALL - 1, FONTYSIZESMALL - 2,
 				ILI9341_WHITE);
 			else
 				LCD_DrawRect(9 * FONTXSIZESMALL, 0,
-				TRIG_STR_LNGTH * FONTXSIZESMALL - 1, FONTXSIZESMALL - 2,
+				TRIG_STR_LNGTH * FONTXSIZESMALL - 1, FONTYSIZESMALL - 2,
 				ILI9341_BLACK);
 			break;
 
 		case 8: // timeDiv
 			if(select)
 				LCD_DrawRect(TRIG_STR_LNGTH * FONTXSIZESMALL - 1, 0, (TRIG_STR_LNGTH * FONTXSIZESMALL) + (TDIV_STR_LNGTH * FONTXSIZESMALL),
-				FONTXSIZESMALL - 2, ILI9341_WHITE);
+						FONTYSIZESMALL - 2, ILI9341_WHITE);
 			else
 				LCD_DrawRect(TRIG_STR_LNGTH * FONTXSIZESMALL - 1, 0, (TRIG_STR_LNGTH * FONTXSIZESMALL) + (TDIV_STR_LNGTH * FONTXSIZESMALL),
-				FONTXSIZESMALL - 2, ILI9341_BLACK);
+						FONTYSIZESMALL - 2, ILI9341_BLACK);
 			break;
 
 		case 16: // CH1 voltsDiv
 			if(select)
 				LCD_DrawRect(CH1_XTextStart + (2 * FONTXSIZESMALL) - 1,
-				CH1_YTextStart, CH1_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH1_YTextStart + FONTXSIZESMALL - 2), ILI9341_WHITE);
+				CH1_YTextStart, CH1_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH1_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
 			else
 				LCD_DrawRect(CH1_XTextStart + (2 * FONTXSIZESMALL) - 1,
-				CH1_YTextStart, CH1_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH1_YTextStart + FONTXSIZESMALL - 2), ILI9341_BLACK);
+				CH1_YTextStart, CH1_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH1_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
 			break;
 
 		case 32: // CH1 coupling
 			if(select)
 				LCD_DrawRect(CH1_XTextStart + (7 * FONTXSIZESMALL) - 1,
-				CH1_YTextStart, CH1_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH1_YTextStart + FONTXSIZESMALL - 2), ILI9341_WHITE);
+				CH1_YTextStart, CH1_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH1_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
 			else
 				LCD_DrawRect(CH1_XTextStart + (7 * FONTXSIZESMALL) - 1,
-				CH1_YTextStart, CH1_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH1_YTextStart + FONTXSIZESMALL - 2), ILI9341_BLACK);
+				CH1_YTextStart, CH1_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH1_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
 			break;
 
 		case 64: // CH2 voltsDiv
 			if(select)
 				LCD_DrawRect(CH2_XTextStart + (2 * FONTXSIZESMALL) - 1,
-				CH2_YTextStart, CH2_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH2_YTextStart + FONTXSIZESMALL - 2), ILI9341_WHITE);
+				CH2_YTextStart, CH2_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH2_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
 			else
 				LCD_DrawRect(CH2_XTextStart + (2 * FONTXSIZESMALL) - 1,
-				CH2_YTextStart, CH2_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH2_YTextStart + FONTXSIZESMALL - 2), ILI9341_BLACK);
+				CH2_YTextStart, CH2_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH2_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
 			break;
 
 		case 128: // CH2 coupling
 			if(select)
 				LCD_DrawRect(CH2_XTextStart + (7 * FONTXSIZESMALL) - 1,
-				CH2_YTextStart, CH2_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH2_YTextStart + FONTXSIZESMALL - 2), ILI9341_WHITE);
+				CH2_YTextStart, CH2_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH2_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
 			else
 				LCD_DrawRect(CH2_XTextStart + (7 * FONTXSIZESMALL) - 1,
-				CH2_YTextStart, CH2_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH2_YTextStart + FONTXSIZESMALL - 2), ILI9341_BLACK);
+				CH2_YTextStart, CH2_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH2_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
 			break;
 
 		case 256: // CH3 voltsDiv
 			if(select)
 				LCD_DrawRect(CH3_XTextStart + (2 * FONTXSIZESMALL) - 1,
-				CH3_YTextStart, CH3_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH3_YTextStart + FONTXSIZESMALL - 2), ILI9341_WHITE);
+				CH3_YTextStart, CH3_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH3_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
 			else
 				LCD_DrawRect(CH3_XTextStart + (2 * FONTXSIZESMALL) - 1,
-				CH3_YTextStart, CH3_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH3_YTextStart + FONTXSIZESMALL - 2), ILI9341_BLACK);
+				CH3_YTextStart, CH3_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH3_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
 			break;
 
 		case 512: // CH3 coupling
 			if(select)
 				LCD_DrawRect(CH3_XTextStart + (7 * FONTXSIZESMALL) - 1,
-				CH3_YTextStart, CH3_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH3_YTextStart + FONTXSIZESMALL - 2), ILI9341_WHITE);
+				CH3_YTextStart, CH3_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH3_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
 			else
 				LCD_DrawRect(CH3_XTextStart + (7 * FONTXSIZESMALL) - 1,
-				CH3_YTextStart, CH3_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH3_YTextStart + FONTXSIZESMALL - 2), ILI9341_BLACK);
+				CH3_YTextStart, CH3_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH3_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
 			break;
 
 		case 1024: // CH4 voltsDiv
 			if(select)
 				LCD_DrawRect(CH4_XTextStart + (2 * FONTXSIZESMALL) - 1,
-				CH4_YTextStart, CH4_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH4_YTextStart + FONTXSIZESMALL - 2), ILI9341_WHITE);
+				CH4_YTextStart, CH4_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH4_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
 			else
 				LCD_DrawRect(CH4_XTextStart + (2 * FONTXSIZESMALL) - 1,
-				CH4_YTextStart, CH4_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH4_YTextStart + FONTXSIZESMALL - 2), ILI9341_BLACK);
+				CH4_YTextStart, CH4_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH4_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
 			break;
 
 		case 2048: // CH4 coupling
 			if(select)
 				LCD_DrawRect(CH4_XTextStart + (7 * FONTXSIZESMALL) - 1,
-				CH4_YTextStart, CH4_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH4_YTextStart + FONTXSIZESMALL - 2), ILI9341_WHITE);
+				CH4_YTextStart, CH4_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH4_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
 			else
 				LCD_DrawRect(CH4_XTextStart + (7 * FONTXSIZESMALL) - 1,
-				CH4_YTextStart, CH4_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH4_YTextStart + FONTXSIZESMALL - 2), ILI9341_BLACK);
+				CH4_YTextStart, CH4_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH4_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
 			break;
 
 		default:
@@ -661,7 +676,7 @@ void deselect(void)
 		if(dso.ch1.enabled)
 		{
 			LCD_DrawRect(CH1_XTextStart, CH1_YTextStart,
-			CH1_XTextStart + (2 * FONTXSIZESMALL), (CH1_YTextStart + FONTXSIZESMALL - 2), CH1_COLOR);
+			CH1_XTextStart + (2 * FONTXSIZESMALL), (CH1_YTextStart + FONTYSIZESMALL - 2), CH1_COLOR);
 		}
 	}
 
@@ -670,7 +685,7 @@ void deselect(void)
 		if(dso.ch2.enabled)
 		{
 			LCD_DrawRect(CH2_XTextStart, CH2_YTextStart,
-			CH2_XTextStart + (2 * FONTXSIZESMALL), (CH2_YTextStart + FONTXSIZESMALL - 2), CH2_COLOR);
+			CH2_XTextStart + (2 * FONTXSIZESMALL), (CH2_YTextStart + FONTYSIZESMALL - 2), CH2_COLOR);
 		}
 	}
 
@@ -679,7 +694,7 @@ void deselect(void)
 		if(dso.ch3.enabled)
 		{
 			LCD_DrawRect(CH3_XTextStart, CH3_YTextStart,
-			CH3_XTextStart + (2 * FONTXSIZESMALL), (CH3_YTextStart + FONTXSIZESMALL - 2), CH3_COLOR);
+			CH3_XTextStart + (2 * FONTXSIZESMALL), (CH3_YTextStart + FONTYSIZESMALL - 2), CH3_COLOR);
 		}
 	}
 
@@ -688,7 +703,7 @@ void deselect(void)
 		if(dso.ch4.enabled)
 		{
 			LCD_DrawRect(CH4_XTextStart, CH4_YTextStart,
-			CH4_XTextStart + (2 * FONTXSIZESMALL), (CH3_YTextStart + FONTXSIZESMALL - 2), CH4_COLOR);
+			CH4_XTextStart + (2 * FONTXSIZESMALL), (CH3_YTextStart + FONTYSIZESMALL - 2), CH4_COLOR);
 		}
 	}
 }
@@ -774,9 +789,8 @@ void timeDivChangeRedraw(void)
 			break;
 	}
 	LCD_RectFill((TRIG_STR_LNGTH + 9) * FONTXSIZESMALL - 1, 1, (TRIG_STR_LNGTH + TDIV_STR_LNGTH) * FONTXSIZESMALL - 1,
-	FONTXSIZESMALL - 3, ILI9341_BLACK);
-	LCD_Print((TRIG_STR_LNGTH + 9) * FONTXSIZESMALL, 0, &tDiv[9], 5,
-	ILI9341_YELLOW);
+			FONTYSIZESMALL - 3, ILI9341_BLACK);
+	LCD_Print((TRIG_STR_LNGTH + 9) * FONTXSIZESMALL, 0, &tDiv[9], 5, ILI9341_YELLOW);
 }
 
 /**
@@ -930,7 +944,7 @@ void triggerSourceChangeRedraw(void)
 			break;
 	}
 	LCD_RectFill((7 * FONTXSIZESMALL), 1, (8 * FONTXSIZESMALL) - 1,
-	FONTXSIZESMALL - 3, ILI9341_BLACK);
+			FONTYSIZESMALL - 3, ILI9341_BLACK);
 	LCD_Print((7 * FONTXSIZESMALL), 0, &trig[7], 1, ILI9341_YELLOW);
 }
 
@@ -945,7 +959,7 @@ void triggerEdgeChangeRedraw(void)
 		trig[8] = 128; //falling
 
 	LCD_RectFill((8 * FONTXSIZESMALL) + 1, 1, (9 * FONTXSIZESMALL) - 1,
-	FONTXSIZESMALL - 3, ILI9341_BLACK);
+			FONTYSIZESMALL - 3, ILI9341_BLACK);
 	LCD_Print((8 * FONTXSIZESMALL), 0, &trig[8], 1, ILI9341_YELLOW);
 }
 
@@ -1349,8 +1363,7 @@ void triggerValueChangeRedraw(uint32_t up_down)
 		default:
 			break;
 	}
-	LCD_RectFill(FONTXSIZESMALL * 9 + 1, 1, (TRIG_STR_LNGTH * FONTXSIZESMALL) - 2, FONTXSIZESMALL - 3,
-	ILI9341_BLACK);
+	LCD_RectFill(FONTXSIZESMALL * 9 + 1, 1, (TRIG_STR_LNGTH * FONTXSIZESMALL) - 2, FONTYSIZESMALL - 3, ILI9341_BLACK);
 	LCD_Print(FONTXSIZESMALL * 9, 0, &trig[9], 6, ILI9341_YELLOW);
 }
 
@@ -1425,15 +1438,15 @@ void incDec(uint32_t mode)
 		case 32: // CH1 coupling
 			if(mode)
 			{
-				if(dso.ch1.coupling == COUPLING_AC)
-					dso.ch1.coupling = COUPLING_GND;
+				if(dso.ch1.coupling == CH_COUPLING_AC)
+					dso.ch1.coupling = CH_COUPLING_GND;
 				else
 					dso.ch1.coupling++;
 			}
 			else
 			{
-				if(dso.ch1.coupling == COUPLING_GND)
-					dso.ch1.coupling = COUPLING_AC;
+				if(dso.ch1.coupling == CH_COUPLING_GND)
+					dso.ch1.coupling = CH_COUPLING_AC;
 				else
 					dso.ch1.coupling--;
 			}
@@ -1455,15 +1468,15 @@ void incDec(uint32_t mode)
 		case 128: // CH2 coupling
 			if(mode)
 			{
-				if(dso.ch2.coupling == COUPLING_AC)
-					dso.ch2.coupling = COUPLING_GND;
+				if(dso.ch2.coupling == CH_COUPLING_AC)
+					dso.ch2.coupling = CH_COUPLING_GND;
 				else
 					dso.ch2.coupling++;
 			}
 			else
 			{
-				if(dso.ch2.coupling == COUPLING_GND)
-					dso.ch2.coupling = COUPLING_AC;
+				if(dso.ch2.coupling == CH_COUPLING_GND)
+					dso.ch2.coupling = CH_COUPLING_AC;
 				else
 					dso.ch2.coupling--;
 			}
@@ -1485,15 +1498,15 @@ void incDec(uint32_t mode)
 		case 512: // CH3 coupling
 			if(mode)
 			{
-				if(dso.ch3.coupling == COUPLING_AC)
-					dso.ch3.coupling = COUPLING_GND;
+				if(dso.ch3.coupling == CH_COUPLING_AC)
+					dso.ch3.coupling = CH_COUPLING_GND;
 				else
 					dso.ch3.coupling++;
 			}
 			else
 			{
-				if(dso.ch3.coupling == COUPLING_GND)
-					dso.ch3.coupling = COUPLING_AC;
+				if(dso.ch3.coupling == CH_COUPLING_GND)
+					dso.ch3.coupling = CH_COUPLING_AC;
 				else
 					dso.ch3.coupling--;
 			}
@@ -1515,15 +1528,15 @@ void incDec(uint32_t mode)
 		case 2048: // CH4 coupling
 			if(mode)
 			{
-				if(dso.ch4.coupling == COUPLING_AC)
-					dso.ch4.coupling = COUPLING_GND;
+				if(dso.ch4.coupling == CH_COUPLING_AC)
+					dso.ch4.coupling = CH_COUPLING_GND;
 				else
 					dso.ch4.coupling++;
 			}
 			else
 			{
-				if(dso.ch4.coupling == COUPLING_GND)
-					dso.ch4.coupling = COUPLING_AC;
+				if(dso.ch4.coupling == CH_COUPLING_GND)
+					dso.ch4.coupling = CH_COUPLING_AC;
 				else
 					dso.ch4.coupling--;
 			}

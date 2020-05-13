@@ -8,32 +8,32 @@
 #ifndef INC_ACQUISITION_H_
 #define INC_ACQUISITION_H_
 
-#define DUAL_ON				1
-#define DUAL_OFF			0
+#define DUAL_ON				1U
+#define DUAL_OFF			0U
 
-#define QUAD_ON				1
-#define QUAD_OFF			0
+#define QUAD_ON				1U
+#define QUAD_OFF			0U
 
-#define TRIG_EDGE_RISING	1
-#define TRIG_EDGE_FALLING	0
+#define TRIG_EDGE_RISING	1U
+#define TRIG_EDGE_FALLING	0U
 
-#define TRIG_SRC_CH1		1
-#define TRIG_SRC_CH2		2
-#define TRIG_SRC_CH3		3
-#define TRIG_SRC_CH4		4
+#define TRIG_SRC_CH1		1U
+#define TRIG_SRC_CH2		2U
+#define TRIG_SRC_CH3		3U
+#define TRIG_SRC_CH4		4U
 
-#define CH_COUPLING_GND		0
-#define CH_COUPLING_DC		1
-#define CH_COUPLING_AC		2
+#define CH_COUPLING_GND		0U
+#define CH_COUPLING_DC		1U
+#define CH_COUPLING_AC		2U
 
-#define CH_ENABLED			1
-#define CH_DISABLED			0
+#define CH_ENABLED			1U
+#define CH_DISABLED			0U
 
-#define CH_ID_NONE			0
-#define CH1_ID				1
-#define CH2_ID				2
-#define CH3_ID				3
-#define CH4_ID				4
+#define CH_ID_NONE			0U
+#define CH1_ID				1U
+#define CH2_ID				2U
+#define CH3_ID				3U
+#define CH4_ID				4U
 
 #define ENABLED_CH_NONE		0u
 #define ENABLED_CH_1		(1u << 0)
@@ -53,7 +53,11 @@
 #define ENABLED_CH_234		(ENABLED_CH_2 | ENABLED_CH_3 | ENABLED_CH_4)
 #define ENABLED_CH_1234		(ENABLED_CH_1 | ENABLED_CH_2 | ENABLED_CH_3 | ENABLED_CH_4)
 
+#define ACQ_DUAL_12			0U
+#define ACQ_DUAL_34			1U
 
+#define ACQ_PARALLEL_12		0U
+#define ACQ_PARALLEL_34		1U
 
 
 typedef enum{

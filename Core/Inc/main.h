@@ -16,15 +16,15 @@
 
 //#define DEBUG_ON
 
-#define CH1_XTextStart 	0
-#define CH2_XTextStart 	80
-#define CH3_XTextStart 	160
-#define CH4_XTextStart 	240
-#define CH1_YTextStart 	228
-#define CH2_YTextStart 	228
-#define CH3_YTextStart 	228
-#define CH4_YTextStart 	228
-#define CH_StrPixWidth 	80
+#define CH1_XTextStart 	0U
+#define CH2_XTextStart 	80U
+#define CH3_XTextStart 	160U
+#define CH4_XTextStart 	240U
+#define CH1_YTextStart 	228U
+#define CH2_YTextStart 	228U
+#define CH3_YTextStart 	228U
+#define CH4_YTextStart 	228U
+#define CH_StrPixWidth 	80U
 #define X_PIXELS 		280
 #define Y_PIXELS 		216
 
@@ -39,7 +39,7 @@
 #define CS_AS5_LOW 		GPIOB->BRR = 0x00004000;  // PB13
 #define CS_AS5_HIGH 	GPIOB->BSRR = 0x00004000; // PB13
 
-#define BUFF_SIZE 		2048
+#define BUFF_SIZE 		2048U
 
 extern dso_config_t dso;						/**< Configuration structure for the DSO */
 

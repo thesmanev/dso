@@ -309,7 +309,7 @@ void LCD_DrawLineVX(uint32_t y0, uint32_t y1, uint32_t x, uint32_t color)
 }
 
 /**
- * @brief Draw a vertical line with a width of 1 pixel.
+ * @brief Draw a vertical line with a width of 1 pixel within the reticle.
  * @param y0 Starting Y coordinate of the line
  * @param y1 End Y coordinate of the line
  * @param x X coordinate of the line

@@ -9,13 +9,12 @@
 /**
  * @brief Acquire/sample data on channel one using all four ADCs in interleaved mode
  */
-void aquireDataQuad(void)
+static void aquireDataQuad(void)
 {
 	setupDMAQuad();
 	setDMACntr(&dso.ch1); //master1
 	setDMACntr(&dso.ch3); //master3
 	asm("mov.w r2, #1342177280");
-	// 0x50000000
 	asm("ldr r3, [r2, #8]");
 	asm("orr.w r3, r3, #4");
 	asm("str r3, [r2, #8]");
@@ -42,12 +41,11 @@ void aquireDataQuad(void)
  * @brief Acquire data on channel 1 and channel 3 in parallel. Channels 1 & 2 in interlaved,
  * 			channels 3 & 4 in interlaved mode, 1 & 2 are in parallel to 3 & 4
  */
-void aquireDataDualParallel(void)
+static void aquireDataDualParallel(void)
 {
 	setDMACntr(&dso.ch1);	//master1
 	setDMACntr(&dso.ch3);	//master3
 	asm("mov.w r2, #1342177280");
-	// 0x50000000
 	asm("ldr r3, [r2, #8]");
 	asm("orr.w r3, r3, #4");
 	asm("str r3, [r2, #8]");
@@ -66,14 +64,13 @@ void aquireDataDualParallel(void)
  * Acquire data in dual mode but only using channels 1 & 2 or only channels 3 & 4 in interleaved mode
  * @param num 0 for using channels 1 & 2, 1 for using channels 3 & 4
  */
-void aquireDataDual(uint32_t num)
+static void aquireDataDual(uint32_t num)
 {
-	if(num)
+	if(num == ACQ_DUAL_34)
 	{
-		setupDMADual(1);
+		setupDMADual(ACQ_DUAL_34);
 		setDMACntr(&dso.ch3);	//master1
 		asm("mov.w r2, #1342177280");
-		// 0x50000000
 		asm("ldr r3, [r2, #1032]");
 		asm("orr.w r3, r3, #4");
 		asm("str r3, [r2, #1032]");
@@ -81,12 +78,11 @@ void aquireDataDual(uint32_t num)
 		DMA2_Channel5->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_1 | DMA_CCR_PL_1; // Configure and start DMA1 channel 1
 		asm("wfi");
 	}
-	else
+	else if(num == ACQ_DUAL_12)
 	{
-		setupDMADual(0);
+		setupDMADual(ACQ_DUAL_12);
 		setDMACntr(&dso.ch1); //master1
 		asm("mov.w r2, #1342177280");
-		// 0x50000000
 		asm("ldr r3, [r2, #8]");
 		asm("orr.w r3, r3, #4");
 		asm("str r3, [r2, #8]");
@@ -100,14 +96,13 @@ void aquireDataDual(uint32_t num)
  * @brief Acquire data from two channels in parallel
  * @param num 0 for channels 1 & 2 in parallel, 1 for channels 3 & 4
  */
-void aquireDataParallel(uint32_t num)
+static void aquireDataParallel(uint32_t num)
 {
-	if(num)
+	if(num == ACQ_PARALLEL_34)
 	{
 		setDMACntr(&dso.ch3); //master1
 		setDMACntr(&dso.ch4); //master1
 		asm("mov.w r2, #1342177280");
-		// 0x50000000
 		asm("ldr r3, [r2, #1032]");
 		asm("orr.w r3, r3, #4");
 		asm("str r3, [r2, #1032]");
@@ -116,12 +111,11 @@ void aquireDataParallel(uint32_t num)
 		DMA2_Channel2->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA2 channel 2, mem 16bit, periph 32bit
 		asm("wfi");
 	}
-	else
+	else if(num == ACQ_PARALLEL_12)
 	{
 		setDMACntr(&dso.ch1); //master1
 		setDMACntr(&dso.ch2); //master1
 		asm("mov.w r2, #1342177280");
-		// 0x50000000
 		asm("ldr r3, [r2, #8]");
 		asm("orr.w r3, r3, #4");
 		asm("str r3, [r2, #8]");
@@ -135,18 +129,22 @@ void aquireDataParallel(uint32_t num)
 /**
  * @brief Acquire data with all four channels in parallel
  */
-void aquireDataAllParallel(void)
+static void aquireDataAllParallel(void)
 {
-	setDMACntr(&dso.ch1); //master1
-	setDMACntr(&dso.ch2); //slave2
-	setDMACntr(&dso.ch3); //master3
-	setDMACntr(&dso.ch4); //slave4
+	setDMACntr(&dso.ch1); //ADC1 - master
+	setDMACntr(&dso.ch2); //ADC2 - slave
+	setDMACntr(&dso.ch3); //ADC3 - master
+	setDMACntr(&dso.ch4); //ADC4 - slave
+	// Load address of ADC12 base into r2
 	asm("mov.w r2, #1342177280");
-	// 0x50000000
+	// Load contents of r2 + 8 (ADC1_CR) into r3
 	asm("ldr r3, [r2, #8]");
+	// Set bit 2 in order to start regular conversion
 	asm("orr.w r3, r3, #4");
+	// write data from r3 into r2 + 8 (ADC1_CR)
 	asm("str r3, [r2, #8]");
 	// ADC1_2 started
+	// write data from r3 into r2 + 1032 (ADC3_CR)
 	asm("str r3, [r2, #1032]");
 	// ADC3_4 started // 2 cycles
 	DMA1_Channel1->CCR = DMA_CCR_EN | DMA_CCR_TCIE | DMA_CCR_TEIE | DMA_CCR_MINC | DMA_CCR_PSIZE_1 | DMA_CCR_MSIZE_0 | DMA_CCR_PL_1; // Configure and start DMA1 channel 1, mem 16bit, periph 32bit
@@ -162,16 +160,15 @@ void aquireDataAllParallel(void)
  * @brief Acquire data on a single channel
  * @param chx Pointer to a channel structure
  */
-void aquireDataSingle(channel_t *chx)
+static void aquireDataSingle(channel_t *chx)
 {
 	switch (chx->id)
 	{
 		default:
-		case 1:
+		case CH1_ID:
 		{
 			setDMACntr(&dso.ch1);	//master1
 			asm("mov.w r2, #1342177280");
-			// 0x50000000
 			asm("ldr r3, [r2, #8]");
 			asm("orr.w r3, r3, #4");
 			asm("str r3, [r2, #8]");
@@ -180,11 +177,10 @@ void aquireDataSingle(channel_t *chx)
 			asm("wfi");
 			break;
 		}
-		case 2:
+		case CH2_ID:
 		{
 			setDMACntr(&dso.ch2);			//master1
 			asm("mov.w r2, #1342177280");
-			// 0x50000000
 			// ADC1 base + ADC slave offset + CR register offset
 			asm("ldr r3, [r2, #264]");
 			// 0x50000000 + 0x0100 + 0x08
@@ -195,11 +191,10 @@ void aquireDataSingle(channel_t *chx)
 			asm("wfi");
 			break;
 		}
-		case 3:
+		case CH3_ID:
 		{
 			setDMACntr(&dso.ch3); //master1
 			asm("mov.w r2, #1342177280");
-			// 0x50000000
 			// ADC1 base + 1k (adc3 offset) + CR register offset
 			asm("ldr r3, [r2, #1032]");
 			// 0x50000000 + 0x0400 + 0x08
@@ -210,11 +205,10 @@ void aquireDataSingle(channel_t *chx)
 			asm("wfi");
 			break;
 		}
-		case 4:
+		case CH4_ID:
 		{
 			setDMACntr(&dso.ch4); //master1
 			asm("mov.w r2, #1342177280");
-			// 0x50000000
 			// ADC1 base + 1k (adc3 offset) + ADC slave offset + CR register offset
 			asm("ldr r3, [r2, #1288]");
 			// 0x50000000 + 0x0400 + 0x0100 + 0x08
@@ -231,12 +225,11 @@ void aquireDataSingle(channel_t *chx)
 /**
  * @brief Acquire data on channels 2 and 3 in parallel
  */
-void aquireDataParallel_23(void)
+static void aquireDataParallel_23(void)
 {
 	setDMACntr(&dso.ch2);
 	setDMACntr(&dso.ch3);
 	asm("mov.w r2, #1342177280");
-	// 0x50000000
 	// ADC1 base + ADC slave offset + CR register offset
 	asm("ldr r3, [r2, #264]");
 	// 0x50000000 + 0x0100 + 0x08
@@ -253,14 +246,12 @@ void aquireDataParallel_23(void)
 /**
  * @brief Acquire data in parallel on channels 2, 3 and 4
  */
-void aquireDataParallel_234(void)
+static void aquireDataParallel_234(void)
 {
 	setDMACntr(&dso.ch2);
 	setDMACntr(&dso.ch3);
 	setDMACntr(&dso.ch4);
 	asm("mov.w r2, #1342177280");
-	// 0x50000000
-//	asm("mov.w r3, #1342177280"); // 0x50000000
 	// ADC1 base + ADC slave offset + CR register offset
 	asm("ldr r3, [r2, #264]");
 	// 0x50000000 + 0x0100 + 0x08
@@ -275,12 +266,11 @@ void aquireDataParallel_234(void)
 	asm("wfi");
 }
 
-void aquireDataParallel_24(void)
+static void aquireDataParallel_24(void)
 {
 	setDMACntr(&dso.ch2);
 	setDMACntr(&dso.ch4);
 	asm("mov.w r2, #1342177280");
-	// 0x50000000
 	// ADC1 base + ADC slave offset + CR register offset
 	asm("ldr r3, [r2, #264]");
 	// 0x50000000 + 0x0100 + 0x08
@@ -297,12 +287,11 @@ void aquireDataParallel_24(void)
 /**
  * @brief Acqure data in parallel on channels 1 and 4
  */
-void aquireDataParallel_14(void)
+static void aquireDataParallel_14(void)
 {
 	setDMACntr(&dso.ch1);
 	setDMACntr(&dso.ch4);
 	asm("mov.w r2, #1342177280");
-	// 0x50000000
 	// ADC1 base + ADC slave offset + CR register offset
 	asm("ldr r3, [r2, #8]");
 	// 0x50000000 + 0x08
@@ -319,13 +308,12 @@ void aquireDataParallel_14(void)
 /**
  * @brief Acquire data in parallel on channels 1, 2 and 4
  */
-void aquireDataParallel_124(void)
+static void aquireDataParallel_124(void)
 {
 	setDMACntr(&dso.ch1);
 	setDMACntr(&dso.ch2);
 	setDMACntr(&dso.ch4);
 	asm("mov.w r2, #1342177280");
-	// 0x50000000
 	// ADC1 base + ADC slave offset + CR register offset
 	asm("ldr r3, [r2, #8]");
 	// 0x50000000 + 0x08
@@ -343,12 +331,11 @@ void aquireDataParallel_124(void)
 /**
  * @brief Acquire data in parallel on channels 1 and 3
  */
-void aquireDataParallel_13(void)
+static void aquireDataParallel_13(void)
 {
 	setDMACntr(&dso.ch1); //master1
 	setDMACntr(&dso.ch3); //master3
 	asm("mov.w r2, #1342177280");
-	// 0x50000000
 	asm("ldr r3, [r2, #8]");
 	asm("orr.w r3, r3, #4");
 	asm("str r3, [r2, #8]");
@@ -381,7 +368,7 @@ void aquireData(void)
 			}
 			else if(dso.timeDiv < timeDiv_2_5us)
 			{
-				aquireDataDual(0);
+				aquireDataDual(ACQ_DUAL_12);
 				findTrigger();
 				displayWaveformTrig(CH_ID_NONE);
 			}
@@ -407,11 +394,12 @@ void aquireData(void)
 		{
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				aquireDataParallel(0);
+				aquireDataParallel(ACQ_PARALLEL_12);
 				findTrigger();
 				displayWaveformTrig(CH1_ID);
 				displayWaveformTrig(CH2_ID);
 			}
+			break;
 		}
 		case ENABLED_CH_3:
 		{
@@ -423,7 +411,7 @@ void aquireData(void)
 			}
 			else if(dso.timeDiv < timeDiv_2_5us)
 			{
-				aquireDataDual(1);
+				aquireDataDual(ACQ_DUAL_34);
 				findTrigger();
 				displayWaveformTrig(CH_ID_NONE);
 			}
@@ -517,7 +505,7 @@ void aquireData(void)
 		{
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				aquireDataParallel(1);
+				aquireDataParallel(ACQ_PARALLEL_34);
 				findTrigger();
 				displayWaveformTrig(CH3_ID);
 				displayWaveformTrig(CH4_ID);

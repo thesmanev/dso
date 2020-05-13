@@ -110,25 +110,25 @@ void setupDMA(channel_t *chx)
 	switch (chx->id)
 	{
 		default:
-		case 1:
+		case CH1_ID:
 		{
 			DMA1_Channel1->CPAR = (uint32_t) (&ADC1->DR); // address of peripheral
 			DMA1_Channel1->CMAR = (uint32_t) buffer1; 	  // base address of memory buffer
 			break;
 		}
-		case 2:
+		case CH2_ID:
 		{
 			DMA2_Channel1->CPAR = (uint32_t) (&ADC2->DR);
 			DMA2_Channel1->CMAR = (uint32_t) buffer2;
 			break;
 		}
-		case 3:
+		case CH3_ID:
 		{
 			DMA2_Channel5->CPAR = (uint32_t) (&ADC3->DR); // address of peripheral
 			DMA2_Channel5->CMAR = (uint32_t) buffer3;      // base address of memory buffer
 			break;
 		}
-		case 4:
+		case CH4_ID:
 		{
 			DMA2_Channel2->CPAR = (uint32_t) (&ADC4->DR);
 			DMA2_Channel2->CMAR = (uint32_t) buffer4;
@@ -143,12 +143,12 @@ void setupDMA(channel_t *chx)
  */
 void setupDMADual(uint32_t num)
 {
-	if(num)
+	if(num == ACQ_DUAL_34)
 	{
 		DMA2_Channel5->CPAR = (uint32_t) (&ADC34_COMMON->CDR); // address of peripheral
 		DMA2_Channel5->CMAR = (uint32_t) buffer3;  // base address of memory buffer
 	}
-	else
+	else if(num == ACQ_DUAL_12)
 	{
 		DMA1_Channel1->CPAR = (uint32_t) (&ADC12_COMMON->CDR); // address of peripheral
 		DMA1_Channel1->CMAR = (uint32_t) buffer1;  // base address of memory buffer
@@ -161,12 +161,12 @@ void setupDMADual(uint32_t num)
  */
 void setupDMAParallel(uint32_t num)
 {
-	if(num)
+	if(num == ACQ_PARALLEL_34)
 	{
 		setupDMA(&dso.ch3);
 		setupDMA(&dso.ch4);
 	}
-	else
+	else if(num == ACQ_PARALLEL_12)
 	{
 		setupDMA(&dso.ch1);
 		setupDMA(&dso.ch2);
@@ -194,16 +194,16 @@ void setDMACntr(channel_t *chx)
 	switch (chx->id)
 	{
 		default:
-		case 1:
+		case CH1_ID:
 			DMA1_Channel1->CNDTR = 2 * BUFF_SIZE; // size of memory target
 			break;
-		case 2:
+		case CH2_ID:
 			DMA2_Channel1->CNDTR = 2 * BUFF_SIZE; // size of memory target
 			break;
-		case 3:
+		case CH3_ID:
 			DMA2_Channel5->CNDTR = 2 * BUFF_SIZE;
 			break;
-		case 4:
+		case CH4_ID:
 			DMA2_Channel2->CNDTR = 2 * BUFF_SIZE;
 			break;
 	}

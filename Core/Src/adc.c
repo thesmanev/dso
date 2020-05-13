@@ -1,7 +1,8 @@
 #include "main.h"
 
-void disableADC(uint32_t num);
-void enableADC(uint32_t num);
+static void calibrateADC(channel_t *chx);
+static void disableADC(uint32_t num);
+static void enableADC(uint32_t num);
 
 /**
  * @brief Initialize ADC
@@ -14,52 +15,52 @@ void initADC(channel_t *chx)
 	switch (chx->id)
 	{
 		default:
-		case 1:
+		case CH1_ID:
 		{
-			disableADC(1);
+			disableADC(CH1_ID);
 			//synchronous clock mode, hclk / 1
 			ADC12_COMMON->CCR = ADC12_CCR_CKMODE_0;
 			 // Continuous mode, overrun enabled, 12bit, right align, DMA one-shot, disabled
 			ADC1->CFGR = ADC_CFGR_CONT | ADC_CFGR_OVRMOD | ADC_CFGR_DMAEN;
 			//SQ1 = 0x01, startuvaj //konverzija na ADC1_IN1
 			ADC1->SQR1 = ADC_SQR1_SQ1_0;
-			enableADC(1);
+			enableADC(CH1_ID);
 			break;
 		}
-		case 2:
+		case CH2_ID:
 		{
-			disableADC(2);
+			disableADC(CH2_ID);
 			//synchronous clock mode, hclk / 1
 			ADC12_COMMON->CCR = ADC12_CCR_CKMODE_0;
 			 // Continuous mode, overrun enabled, 12bit, right align, DMA one-shot, disabled
 			ADC2->CFGR = ADC_CFGR_CONT | ADC_CFGR_OVRMOD | ADC_CFGR_DMAEN;
 			//SQ1 = 0x01, startuvaj //konverzija na ADC2_IN1
 			ADC2->SQR1 = ADC_SQR1_SQ1_0;
-			enableADC(2);
+			enableADC(CH2_ID);
 			break;
 		}
-		case 3:
+		case CH3_ID:
 		{
-			disableADC(3);
+			disableADC(CH3_ID);
 			//synchronous clock mode, hclk / 1
 			ADC34_COMMON->CCR = ADC34_CCR_CKMODE_0;
 			 // Continuous mode, overrun enabled, 12bit, right align, DMA one-shot, disabled
 			ADC3->CFGR = ADC_CFGR_CONT | ADC_CFGR_OVRMOD | ADC_CFGR_DMAEN;
 			//SQ1 = 0x01, startuvaj //konverzija na ADC3_IN1
 			ADC3->SQR1 = ADC_SQR1_SQ1_0;
-			enableADC(3);
+			enableADC(CH3_ID);
 			break;
 		}
-		case 4:
+		case CH4_ID:
 		{
-			disableADC(4);
+			disableADC(CH4_ID);
 			//synchronous clock mode, hclk / 1
 			ADC34_COMMON->CCR = ADC34_CCR_CKMODE_0;
 			 // Continuous mode, overrun enabled, 12bit, right align, DMA one-shot, disabled
 			ADC4->CFGR = ADC_CFGR_CONT | ADC_CFGR_OVRMOD | ADC_CFGR_DMAEN;
 			//SQ1 = 0x01, startuvaj //konverzija na ADC4_IN1
 			ADC4->SQR1 = ADC_SQR1_SQ1_0;
-			enableADC(4);
+			enableADC(CH4_ID);
 			break;
 		}
 	}
@@ -74,246 +75,246 @@ void setupADCSingle(channel_t *chx)
 	switch (chx->id)
 	{
 		default:
-		case 1:
+		case CH1_ID:
 		{
 			switch (dso.timeDiv)
 			{
 				case timeDiv_1ms:
 				{ // 1 ms
-					ADC1->SMPR1 = 0x00000038; // => sampling time 614 cycles (117.264 KS/s)
+					ADC1->SMPR1 = ADC_SMPL_RATE_117_264_KSPS; // => sampling time 614 cycles (117.264 KS/s)
 					break;
 				}
 				case timeDiv_500us:
 				{ // 500 us
-					ADC1->SMPR1 = 0x00000030; // => sampling time 194 cycles (371.31 KS/s)
+					ADC1->SMPR1 = ADC_SMPL_RATE_371_31_KSPS; // => sampling time 194 cycles (371.31 KS/s)
 					break;
 				}
 				case timeDiv_250us:
 				{ //250 us
-					ADC1->SMPR1 = 0x00000028; // => sampling time 74 cycles (973 KS/s)
+					ADC1->SMPR1 = ADC_SMPL_RATE_973_KSPS; // => sampling time 74 cycles (973 KS/s)
 					break;
 				}
 				case timeDiv_100us:
 				{ // 100 us
-					ADC1->SMPR1 = 0x00000018; // => sampling time 20 cycles (3.6 MS/s)
+					ADC1->SMPR1 = ADC_SMPL_RATE_3_6_MSPS; // => sampling time 20 cycles (3.6 MS/s)
 					break;
 				}
 				case timeDiv_50us:
 				{ //50 us
-					ADC1->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC1->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_25us:
 				{ //25 us
-					ADC1->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC1->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_10us:
 				{ //10 us
-					ADC1->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC1->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_5us:
 				{ //5 us
-					ADC1->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC1->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_2_5us:
 				{ //2.5 us
-					ADC1->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC1->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_1us:
 				{ //1 us
-					ADC1->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC1->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				default:
 				{
-					ADC1->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC1->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 			}
 		}
-		case 2:
+		case CH2_ID:
 		{
 			switch (dso.timeDiv)
 			{
 				case timeDiv_1ms:
 				{ // 1 ms
-					ADC2->SMPR1 = 0x00000038; // => sampling time 614 cycles (117.264 KS/s)
+					ADC2->SMPR1 = ADC_SMPL_RATE_117_264_KSPS; // => sampling time 614 cycles (117.264 KS/s)
 					break;
 				}
 				case timeDiv_500us:
 				{ // 500 us
-					ADC2->SMPR1 = 0x00000030; // => sampling time 194 cycles (371.31 KS/s)
+					ADC2->SMPR1 = ADC_SMPL_RATE_371_31_KSPS; // => sampling time 194 cycles (371.31 KS/s)
 					break;
 				}
 				case timeDiv_250us:
 				{ //250 us
-					ADC2->SMPR1 = 0x00000028; // => sampling time 74 cycles (973 KS/s)
+					ADC2->SMPR1 = ADC_SMPL_RATE_973_KSPS; // => sampling time 74 cycles (973 KS/s)
 					break;
 				}
 				case timeDiv_100us:
 				{ // 100 us
-					ADC2->SMPR1 = 0x00000018; // => sampling time 20 cycles (3.6 MS/s)
+					ADC2->SMPR1 = ADC_SMPL_RATE_3_6_MSPS; // => sampling time 20 cycles (3.6 MS/s)
 					break;
 				}
 				case timeDiv_50us:
 				{ //50 us
-					ADC2->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC2->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_25us:
 				{ //25 us
-					ADC2->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC2->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_10us:
 				{ //10 us
-					ADC2->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC2->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_5us:
 				{ //5 us
-					ADC2->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC2->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_2_5us:
 				{ //2.5 us
-					ADC2->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC2->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_1us:
 				{ //1 us
-					ADC2->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC2->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				default:
 				{
-					ADC2->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC2->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 			}
 		}
-		case 3:
+		case CH3_ID:
 		{
 			switch (dso.timeDiv)
 			{
 				case timeDiv_1ms:
 				{ // 1 ms
-					ADC3->SMPR1 = 0x00000038; // => sampling time 614 cycles (117.264 KS/s)
+					ADC3->SMPR1 = ADC_SMPL_RATE_117_264_KSPS; // => sampling time 614 cycles (117.264 KS/s)
 					break;
 				}
 				case timeDiv_500us:
 				{ // 500 us
-					ADC3->SMPR1 = 0x00000030; // => sampling time 194 cycles (371.31 KS/s)
+					ADC3->SMPR1 = ADC_SMPL_RATE_371_31_KSPS; // => sampling time 194 cycles (371.31 KS/s)
 					break;
 				}
 				case timeDiv_250us:
 				{ //250 us
-					ADC3->SMPR1 = 0x00000028; // => sampling time 74 cycles (973 KS/s)
+					ADC3->SMPR1 = ADC_SMPL_RATE_973_KSPS; // => sampling time 74 cycles (973 KS/s)
 					break;
 				}
 				case timeDiv_100us:
 				{ // 100 us
-					ADC3->SMPR1 = 0x00000018; // => sampling time 20 cycles (3.6 MS/s)
+					ADC3->SMPR1 = ADC_SMPL_RATE_3_6_MSPS; // => sampling time 20 cycles (3.6 MS/s)
 					break;
 				}
 				case timeDiv_50us:
 				{ //50 us
-					ADC3->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC3->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_25us:
 				{ //25 us
-					ADC3->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC3->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_10us:
 				{ //10 us
-					ADC3->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC3->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_5us:
 				{ //5 us
-					ADC3->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC3->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_2_5us:
 				{ //2.5 us
-					ADC3->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC3->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_1us:
 				{ //1 us
-					ADC3->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC3->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				default:
 				{
-					ADC3->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC3->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 			}
 		}
-		case 4:
+		case CH4_ID:
 		{
 			switch (dso.timeDiv)
 			{
 				case timeDiv_1ms:
 				{ // 1 ms
-					ADC4->SMPR1 = 0x00000038; // => sampling time 614 cycles (117.264 KS/s)
+					ADC4->SMPR1 = ADC_SMPL_RATE_117_264_KSPS; // => sampling time 614 cycles (117.264 KS/s)
 					break;
 				}
 				case timeDiv_500us:
 				{ // 500 us
-					ADC4->SMPR1 = 0x00000030; // => sampling time 194 cycles (371.31 KS/s)
+					ADC4->SMPR1 = ADC_SMPL_RATE_371_31_KSPS; // => sampling time 194 cycles (371.31 KS/s)
 					break;
 				}
 				case timeDiv_250us:
 				{ //250 us
-					ADC4->SMPR1 = 0x00000028; // => sampling time 74 cycles (973 KS/s)
+					ADC4->SMPR1 = ADC_SMPL_RATE_973_KSPS; // => sampling time 74 cycles (973 KS/s)
 					break;
 				}
 				case timeDiv_100us:
 				{ // 100 us
-					ADC4->SMPR1 = 0x00000018; // => sampling time 20 cycles (3.6 MS/s)
+					ADC4->SMPR1 = ADC_SMPL_RATE_3_6_MSPS; // => sampling time 20 cycles (3.6 MS/s)
 					break;
 				}
 				case timeDiv_50us:
 				{ //50 us
-					ADC4->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC4->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_25us:
 				{ //25 us
-					ADC4->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC4->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_10us:
 				{ //10 us
-					ADC4->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC4->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_5us:
 				{ //5 us
-					ADC4->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC4->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_2_5us:
 				{ //2.5 us
-					ADC4->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC4->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				case timeDiv_1us:
 				{ //1 us
-					ADC4->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC4->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 				default:
 				{
-					ADC4->SMPR1 = 0x00000000; // => sampling time 14 cycles (5.14 MS/s)
+					ADC4->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // => sampling time 14 cycles (5.14 MS/s)
 					break;
 				}
 			}
@@ -328,30 +329,30 @@ void setupADCSingle(channel_t *chx)
 void setupADCDual(uint32_t num)
 {
 	// dual mode used for 10 MS/s only (nanosecond timeDiv)
-	if(num)
+	if(num == ACQ_DUAL_34)
 	{	// ADC3_4 in dual
-		disableADC(3);
-		disableADC(4);
+		disableADC(CH3_ID);
+		disableADC(CH4_ID);
 		//mdma one shot, 12 bit, delay 5 TADC, interleaved mode
 		ADC34_COMMON->CCR = ADC34_CCR_MULTI_0 | ADC34_CCR_MULTI_1 | ADC34_CCR_MULTI_2 |
 							ADC34_CCR_DELAY_2 | ADC34_CCR_MDMA_1 | ADC34_CCR_CKMODE_0;
-		enableADC(3);
-		enableADC(4);
-		ADC3->SMPR1 = 0; // max sample rate
-		ADC4->SMPR1 = 0; // max sample rate
+		enableADC(CH3_ID);
+		enableADC(CH4_ID);
+		ADC3->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // max sample rate
+		ADC4->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // max sample rate
 		//setup DMA
 	}
-	else
+	else if(num == ACQ_DUAL_12)
 	{
-		disableADC(1);
-		disableADC(2);
+		disableADC(CH1_ID);
+		disableADC(CH2_ID);
 		// wait for adc2 to disable
 		ADC12_COMMON->CCR = ADC12_CCR_MULTI_0 | ADC12_CCR_MULTI_1 | ADC12_CCR_MULTI_2 |
 							ADC12_CCR_DELAY_2 | ADC12_CCR_MDMA_1 | ADC12_CCR_CKMODE_0;
-		enableADC(1);
-		enableADC(2);
-		ADC1->SMPR1 = 0; // max sample rate
-		ADC2->SMPR1 = 0; // max sample rate
+		enableADC(CH1_ID);
+		enableADC(CH2_ID);
+		ADC1->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // max sample rate
+		ADC2->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // max sample rate
 		// setup DMA
 	}
 }
@@ -362,29 +363,29 @@ void setupADCDual(uint32_t num)
 void setupADCParallel(uint32_t num)
 {
 	// dual mode used for 10 MS/s only (nanosecond timeDiv)
-	if(num)
+	if(num == ACQ_PARALLEL_34)
 	{	// ADC3_4 in dual
-		disableADC(3);
-		disableADC(4);
+		disableADC(CH3_ID);
+		disableADC(CH4_ID);
 		// wait for adc4 to disable
 		//no mdma, regular simultaneous mode
 		ADC34_COMMON->CCR = ADC34_CCR_MULTI_1 | ADC34_CCR_MULTI_2 | ADC34_CCR_CKMODE_0;
-		enableADC(3);
-		enableADC(4);
+		enableADC(CH3_ID);
+		enableADC(CH4_ID);
 		setupADCSingle(&dso.ch3);
 		setupADCSingle(&dso.ch4);
 		//setup DMA
 	}
-	else
+	else if(num == ACQ_PARALLEL_12)
 	{
-		disableADC(1);
-		disableADC(2);
+		disableADC(CH1_ID);
+		disableADC(CH2_ID);
 		//no mdma, regular simultaneous mode
 		ADC12_COMMON->CCR = ADC12_CCR_MULTI_1 | ADC12_CCR_MULTI_2 | ADC12_CCR_CKMODE_0;
-		enableADC(1);
-		enableADC(2);
-		setupADCSingle(&dso.ch3);
-		setupADCSingle(&dso.ch4);
+		enableADC(CH1_ID);
+		enableADC(CH2_ID);
+		setupADCSingle(&dso.ch1);
+		setupADCSingle(&dso.ch2);
 		// setup DMA
 	}
 
@@ -395,12 +396,10 @@ void setupADCParallel(uint32_t num)
  */
 void setupADCQuad(void)
 {
-	disableADC(1);
-	disableADC(2);
-	disableADC(3);
-	disableADC(4);
-	// ADDIS bit is high until ADC gets disabled
-	while (ADC4->CR & ADC_CR_ADDIS);
+	disableADC(CH1_ID);
+	disableADC(CH2_ID);
+	disableADC(CH3_ID);
+	disableADC(CH4_ID);
 
 	// synchronous clock, 12 bit MDMA circular mode, delay 2 T-ADC interleaved mode only
 	ADC12_COMMON->CCR = ADC12_CCR_MULTI_0 | ADC12_CCR_MULTI_1 | ADC12_CCR_MULTI_2 |
@@ -409,14 +408,14 @@ void setupADCQuad(void)
 	// synchronous clock, 12 bit MDMA circular mode, delay 2 T-ADC interleaved mode only
 	ADC34_COMMON->CCR = ADC34_CCR_MULTI_0 | ADC34_CCR_MULTI_1 | ADC34_CCR_MULTI_2 |
             			ADC34_CCR_DELAY_0 | ADC34_CCR_MDMA_1 | ADC34_CCR_CKMODE_0;
-	enableADC(1);
-	enableADC(2);
-	enableADC(3);
-	enableADC(4);
-	ADC1->SMPR1 = 0; // max sample rate
-	ADC2->SMPR1 = 0; // max sample rate
-	ADC3->SMPR1 = 0; // max sample rate
-	ADC4->SMPR1 = 0; // max sample rate
+	enableADC(CH1_ID);
+	enableADC(CH2_ID);
+	enableADC(CH3_ID);
+	enableADC(CH4_ID);
+	ADC1->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // max sample rate
+	ADC2->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // max sample rate
+	ADC3->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // max sample rate
+	ADC4->SMPR1 = ADC_SMPL_RATE_5_14_MSPS; // max sample rate
 }
 
 /**
@@ -477,19 +476,19 @@ void ADC_Clocks(void)
  * @brief Calibrate an ADC
  * @param chx Pointer to a channel structure. Each channel has it's own, dedicated ADC.
  */
-void calibrateADC(channel_t *chx)
+static void calibrateADC(channel_t *chx)
 {
 	uint32_t i;
 	switch (chx->id)
 	{
 		default:
-		case 1:
+		case CH1_ID:
 		{
 			disableADC(chx->id);
 			//00: ADC Intermediate state
 			ADC1->CR &= ~(ADC_CR_ADVREGEN_0 | ADC_CR_ADVREGEN_1);
 			//01: ADC Voltage regulator enabled
-			ADC1->CR |=ADC_CR_ADVREGEN_0;
+			ADC1->CR |= ADC_CR_ADVREGEN_0;
 			for (i = 0; i < 1000; i++);     	// some delay
 			//calibrate in Single-ended inputs Mode.
 			ADC1->CR &= ~ADC_CR_ADCALDIF;
@@ -499,13 +498,13 @@ void calibrateADC(channel_t *chx)
 			while (ADC1->CR & ADC_CR_ADCAL);
 			break;
 		}
-		case 2:
+		case CH2_ID:
 		{
 			disableADC(chx->id);
 			//00: ADC Intermediate state
 			ADC2->CR &= ~(ADC_CR_ADVREGEN_0 | ADC_CR_ADVREGEN_1);
 			//01: ADC Voltage regulator enabled
-			ADC2->CR |=ADC_CR_ADVREGEN_0;
+			ADC2->CR |= ADC_CR_ADVREGEN_0;
 			for (i = 0; i < 1000; i++);     	// some delay
 			//calibrate in Single-ended inputs Mode.
 			ADC2->CR &= ~ADC_CR_ADCALDIF;
@@ -515,13 +514,13 @@ void calibrateADC(channel_t *chx)
 			while (ADC2->CR & ADC_CR_ADCAL);
 			break;
 		}
-		case 3:
+		case CH3_ID:
 		{
 			disableADC(chx->id);
 			//00: ADC Intermediate state
 			ADC3->CR &= ~(ADC_CR_ADVREGEN_0 | ADC_CR_ADVREGEN_1);
 			//01: ADC Voltage regulator enabled
-			ADC3->CR |=ADC_CR_ADVREGEN_0;
+			ADC3->CR |= ADC_CR_ADVREGEN_0;
 			for (i = 0; i < 1000; i++);     	// some delay
 			//calibrate in Single-ended inputs Mode.
 			ADC3->CR &= ~ADC_CR_ADCALDIF;
@@ -531,13 +530,13 @@ void calibrateADC(channel_t *chx)
 			while (ADC4->CR & ADC_CR_ADCAL);
 			break;
 		}
-		case 4:
+		case CH4_ID:
 		{
 			disableADC(chx->id);
 			//00: ADC Intermediate state
 			ADC4->CR &= ~(ADC_CR_ADVREGEN_0 | ADC_CR_ADVREGEN_1);
 			//01: ADC Voltage regulator enabled
-			ADC4->CR |=ADC_CR_ADVREGEN_0;
+			ADC4->CR |= ADC_CR_ADVREGEN_0;
 			for (i = 0; i < 1000; i++);     	// some delay
 			//calibrate in Single-ended inputs Mode.
 			ADC4->CR &= ~ADC_CR_ADCALDIF;
@@ -554,12 +553,12 @@ void calibrateADC(channel_t *chx)
  * @brief Disable an ADC
  * @param num The number of the ADC 1 to 4
  */
-void disableADC(uint32_t num)
+static void disableADC(uint32_t num)
 {
 	switch (num)
 	{
 		default:
-		case 1:
+		case CH1_ID:
 			if(ADC1->CR & ADC_CR_ADEN)
 			{
 				ADC1->CR |= ADC_CR_ADDIS;
@@ -567,7 +566,7 @@ void disableADC(uint32_t num)
 			}
 			break;
 
-		case 2:
+		case CH2_ID:
 			if(ADC2->CR & ADC_CR_ADEN)
 			{
 				ADC2->CR |= ADC_CR_ADDIS;
@@ -575,7 +574,7 @@ void disableADC(uint32_t num)
 			}
 			break;
 
-		case 3:
+		case CH3_ID:
 			if(ADC3->CR & ADC_CR_ADEN)
 			{
 				ADC3->CR |= ADC_CR_ADDIS;
@@ -583,7 +582,7 @@ void disableADC(uint32_t num)
 			}
 			break;
 
-		case 4:
+		case CH4_ID:
 			if(ADC4->CR & ADC_CR_ADEN)
 			{
 				ADC4->CR |= ADC_CR_ADDIS;
@@ -597,12 +596,12 @@ void disableADC(uint32_t num)
  * @brief Enable an ADC
  * @param num Number of the ADC 1 to 4
  */
-void enableADC(uint32_t num)
+static void enableADC(uint32_t num)
 {
 	switch (num)
 	{
 		default:
-		case 1:
+		case CH1_ID:
 			if(!(ADC1->CR & ADC_CR_ADEN))
 			{
 				ADC1->CR |= ADC_CR_ADEN; //Enable ADC1
@@ -610,7 +609,7 @@ void enableADC(uint32_t num)
 			}
 			break;
 
-		case 2:
+		case CH2_ID:
 			if(!(ADC2->CR & ADC_CR_ADEN))
 			{
 				ADC2->CR |= ADC_CR_ADEN; //Enable ADC1
@@ -618,7 +617,7 @@ void enableADC(uint32_t num)
 			}
 			break;
 
-		case 3:
+		case CH3_ID:
 			if(!(ADC3->CR & ADC_CR_ADEN))
 			{
 				ADC3->CR |= ADC_CR_ADEN; //Enable ADC1
@@ -626,7 +625,7 @@ void enableADC(uint32_t num)
 			}
 			break;
 
-		case 4:
+		case CH4_ID:
 			if(!(ADC4->CR & ADC_CR_ADEN))
 			{
 				ADC4->CR |= ADC_CR_ADEN; //Enable ADC1

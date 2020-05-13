@@ -2,13 +2,41 @@
 
 static uint16_t touch_readY(void);
 static uint16_t touch_readX(void);
-static void timeDivChangeRedraw(void);
-static void triggerValueChangeRedraw(uint32_t up_down);
-static void SelectDeselect(uint32_t select);
+static uint32_t get_Y_touch(void);
+static uint32_t get_X_touch(void);
+static void select(void);
 static void deselect(void);
+static void deselect_channel(void);
+static void timeDivChangeRedraw(void);
+static void voltDivChangeRedraw(channel_t *chx);
+static void triggerSourceChangeRedraw(void);
+static void triggerEdgeChangeRedraw(void);
+static void CouplingChangeRedraw(channel_t *chx);
+static void triggerValueChangeRedraw(uint32_t up_down);
 static void incDec(uint32_t mode);
 
-static uint32_t selected = 0;
+typedef enum
+{
+	none_selected = 		0,
+	trig_src_selected = 	1,
+	trig_edge_selected = 	2,
+	trig_val_selected = 	4,
+	timediv_selected = 		8,
+	ch1_vdiv_selected = 	16,
+	ch1_cpl_selected = 		32,
+	ch2_vdiv_selected = 	64,
+	ch2_cpl_selected = 		128,
+	ch3_vdiv_selected = 	256,
+	ch3_cpl_selected = 		512,
+	ch4_vdiv_selected = 	1024,
+	ch4_cpl_selected = 		2048,
+	ch1_selected = 			4096,
+	ch2_selected = 			8192,
+	ch3_selected = 			16384,
+	ch4_selected = 			32768
+}obj_selected_t;
+
+static obj_selected_t selected = none_selected;
 
 /**
  * @brief Setup touch detection
@@ -135,7 +163,7 @@ void pollForTouch(void)
 			currentButton = inc_pressed;
 			if(currentButton != prevButton)
 			{
-				incDec(1);
+				incDec(INCREMENT);
 			}
 		}
 		// decrement
@@ -144,7 +172,7 @@ void pollForTouch(void)
 			currentButton = dec_pressed;
 			if(currentButton != prevButton)
 			{
-				incDec(0);
+				incDec(DECREMENT);
 			}
 		}
 
@@ -154,11 +182,11 @@ void pollForTouch(void)
 			currentButton = trigSource_pressed;
 			if(currentButton != prevButton)
 			{
-				if(selected != 1)
+				if(selected != trig_src_selected)
 				{
-					SelectDeselect(0);
-					selected = 1;
-					SelectDeselect(1);
+					deselect();
+					selected = trig_src_selected;
+					select();
 				}
 			}
 		}
@@ -169,11 +197,11 @@ void pollForTouch(void)
 			currentButton = trigEdge_pressed;
 			if(currentButton != prevButton)
 			{
-				if(selected != 2)
+				if(selected != trig_edge_selected)
 				{
-					SelectDeselect(0);
-					selected = 2;
-					SelectDeselect(1);
+					deselect();
+					selected = trig_edge_selected;
+					select();
 				}
 			}
 		}
@@ -184,11 +212,11 @@ void pollForTouch(void)
 			currentButton = trigValue_pressed;
 			if(currentButton != prevButton)
 			{
-				if(selected != 4)
+				if(selected != trig_val_selected)
 				{
-					SelectDeselect(0);
-					selected = 4;
-					SelectDeselect(1);
+					deselect();
+					selected = trig_val_selected;
+					select();
 				}
 			}
 		}
@@ -200,11 +228,11 @@ void pollForTouch(void)
 			currentButton = timeDiv_pressed;
 			if(currentButton != prevButton)
 			{
-				if(selected != 8)
+				if(selected != timediv_selected)
 				{
-					SelectDeselect(0);
-					selected = 8;
-					SelectDeselect(1);
+					deselect();
+					selected = timediv_selected;
+					select();
 				}
 			}
 		}
@@ -215,11 +243,11 @@ void pollForTouch(void)
 			currentButton = ch1VDiv_pressed;
 			if(currentButton != prevButton)
 			{
-				if(selected != 16)
+				if(selected != ch1_vdiv_selected)
 				{
-					SelectDeselect(0);
-					selected = 16;
-					SelectDeselect(1);
+					deselect();
+					selected = ch1_vdiv_selected;
+					select();
 				}
 			}
 		}
@@ -230,11 +258,11 @@ void pollForTouch(void)
 			currentButton = ch1Cpl_pressed;
 			if(currentButton != prevButton)
 			{
-				if(selected != 32)
+				if(selected != ch1_cpl_selected)
 				{
-					SelectDeselect(0);
-					selected = 32;
-					SelectDeselect(1);
+					deselect();
+					selected = ch1_cpl_selected;
+					select();
 				}
 			}
 		}
@@ -245,11 +273,11 @@ void pollForTouch(void)
 			currentButton = ch2VDiv_pressed;
 			if(currentButton != prevButton)
 			{
-				if(selected != 64)
+				if(selected != ch2_vdiv_selected)
 				{
-					SelectDeselect(0);
-					selected = 64;
-					SelectDeselect(1);
+					deselect();
+					selected = ch2_vdiv_selected;
+					select();
 				}
 			}
 		}
@@ -260,11 +288,11 @@ void pollForTouch(void)
 			currentButton = ch2Cpl_pressed;
 			if(currentButton != prevButton)
 			{
-				if(selected != 128)
+				if(selected != ch2_cpl_selected)
 				{
-					SelectDeselect(0);
-					selected = 128;
-					SelectDeselect(1);
+					deselect();
+					selected = ch2_cpl_selected;
+					select();
 				}
 			}
 		}
@@ -275,11 +303,11 @@ void pollForTouch(void)
 			currentButton = ch3VDiv_pressed;
 			if(currentButton != prevButton)
 			{
-				if(selected != 256)
+				if(selected != ch3_vdiv_selected)
 				{
-					SelectDeselect(0);
-					selected = 256;
-					SelectDeselect(1);
+					deselect();
+					selected = ch3_vdiv_selected;
+					select();
 				}
 			}
 		}
@@ -290,11 +318,11 @@ void pollForTouch(void)
 			currentButton = ch3Cpl_pressed;
 			if(currentButton != prevButton)
 			{
-				if(selected != 512)
+				if(selected != ch3_cpl_selected)
 				{
-					SelectDeselect(0);
-					selected = 512;
-					SelectDeselect(1);
+					deselect();
+					selected = ch3_cpl_selected;
+					select();
 				}
 			}
 		}
@@ -305,11 +333,11 @@ void pollForTouch(void)
 			currentButton = ch4VDiv_pressed;
 			if(currentButton != prevButton)
 			{
-				if(selected != 1024)
+				if(selected != ch4_vdiv_selected)
 				{
-					SelectDeselect(0);
-					selected = 1024;
-					SelectDeselect(1);
+					deselect();
+					selected = ch4_vdiv_selected;
+					select();
 				}
 			}
 		}
@@ -320,11 +348,11 @@ void pollForTouch(void)
 			currentButton = ch4Cpl_pressed;
 			if(currentButton != prevButton)
 			{
-				if(selected != 2048)
+				if(selected != ch4_cpl_selected)
 				{
-					SelectDeselect(0);
-					selected = 2048;
-					SelectDeselect(1);
+					deselect();
+					selected = ch4_cpl_selected;
+					select();
 				}
 			}
 		}
@@ -350,17 +378,17 @@ void pollForTouch(void)
 				{
 					if(dso.ch1.enabled)
 					{
-						if(selected != 4096)
+						if(selected != ch1_selected)
 						{
-							SelectDeselect(0);
-							selected = 4096;
-							SelectDeselect(1);
+							deselect();
+							selected = ch1_selected;
+							select();
 						}
 						dso.ch1.selected = 1;
 						dso.ch2.selected = 0;
 						dso.ch3.selected = 0;
 						dso.ch4.selected = 0;
-						deselect();
+						deselect_channel();
 						LCD_DrawRect(CH1_XTextStart, CH1_YTextStart,
 						CH1_XTextStart + 16, (CH1_YTextStart + FONTYSIZESMALL - 2),
 						ILI9341_WHITE);
@@ -401,17 +429,17 @@ void pollForTouch(void)
 				{
 					if(dso.ch2.enabled)
 					{
-						if(selected != 8192)
+						if(selected != ch2_selected)
 						{
-							SelectDeselect(0);
-							selected = 8192;
-							SelectDeselect(1);
+							deselect();
+							selected = ch2_selected;
+							select();
 						}
 						dso.ch1.selected = 0;
 						dso.ch2.selected = 1;
 						dso.ch3.selected = 0;
 						dso.ch4.selected = 0;
-						deselect();
+						deselect_channel();
 						LCD_DrawRect(CH2_XTextStart, CH2_YTextStart,
 						CH2_XTextStart + 16, (CH2_YTextStart + FONTYSIZESMALL - 2),
 						ILI9341_WHITE);
@@ -453,17 +481,17 @@ void pollForTouch(void)
 				{
 					if(dso.ch3.enabled)
 					{
-						if(selected != 16384)
+						if(selected != ch3_selected)
 						{
-							SelectDeselect(0);
-							selected = 16384;
-							SelectDeselect(1);
+							deselect();
+							selected = ch3_selected;
+							select();
 						}
 						dso.ch1.selected = 0;
 						dso.ch2.selected = 0;
 						dso.ch3.selected = 1;
 						dso.ch4.selected = 0;
-						deselect();
+						deselect_channel();
 						LCD_DrawRect(CH3_XTextStart, CH3_YTextStart,
 						CH3_XTextStart + 16, (CH3_YTextStart + FONTYSIZESMALL - 2),
 						ILI9341_WHITE);
@@ -504,17 +532,17 @@ void pollForTouch(void)
 				{
 					if(dso.ch4.enabled)
 					{
-						if(selected != 32768)
+						if(selected != ch4_selected)
 						{
-							SelectDeselect(0);
-							selected = 32768;
-							SelectDeselect(1);
+							deselect();
+							selected = ch4_selected;
+							select();
 						}
 						dso.ch1.selected = 0;
 						dso.ch2.selected = 0;
 						dso.ch3.selected = 0;
 						dso.ch4.selected = 1;
-						deselect();
+						deselect_channel();
 						LCD_DrawRect(CH4_XTextStart, CH4_YTextStart,
 						CH4_XTextStart + 16, (CH3_YTextStart + FONTYSIZESMALL - 2),
 						ILI9341_WHITE);
@@ -543,122 +571,68 @@ void pollForTouch(void)
 }
 
 /**
- * @brief Select/deselect a touch object
- * @param select 1 - select
- * 				 0 - deselect
+ * @brief Select a touch object (draw a white line around it)
  */
-void SelectDeselect(uint32_t select)
+static void select(void)
 {
 	switch (selected)
 	{
-		case 1: // trigger source
-			if(select)
-				LCD_DrawRect(5 * FONTXSIZESMALL - 1, 0, 8 * FONTXSIZESMALL,
+		case trig_src_selected: // trigger source
+			LCD_DrawRect(5 * FONTXSIZESMALL - 1, 0, 8 * FONTXSIZESMALL, FONTYSIZESMALL - 2, ILI9341_WHITE);
+			break;
+
+		case trig_edge_selected: // trigger edge
+			LCD_DrawRect(8 * FONTXSIZESMALL, 0, 9 * FONTXSIZESMALL, FONTYSIZESMALL - 2, ILI9341_WHITE);
+			break;
+
+		case trig_val_selected: // trigger value
+			LCD_DrawRect(9 * FONTXSIZESMALL, 0, TRIG_STR_LNGTH * FONTXSIZESMALL - 1, FONTYSIZESMALL - 2, ILI9341_WHITE);
+			break;
+
+		case timediv_selected: // timeDiv
+			LCD_DrawRect(TRIG_STR_LNGTH * FONTXSIZESMALL - 1, 0, (TRIG_STR_LNGTH * FONTXSIZESMALL) + (TDIV_STR_LNGTH * FONTXSIZESMALL),
 						FONTYSIZESMALL - 2, ILI9341_WHITE);
-			else
-				LCD_DrawRect(5 * FONTXSIZESMALL - 1, 0, 8 * FONTXSIZESMALL,
-						FONTYSIZESMALL - 2, ILI9341_BLACK);
 			break;
 
-		case 2: // trigger edge
-			if(select)
-				LCD_DrawRect(8 * FONTXSIZESMALL, 0, 9 * FONTXSIZESMALL,
-						FONTYSIZESMALL - 2, ILI9341_WHITE);
-			else
-				LCD_DrawRect(8 * FONTXSIZESMALL, 0, 9 * FONTXSIZESMALL,
-						FONTYSIZESMALL - 2, ILI9341_BLACK);
+		case ch1_vdiv_selected: // CH1 voltsDiv
+			LCD_DrawRect(CH1_XTextStart + (2 * FONTXSIZESMALL) - 1, CH1_YTextStart, CH1_XTextStart + (7 * FONTXSIZESMALL) - 2,
+					(CH1_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
 			break;
 
-		case 4: // trigger value
-			if(select)
-				LCD_DrawRect(9 * FONTXSIZESMALL, 0,
-				TRIG_STR_LNGTH * FONTXSIZESMALL - 1, FONTYSIZESMALL - 2,
-				ILI9341_WHITE);
-			else
-				LCD_DrawRect(9 * FONTXSIZESMALL, 0,
-				TRIG_STR_LNGTH * FONTXSIZESMALL - 1, FONTYSIZESMALL - 2,
-				ILI9341_BLACK);
+		case ch1_cpl_selected: // CH1 coupling
+			LCD_DrawRect(CH1_XTextStart + (7 * FONTXSIZESMALL) - 1, CH1_YTextStart, CH1_XTextStart + (10 * FONTXSIZESMALL) - 2,
+					(CH1_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
+
 			break;
 
-		case 8: // timeDiv
-			if(select)
-				LCD_DrawRect(TRIG_STR_LNGTH * FONTXSIZESMALL - 1, 0, (TRIG_STR_LNGTH * FONTXSIZESMALL) + (TDIV_STR_LNGTH * FONTXSIZESMALL),
-						FONTYSIZESMALL - 2, ILI9341_WHITE);
-			else
-				LCD_DrawRect(TRIG_STR_LNGTH * FONTXSIZESMALL - 1, 0, (TRIG_STR_LNGTH * FONTXSIZESMALL) + (TDIV_STR_LNGTH * FONTXSIZESMALL),
-						FONTYSIZESMALL - 2, ILI9341_BLACK);
-			break;
-
-		case 16: // CH1 voltsDiv
-			if(select)
-				LCD_DrawRect(CH1_XTextStart + (2 * FONTXSIZESMALL) - 1,
-				CH1_YTextStart, CH1_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH1_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
-			else
-				LCD_DrawRect(CH1_XTextStart + (2 * FONTXSIZESMALL) - 1,
-				CH1_YTextStart, CH1_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH1_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
-			break;
-
-		case 32: // CH1 coupling
-			if(select)
-				LCD_DrawRect(CH1_XTextStart + (7 * FONTXSIZESMALL) - 1,
-				CH1_YTextStart, CH1_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH1_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
-			else
-				LCD_DrawRect(CH1_XTextStart + (7 * FONTXSIZESMALL) - 1,
-				CH1_YTextStart, CH1_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH1_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
-			break;
-
-		case 64: // CH2 voltsDiv
-			if(select)
-				LCD_DrawRect(CH2_XTextStart + (2 * FONTXSIZESMALL) - 1,
+		case ch2_vdiv_selected: // CH2 voltsDiv
+			LCD_DrawRect(CH2_XTextStart + (2 * FONTXSIZESMALL) - 1,
 				CH2_YTextStart, CH2_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH2_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
-			else
-				LCD_DrawRect(CH2_XTextStart + (2 * FONTXSIZESMALL) - 1,
-				CH2_YTextStart, CH2_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH2_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
 			break;
 
-		case 128: // CH2 coupling
-			if(select)
-				LCD_DrawRect(CH2_XTextStart + (7 * FONTXSIZESMALL) - 1,
-				CH2_YTextStart, CH2_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH2_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
-			else
-				LCD_DrawRect(CH2_XTextStart + (7 * FONTXSIZESMALL) - 1,
-				CH2_YTextStart, CH2_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH2_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
+		case ch2_cpl_selected: // CH2 coupling
+			LCD_DrawRect(CH2_XTextStart + (7 * FONTXSIZESMALL) - 1, CH2_YTextStart, CH2_XTextStart + (10 * FONTXSIZESMALL) - 2,
+					(CH2_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
 			break;
 
-		case 256: // CH3 voltsDiv
-			if(select)
-				LCD_DrawRect(CH3_XTextStart + (2 * FONTXSIZESMALL) - 1,
-				CH3_YTextStart, CH3_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH3_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
-			else
-				LCD_DrawRect(CH3_XTextStart + (2 * FONTXSIZESMALL) - 1,
-				CH3_YTextStart, CH3_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH3_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
+		case ch3_vdiv_selected: // CH3 voltsDiv
+			LCD_DrawRect(CH3_XTextStart + (2 * FONTXSIZESMALL) - 1, CH3_YTextStart, CH3_XTextStart + (7 * FONTXSIZESMALL) - 2,
+					(CH3_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
 			break;
 
-		case 512: // CH3 coupling
-			if(select)
-				LCD_DrawRect(CH3_XTextStart + (7 * FONTXSIZESMALL) - 1,
-				CH3_YTextStart, CH3_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH3_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
-			else
-				LCD_DrawRect(CH3_XTextStart + (7 * FONTXSIZESMALL) - 1,
-				CH3_YTextStart, CH3_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH3_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
+		case ch3_cpl_selected: // CH3 coupling
+			LCD_DrawRect(CH3_XTextStart + (7 * FONTXSIZESMALL) - 1, CH3_YTextStart, CH3_XTextStart + (10 * FONTXSIZESMALL) - 2,
+					(CH3_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
 			break;
 
-		case 1024: // CH4 voltsDiv
-			if(select)
-				LCD_DrawRect(CH4_XTextStart + (2 * FONTXSIZESMALL) - 1,
-				CH4_YTextStart, CH4_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH4_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
-			else
-				LCD_DrawRect(CH4_XTextStart + (2 * FONTXSIZESMALL) - 1,
-				CH4_YTextStart, CH4_XTextStart + (7 * FONTXSIZESMALL) - 2, (CH4_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
+		case ch4_vdiv_selected: // CH4 voltsDiv
+			LCD_DrawRect(CH4_XTextStart + (2 * FONTXSIZESMALL) - 1, CH4_YTextStart, CH4_XTextStart + (7 * FONTXSIZESMALL) - 2,
+					(CH4_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
 			break;
 
-		case 2048: // CH4 coupling
-			if(select)
-				LCD_DrawRect(CH4_XTextStart + (7 * FONTXSIZESMALL) - 1,
-				CH4_YTextStart, CH4_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH4_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
-			else
-				LCD_DrawRect(CH4_XTextStart + (7 * FONTXSIZESMALL) - 1,
-				CH4_YTextStart, CH4_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH4_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
+		case ch4_cpl_selected: // CH4 coupling
+			LCD_DrawRect(CH4_XTextStart + (7 * FONTXSIZESMALL) - 1, CH4_YTextStart, CH4_XTextStart + (10 * FONTXSIZESMALL) - 2,
+					(CH4_YTextStart + FONTYSIZESMALL - 2), ILI9341_WHITE);
 			break;
 
 		default:
@@ -667,9 +641,78 @@ void SelectDeselect(uint32_t select)
 }
 
 /**
+ * @brief De-select a touch object (remove white line around object)
+ */
+static void deselect(void)
+{
+	switch (selected)
+	{
+		case trig_src_selected: // trigger source
+			LCD_DrawRect(5 * FONTXSIZESMALL - 1, 0, 8 * FONTXSIZESMALL, FONTYSIZESMALL - 2, ILI9341_BLACK);
+			break;
+
+		case trig_edge_selected: // trigger edge
+			LCD_DrawRect(8 * FONTXSIZESMALL, 0, 9 * FONTXSIZESMALL, FONTYSIZESMALL - 2, ILI9341_BLACK);
+			break;
+
+		case trig_val_selected: // trigger value
+			LCD_DrawRect(9 * FONTXSIZESMALL, 0, TRIG_STR_LNGTH * FONTXSIZESMALL - 1, FONTYSIZESMALL - 2, ILI9341_BLACK);
+			break;
+
+		case timediv_selected: // timeDiv
+			LCD_DrawRect(TRIG_STR_LNGTH * FONTXSIZESMALL - 1, 0, (TRIG_STR_LNGTH * FONTXSIZESMALL) + (TDIV_STR_LNGTH * FONTXSIZESMALL),
+						FONTYSIZESMALL - 2, ILI9341_BLACK);
+			break;
+
+		case ch1_vdiv_selected: // CH1 voltsDiv
+			LCD_DrawRect(CH1_XTextStart + (2 * FONTXSIZESMALL) - 1, CH1_YTextStart, CH1_XTextStart + (7 * FONTXSIZESMALL) - 2,
+					(CH1_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
+			break;
+
+		case ch1_cpl_selected: // CH1 coupling
+			LCD_DrawRect(CH1_XTextStart + (7 * FONTXSIZESMALL) - 1, CH1_YTextStart, CH1_XTextStart + (10 * FONTXSIZESMALL) - 2,
+					(CH1_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
+			break;
+
+		case ch2_vdiv_selected: // CH2 voltsDiv
+			LCD_DrawRect(CH2_XTextStart + (2 * FONTXSIZESMALL) - 1, CH2_YTextStart, CH2_XTextStart + (7 * FONTXSIZESMALL) - 2,
+					(CH2_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
+			break;
+
+		case ch2_cpl_selected: // CH2 coupling
+			LCD_DrawRect(CH2_XTextStart + (7 * FONTXSIZESMALL) - 1, CH2_YTextStart, CH2_XTextStart + (10 * FONTXSIZESMALL) - 2,
+					(CH2_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
+			break;
+
+		case ch3_vdiv_selected: // CH3 voltsDiv
+			LCD_DrawRect(CH3_XTextStart + (2 * FONTXSIZESMALL) - 1, CH3_YTextStart, CH3_XTextStart + (7 * FONTXSIZESMALL) - 2,
+					(CH3_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
+			break;
+
+		case ch3_cpl_selected: // CH3 coupling
+			LCD_DrawRect(CH3_XTextStart + (7 * FONTXSIZESMALL) - 1, CH3_YTextStart, CH3_XTextStart + (10 * FONTXSIZESMALL) - 2,
+					(CH3_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
+			break;
+
+		case ch4_vdiv_selected: // CH4 voltsDiv
+			LCD_DrawRect(CH4_XTextStart + (2 * FONTXSIZESMALL) - 1, CH4_YTextStart, CH4_XTextStart + (7 * FONTXSIZESMALL) - 2,
+					(CH4_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
+			break;
+
+		case ch4_cpl_selected: // CH4 coupling
+			LCD_DrawRect(CH4_XTextStart + (7 * FONTXSIZESMALL) - 1, CH4_YTextStart, CH4_XTextStart + (10 * FONTXSIZESMALL) - 2, (CH4_YTextStart + FONTYSIZESMALL - 2), ILI9341_BLACK);
+			break;
+
+		default:
+			// ignore other
+			break;
+	}
+}
+
+/**
  * @brief Function for de-selecting a channel
  */
-void deselect(void)
+static void deselect_channel(void)
 {
 	if(!dso.ch1.selected)
 	{
@@ -711,7 +754,7 @@ void deselect(void)
 /**
  * @brief Re-draw(re-print) Time-base when it is changed
  */
-void timeDivChangeRedraw(void)
+static void timeDivChangeRedraw(void)
 {
 	switch (dso.timeDiv)
 	{
@@ -797,7 +840,7 @@ void timeDivChangeRedraw(void)
  * @brief Re-draw(re-print) Volts per division when it is changed
  * @param chx Pointer to a channel structure.
  */
-void voltDivChangeRedraw(channel_t *chx)
+static void voltDivChangeRedraw(channel_t *chx)
 {
 	uint32_t x1, x2, color;
 	uint16_t *AS;
@@ -805,28 +848,28 @@ void voltDivChangeRedraw(channel_t *chx)
 
 	switch (chx->id)
 	{
-		case 1:
+		case CH1_ID:
 			x1 = 2 * FONTXSIZESMALL;
 			x2 = 7 * FONTXSIZESMALL;
 			ch = &ch1[2];
 			color = CH1_COLOR;
 			AS = &AS1;
 			break;
-		case 2:
+		case CH2_ID:
 			x1 = 2 * FONTXSIZESMALL + CH2_XTextStart;
 			x2 = 7 * FONTXSIZESMALL + CH2_XTextStart;
 			ch = &ch2[2];
 			color = CH2_COLOR;
 			AS = &AS2;
 			break;
-		case 3:
+		case CH3_ID:
 			x1 = 2 * FONTXSIZESMALL + CH3_XTextStart;
 			x2 = 7 * FONTXSIZESMALL + CH3_XTextStart;
 			ch = &ch3[2];
 			color = CH3_COLOR;
 			AS = &AS3;
 			break;
-		case 4:
+		case CH4_ID:
 			x1 = 2 * FONTXSIZESMALL + CH4_XTextStart;
 			x2 = 7 * FONTXSIZESMALL + CH4_XTextStart;
 			ch = &ch4[2];
@@ -925,21 +968,21 @@ void voltDivChangeRedraw(channel_t *chx)
 /**
  * @brief Re-print the trigger source when it is changed
  */
-void triggerSourceChangeRedraw(void)
+static void triggerSourceChangeRedraw(void)
 {
 	switch (dso.triggerSource)
 	{
 		default:
-		case 1:
+		case TRIG_SRC_CH1:
 			trig[7] = '1';
 			break;
-		case 2:
+		case TRIG_SRC_CH2:
 			trig[7] = '2';
 			break;
-		case 3:
+		case TRIG_SRC_CH3:
 			trig[7] = '3';
 			break;
-		case 4:
+		case TRIG_SRC_CH4:
 			trig[7] = '4';
 			break;
 	}
@@ -951,9 +994,9 @@ void triggerSourceChangeRedraw(void)
 /**
  * @brief Re-draw the trigger edge when it is changed.
  */
-void triggerEdgeChangeRedraw(void)
+static void triggerEdgeChangeRedraw(void)
 {
-	if(dso.triggerEdge)
+	if(dso.triggerEdge == TRIG_EDGE_RISING)
 		trig[8] = 127; //rising
 	else
 		trig[8] = 128; //falling
@@ -967,7 +1010,7 @@ void triggerEdgeChangeRedraw(void)
  * @brief Re-print the coupling for the channel when it is changed.
  * @param chx Pointer to a channel structure
  */
-void CouplingChangeRedraw(channel_t *chx)
+static void CouplingChangeRedraw(channel_t *chx)
 {
 	uint32_t x1, x2, color;
 	uint8_t *ch;
@@ -975,28 +1018,28 @@ void CouplingChangeRedraw(channel_t *chx)
 
 	switch (chx->id)
 	{
-		case 1:
+		case CH1_ID:
 			x1 = 7 * FONTXSIZESMALL;
 			x2 = 10 * FONTXSIZESMALL;
 			ch = &ch1[7];
 			color = CH1_COLOR;
 			AS = &AS1;
 			break;
-		case 2:
+		case CH2_ID:
 			x1 = 7 * FONTXSIZESMALL + CH2_XTextStart;
 			x2 = 10 * FONTXSIZESMALL + CH2_XTextStart;
 			ch = &ch2[7];
 			color = CH2_COLOR;
 			AS = &AS2;
 			break;
-		case 3:
+		case CH3_ID:
 			x1 = 7 * FONTXSIZESMALL + CH3_XTextStart;
 			x2 = 10 * FONTXSIZESMALL + CH3_XTextStart;
 			ch = &ch3[7];
 			color = CH3_COLOR;
 			AS = &AS3;
 			break;
-		case 4:
+		case CH4_ID:
 			x1 = 7 * FONTXSIZESMALL + CH4_XTextStart;
 			x2 = 10 * FONTXSIZESMALL + CH4_XTextStart;
 			ch = &ch4[7];
@@ -1013,7 +1056,7 @@ void CouplingChangeRedraw(channel_t *chx)
 	}
 	switch (chx->coupling)
 	{
-		case 0: //gnd
+		case CH_COUPLING_GND: //gnd
 			ch[0] = 'G';
 			ch[1] = 'N';
 			ch[2] = 'D';
@@ -1021,7 +1064,7 @@ void CouplingChangeRedraw(channel_t *chx)
 			*AS |= 0b0001000000000000;
 			*AS &= 0b1111001100000000;
 			break;
-		case 1: //DC
+		case CH_COUPLING_DC: //DC
 			ch[0] = ' ';
 			ch[1] = 'D';
 			ch[2] = 'C';
@@ -1029,7 +1072,7 @@ void CouplingChangeRedraw(channel_t *chx)
 			*AS |= 0b0000010000000000;
 			*AS &= 0b1110011100000000;
 			break;
-		case 2: //AC
+		case CH_COUPLING_AC: //AC
 			ch[0] = ' ';
 			ch[1] = 'A';
 			ch[2] = 'C';
@@ -1056,22 +1099,22 @@ void CouplingChangeRedraw(channel_t *chx)
  * @param up_down 1 for trigger level increment
  * 				  0 for trigger level decrement
  */
-void triggerValueChangeRedraw(uint32_t up_down)
+static void triggerValueChangeRedraw(uint32_t up_down)
 {
 	channel_t *chx;
 	int32_t val = 0;;
 	switch (dso.triggerSource)
 	{
-		case 1:
+		case CH1_ID:
 			chx = &dso.ch1;
 			break;
-		case 2:
+		case CH2_ID:
 			chx = &dso.ch2;
 			break;
-		case 3:
+		case CH3_ID:
 			chx = &dso.ch3;
 			break;
-		case 4:
+		case CH4_ID:
 			chx = &dso.ch4;
 			break;
 		default:
@@ -1371,35 +1414,35 @@ void triggerValueChangeRedraw(uint32_t up_down)
  * @brief Increment/decrement an object
  * @param mode 1 - increment, 0 - decrement
  */
-void incDec(uint32_t mode)
+static void incDec(uint32_t mode)
 {
 	switch (selected)
 	{
 		default:
-		case 1: // trigger source
+		case trig_src_selected: // trigger source
 			if(mode)
 			{
-				if(dso.triggerSource == 4)
-					dso.triggerSource = 1;
+				if(dso.triggerSource == TRIG_SRC_CH4)
+					dso.triggerSource = TRIG_SRC_CH1;
 				else
 					dso.triggerSource++;
 			}
 			else
 			{
-				if(dso.triggerSource == 1)
-					dso.triggerSource = 4;
+				if(dso.triggerSource == TRIG_SRC_CH1)
+					dso.triggerSource = TRIG_SRC_CH4;
 				else
 					dso.triggerSource--;
 			}
 			triggerSourceChangeRedraw();
 			break;
 
-		case 2: // trigger edge
+		case trig_edge_selected: // trigger edge
 			toggle(&dso.triggerEdge);
 			triggerEdgeChangeRedraw();
 			break;
 
-		case 4: // trigger value
+		case trig_val_selected: // trigger value
 			if(mode)
 			{
 				triggerValueChangeRedraw(1);
@@ -1410,7 +1453,7 @@ void incDec(uint32_t mode)
 			}
 			break;
 
-		case 8: // timeDiv
+		case timediv_selected: // timeDiv
 			if(mode)
 			{
 				dso.timeDiv++;
@@ -1423,7 +1466,7 @@ void incDec(uint32_t mode)
 			channelChange();
 			break;
 
-		case 16: // CH1 voltsDiv
+		case ch1_vdiv_selected: // CH1 voltsDiv
 			if(mode)
 			{
 				dso.ch1.voltsDiv++;
@@ -1435,7 +1478,7 @@ void incDec(uint32_t mode)
 			voltDivChangeRedraw(&dso.ch1);
 			break;
 
-		case 32: // CH1 coupling
+		case ch1_cpl_selected: // CH1 coupling
 			if(mode)
 			{
 				if(dso.ch1.coupling == CH_COUPLING_AC)
@@ -1453,7 +1496,7 @@ void incDec(uint32_t mode)
 			CouplingChangeRedraw(&dso.ch1);
 			break;
 
-		case 64: // CH2 voltsDiv
+		case ch2_vdiv_selected: // CH2 voltsDiv
 			if(mode)
 			{
 				dso.ch2.voltsDiv++;
@@ -1465,7 +1508,7 @@ void incDec(uint32_t mode)
 			voltDivChangeRedraw(&dso.ch2);
 			break;
 
-		case 128: // CH2 coupling
+		case ch2_cpl_selected: // CH2 coupling
 			if(mode)
 			{
 				if(dso.ch2.coupling == CH_COUPLING_AC)
@@ -1483,7 +1526,7 @@ void incDec(uint32_t mode)
 			CouplingChangeRedraw(&dso.ch2);
 			break;
 
-		case 256: // CH3 voltsDiv
+		case ch3_vdiv_selected: // CH3 voltsDiv
 			if(mode)
 			{
 				dso.ch3.voltsDiv++;
@@ -1495,7 +1538,7 @@ void incDec(uint32_t mode)
 			voltDivChangeRedraw(&dso.ch3);
 			break;
 
-		case 512: // CH3 coupling
+		case ch3_cpl_selected: // CH3 coupling
 			if(mode)
 			{
 				if(dso.ch3.coupling == CH_COUPLING_AC)
@@ -1513,7 +1556,7 @@ void incDec(uint32_t mode)
 			CouplingChangeRedraw(&dso.ch3);
 			break;
 
-		case 1024: // CH4 voltsDiv
+		case ch4_vdiv_selected: // CH4 voltsDiv
 			if(mode)
 			{
 				dso.ch4.voltsDiv++;
@@ -1525,7 +1568,7 @@ void incDec(uint32_t mode)
 			voltDivChangeRedraw(&dso.ch4);
 			break;
 
-		case 2048: // CH4 coupling
+		case ch4_cpl_selected: // CH4 coupling
 			if(mode)
 			{
 				if(dso.ch4.coupling == CH_COUPLING_AC)
@@ -1544,7 +1587,7 @@ void incDec(uint32_t mode)
 			break;
 
 			//ch1 vertical
-		case 4096:
+		case ch1_selected:
 			if(mode)
 				dso.ch1.vertical += 4;
 			else
@@ -1552,7 +1595,7 @@ void incDec(uint32_t mode)
 			break;
 
 			//ch2 vertical
-		case 8192:
+		case ch2_selected:
 			if(mode)
 				dso.ch2.vertical += 4;
 			else
@@ -1560,7 +1603,7 @@ void incDec(uint32_t mode)
 			break;
 
 			//ch3 vertical
-		case 16384:
+		case ch3_selected:
 			if(mode)
 				dso.ch3.vertical += 4;
 			else
@@ -1568,7 +1611,7 @@ void incDec(uint32_t mode)
 			break;
 
 			//ch4 vertical
-		case 32768:
+		case ch4_selected:
 			if(mode)
 				dso.ch4.vertical += 4;
 			else

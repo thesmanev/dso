@@ -74,333 +74,376 @@ void clearWaveform(void)
 }
 
 /**
- * @brief Process acquired data and display it on the screen
- * @param chNum Channel Number
- * @param mode 1 for displaying, 0 for clearings
+ * @brief Display waveform when using quad channel acquisition
  */
-void displayWaveformTrig(uint32_t chNum)
+static void displayWaveform_quad(void)
 {
 	uint32_t i;
-	uint32_t pixcnt = 8; // comes from waveform screen size
+	uint32_t pixcnt = 8; // reticle starting pixel
 	uint32_t color;
+	uint16_t *buff1 = (uint16_t*) buffer1;
+	uint16_t *buff2 = (uint16_t*) buffer3;
+	uint32_t y1 = 0, y2 = 0, y3 = 0, y4 = 0, x0 = 8, x1 = 0;
+	clear_framebuffer1_f = true;
 
-	if(dso.quad)
+	color = CH1_COLOR; // ch1 color
+	switch (dso.timeDiv)
 	{
-		uint16_t *buff1 = (uint16_t*) buffer1;
-		uint16_t *buff2 = (uint16_t*) buffer3;
-		uint32_t y1 = 0, y2 = 0, y3 = 0, y4 = 0, x0 = 8, x1 = 0;
-		clear_framebuffer1_f = true;
-
-		color = CH1_COLOR; // ch1 color
-		switch (dso.timeDiv)
+		case timeDiv_2_5us:
 		{
-			case timeDiv_2_5us:
+			y1 = 227u - (buff1[dso.triggerPoint] / 19u) + dso.ch1.vertical; // 212 comes from waveform screen size
+			y2 = 227u - (buff1[dso.triggerPoint + 1u] / 19u) + dso.ch1.vertical; // 4096 / 212 = 19.316
+			y3 = 227u - (buff2[dso.triggerPoint] / 19u) + dso.ch1.vertical; // needs refinement!!!!
+			y4 = 227u - (buff2[dso.triggerPoint + 1u] / 19u) + dso.ch1.vertical;
+			sendScreenBuffer1[pixcnt - 8] = (uint8_t)y1;
+			LCD_DrawLineV(y1, y2, pixcnt++, color);
+			sendScreenBuffer1[pixcnt - 8] = (uint8_t)y2;
+			LCD_DrawLineV(y2, y3, pixcnt++, color);
+			sendScreenBuffer1[pixcnt - 8] = (uint8_t)y3;
+			LCD_DrawLineV(y3, y4, pixcnt++, color);
+			sendScreenBuffer1[pixcnt - 8] = (uint8_t)y4;
+			for (i = dso.triggerPoint + 2; i < (dso.triggerPoint + (X_PIXELS / 2)); i += 2)
 			{
-				y1 = 227u - (buff1[dso.triggerPoint] / 19u) + dso.ch1.vertical; // 212 comes from waveform screen size
-				y2 = 227u - (buff1[dso.triggerPoint + 1u] / 19u) + dso.ch1.vertical; // 4096 / 212 = 19.316
-				y3 = 227u - (buff2[dso.triggerPoint] / 19u) + dso.ch1.vertical; // needs refinement!!!!
-				y4 = 227u - (buff2[dso.triggerPoint + 1u] / 19u) + dso.ch1.vertical;
-				sendScreenBuffer1[pixcnt - 8] = (uint8_t)y1;
+				y1 = 227u - (buff1[i] / 19u) + dso.ch1.vertical;
+				LCD_DrawLineV(y4, y1, pixcnt++, color);
+				sendScreenBuffer1[pixcnt - 8u] = (uint8_t)y1;
+				y2 = 227u - (buff1[i + 1u] / 19u) + dso.ch1.vertical;
+				y3 = 227u - (buff2[i] / 19u) + dso.ch1.vertical;
+				y4 = 227u - (buff2[i + 1u] / 19u) + dso.ch1.vertical;
 				LCD_DrawLineV(y1, y2, pixcnt++, color);
 				sendScreenBuffer1[pixcnt - 8] = (uint8_t)y2;
 				LCD_DrawLineV(y2, y3, pixcnt++, color);
 				sendScreenBuffer1[pixcnt - 8] = (uint8_t)y3;
 				LCD_DrawLineV(y3, y4, pixcnt++, color);
 				sendScreenBuffer1[pixcnt - 8] = (uint8_t)y4;
-				for (i = dso.triggerPoint + 2; i < (dso.triggerPoint + (X_PIXELS / 2)); i += 2)
-				{
-					y1 = 227u - (buff1[i] / 19u) + dso.ch1.vertical;
-					LCD_DrawLineV(y4, y1, pixcnt++, color);
-					sendScreenBuffer1[pixcnt - 8u] = (uint8_t)y1;
-					y2 = 227u - (buff1[i + 1u] / 19u) + dso.ch1.vertical;
-					y3 = 227u - (buff2[i] / 19u) + dso.ch1.vertical;
-					y4 = 227u - (buff2[i + 1u] / 19u) + dso.ch1.vertical;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					sendScreenBuffer1[pixcnt - 8] = (uint8_t)y2;
-					LCD_DrawLineV(y2, y3, pixcnt++, color);
-					sendScreenBuffer1[pixcnt - 8] = (uint8_t)y3;
-					LCD_DrawLineV(y3, y4, pixcnt++, color);
-					sendScreenBuffer1[pixcnt - 8] = (uint8_t)y4;
-				}
-				break;
 			}
-			case timeDiv_1us:
+			break;
+		}
+		case timeDiv_1us:
+		{
+			y1 = 227u - (buff1[dso.triggerPoint] / 19u) + dso.ch1.vertical; // 212 comes from waveform screen size
+			y2 = 227u - (buff1[dso.triggerPoint + 1u] / 19u) + dso.ch1.vertical; // 4096 / 212 = 19.316
+			y3 = 227u - (buff2[dso.triggerPoint] / 19u) + dso.ch1.vertical; // needs refinement!!!!
+			y4 = 227u - (buff2[dso.triggerPoint + 1u] / 19u) + dso.ch1.vertical;
+			x1 = (pixcnt * 871) / 512;
+			LCD_DrawLine(x0, y1, x1, y2, color);
+			sendScreenBuffer1[0] = (uint8_t)y1;
+			pixcnt++;
+			x0 = x1;
+			x1 = (pixcnt * 871) / 512;
+			LCD_DrawLine(x0, y2, x1, y3, color);
+			sendScreenBuffer1[1] = (uint8_t)y2;
+			pixcnt++;
+			x0 = x1;
+			x1 = (pixcnt * 871) / 512;
+			LCD_DrawLine(x0, y3, x1, y4, color);
+			sendScreenBuffer1[2] = (uint8_t)y3;
+			pixcnt++;
+			x0 = x1;
+			for (i = dso.triggerPoint + 2; i < dso.triggerPoint + 163; i += 2)
 			{
-				y1 = 227u - (buff1[dso.triggerPoint] / 19u) + dso.ch1.vertical; // 212 comes from waveform screen size
-				y2 = 227u - (buff1[dso.triggerPoint + 1u] / 19u) + dso.ch1.vertical; // 4096 / 212 = 19.316
-				y3 = 227u - (buff2[dso.triggerPoint] / 19u) + dso.ch1.vertical; // needs refinement!!!!
-				y4 = 227u - (buff2[dso.triggerPoint + 1u] / 19u) + dso.ch1.vertical;
-				x1 = (pixcnt * 871) / 512;
+				y1 = 227u - (buff1[i] / 19) + dso.ch1.vertical;
+				x1 = (pixcnt * 871u) / 512u;
+				LCD_DrawLine(x0, y4, x1, y1, color);
+				sendScreenBuffer1[pixcnt - 8] = (uint8_t)y4;
+				pixcnt++;
+				x0 = x1;
+				x1 = (pixcnt * 871u) / 512u;
+				y2 = 227u - (buff1[i + 1u] / 19u) + dso.ch1.vertical;
+				y3 = 227u - (buff2[i] / 19u) + dso.ch1.vertical;
+				y4 = 227u - (buff2[i + 1u] / 19u) + dso.ch1.vertical;
 				LCD_DrawLine(x0, y1, x1, y2, color);
-				sendScreenBuffer1[0] = (uint8_t)y1;
+				sendScreenBuffer1[pixcnt - 8] = (uint8_t)y1;
 				pixcnt++;
 				x0 = x1;
-				x1 = (pixcnt * 871) / 512;
+				x1 = (pixcnt * 871u) / 512u;
 				LCD_DrawLine(x0, y2, x1, y3, color);
-				sendScreenBuffer1[1] = (uint8_t)y2;
+				sendScreenBuffer1[pixcnt - 8] = (uint8_t)y2;
 				pixcnt++;
 				x0 = x1;
-				x1 = (pixcnt * 871) / 512;
+				x1 = (pixcnt * 871u) / 512u;
 				LCD_DrawLine(x0, y3, x1, y4, color);
-				sendScreenBuffer1[2] = (uint8_t)y3;
+				sendScreenBuffer1[pixcnt - 8] = (uint8_t)y3;
 				pixcnt++;
 				x0 = x1;
-				for (i = dso.triggerPoint + 2; i < dso.triggerPoint + 163; i += 2)
-				{
-					y1 = 227u - (buff1[i] / 19) + dso.ch1.vertical;
-					x1 = (pixcnt * 871u) / 512u;
-					LCD_DrawLine(x0, y4, x1, y1, color);
-					sendScreenBuffer1[pixcnt - 8] = (uint8_t)y4;
-					pixcnt++;
-					x0 = x1;
-					x1 = (pixcnt * 871u) / 512u;
-					y2 = 227u - (buff1[i + 1u] / 19u) + dso.ch1.vertical;
-					y3 = 227u - (buff2[i] / 19u) + dso.ch1.vertical;
-					y4 = 227u - (buff2[i + 1u] / 19u) + dso.ch1.vertical;
-					LCD_DrawLine(x0, y1, x1, y2, color);
-					sendScreenBuffer1[pixcnt - 8] = (uint8_t)y1;
-					pixcnt++;
-					x0 = x1;
-					x1 = (pixcnt * 871u) / 512u;
-					LCD_DrawLine(x0, y2, x1, y3, color);
-					sendScreenBuffer1[pixcnt - 8] = (uint8_t)y2;
-					pixcnt++;
-					x0 = x1;
-					x1 = (pixcnt * 871u) / 512u;
-					LCD_DrawLine(x0, y3, x1, y4, color);
-					sendScreenBuffer1[pixcnt - 8] = (uint8_t)y3;
-					pixcnt++;
-					x0 = x1;
-				}
-				break;
 			}
-			default:
-				break;
+			break;
 		}
-		return;
+		default:
+			break;
 	}
-	if(dso.dual1)
+}
+
+/**
+ * @brief Display waveform when using dual channel acquisition on channel 1
+ */
+static void displayWaveform_dual1(void)
+{
+	uint32_t i;
+	uint32_t pixcnt = 8; // reticle starting pixel
+	uint32_t color;
+	uint16_t *buff1 = (uint16_t*) buffer1;
+	uint32_t y1 = 0, y2 = 0, x = 0;
+
+	color = CH1_COLOR; // ch1 color
+
+	clear_framebuffer1_f = true;
+
+	switch(dso.timeDiv)
 	{
-		clear_framebuffer1_f = true;
-		uint16_t *buff1 = (uint16_t*) buffer1;
-		uint32_t y1 = 0, y2 = 0, x = 0;
-
-		color = CH1_COLOR; // ch1 color
-
-		switch(dso.timeDiv)
+		case timeDiv_10us:
 		{
-			case timeDiv_10us:
+			y1 = 227u - (buff1[dso.triggerPoint] / 19u) + dso.ch1.vertical; // 212 comes from waveform screen size
+			sendScreenBuffer1[0] = (uint8_t)y1;
+			for (i = 1; i < X_PIXELS; i++)
 			{
-				y1 = 227u - (buff1[dso.triggerPoint] / 19u) + dso.ch1.vertical; // 212 comes from waveform screen size
-				sendScreenBuffer1[0] = (uint8_t)y1;
-				for (i = 1; i < X_PIXELS; i++)
-				{
-					x = (i * 47u) / 16u + dso.triggerPoint;
-					y2 = 227u - (buff1[x] / 19u) + dso.ch1.vertical;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					sendScreenBuffer1[i] = (uint8_t)y2;
-					y1 = y2;
-				}
-				break;
+				x = (i * 47u) / 16u + dso.triggerPoint;
+				y2 = 227u - (buff1[x] / 19u) + dso.ch1.vertical;
+				LCD_DrawLineV(y1, y2, pixcnt++, color);
+				sendScreenBuffer1[i] = (uint8_t)y2;
+				y1 = y2;
 			}
-			case timeDiv_5us:
-			{
-				y1 = 227u - (buff1[dso.triggerPoint] / 19u) + dso.ch1.vertical; // 212 comes from waveform screen size
-				sendScreenBuffer1[0] = (uint8_t)y1;
-				for (i = 1; i < X_PIXELS; i++)
-				{
-					x = (i * 47) / 32 + dso.triggerPoint;
-					y2 = 227 - (buff1[x] / 19u) + dso.ch1.vertical;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					sendScreenBuffer1[i] = (uint8_t)y2;
-					y1 = y2;
-				}
-				break;
-			}
-			default:
-				assertError(16u); // 16 - wrong timeDiv for displayWaveform
+			break;
 		}
-		pixcnt = 8;
+		case timeDiv_5us:
+		{
+			y1 = 227u - (buff1[dso.triggerPoint] / 19u) + dso.ch1.vertical; // 212 comes from waveform screen size
+			sendScreenBuffer1[0] = (uint8_t)y1;
+			for (i = 1; i < X_PIXELS; i++)
+			{
+				x = (i * 47) / 32 + dso.triggerPoint;
+				y2 = 227 - (buff1[x] / 19u) + dso.ch1.vertical;
+				LCD_DrawLineV(y1, y2, pixcnt++, color);
+				sendScreenBuffer1[i] = (uint8_t)y2;
+				y1 = y2;
+			}
+			break;
+		}
+		default:
+			assertError(16u); // 16 - wrong timeDiv for displayWaveform
 	}
+}
 
-	if(dso.dual2)
+/**
+ * @brief Display waveform when using dual channel acquisition on channel 3
+ */
+static void displayWaveform_dual2(void)
+{
+	uint32_t i;
+	uint32_t pixcnt = 8; // reticle starting pixel
+	uint32_t color;
+	uint16_t *buff1 = (uint16_t*) buffer3;
+	uint32_t y1 = 0, y2 = 0, x = 0;
+
+	color = CH3_COLOR; // ch3 color
+
+	clear_framebuffer3_f = true;
+
+	switch (dso.timeDiv)
 	{
-		clear_framebuffer3_f = true;
-		uint16_t *buff1 = (uint16_t*) buffer3;
-		uint32_t y1 = 0, y2 = 0, x = 0;
-
-		color = CH3_COLOR; // ch3 color
-
-		switch (dso.timeDiv)
+		case timeDiv_10us:
 		{
-			case timeDiv_10us:
+			y1 = 227u - (buff1[dso.triggerPoint] / 19u) + dso.ch3.vertical; // 212 comes from waveform screen size
+			sendScreenBuffer3[0] = (uint8_t)y1;
+			for (i = 1; i < X_PIXELS; i++)
 			{
-				y1 = 227u - (buff1[dso.triggerPoint] / 19u) + dso.ch3.vertical; // 212 comes from waveform screen size
-				sendScreenBuffer3[0] = (uint8_t)y1;
-				for (i = 1; i < X_PIXELS; i++)
-				{
-					x = (i * 47u) / 16u + dso.triggerPoint;
-					y2 = 227u - (buff1[x] / 19u) + dso.ch3.vertical;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					sendScreenBuffer3[i] = (uint8_t)y2;
-					y1 = y2;
-				}
-				break;
+				x = (i * 47u) / 16u + dso.triggerPoint;
+				y2 = 227u - (buff1[x] / 19u) + dso.ch3.vertical;
+				LCD_DrawLineV(y1, y2, pixcnt++, color);
+				sendScreenBuffer3[i] = (uint8_t)y2;
+				y1 = y2;
 			}
-			case timeDiv_5us:
-			{
-				y1 = 227u - (buff1[dso.triggerPoint] / 19u) + dso.ch3.vertical; // 212 comes from waveform screen size
-				sendScreenBuffer3[0] = (uint8_t)y1;
-				for (i = 1; i < X_PIXELS; i++)
-				{
-					x = (i * 47u) / 32u + dso.triggerPoint;
-					y2 = 227u - (buff1[x] / 19u) + dso.ch3.vertical;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					sendScreenBuffer3[i] = (uint8_t)y2;
-					y1 = y2;
-				}
-				break;
-			}
-			default:
-				assertError(16u); // 16 - wrong timeDiv for displayWaveform
-
+			break;
 		}
-		pixcnt = 8;
+		case timeDiv_5us:
+		{
+			y1 = 227u - (buff1[dso.triggerPoint] / 19u) + dso.ch3.vertical; // 212 comes from waveform screen size
+			sendScreenBuffer3[0] = (uint8_t)y1;
+			for (i = 1; i < X_PIXELS; i++)
+			{
+				x = (i * 47u) / 32u + dso.triggerPoint;
+				y2 = 227u - (buff1[x] / 19u) + dso.ch3.vertical;
+				LCD_DrawLineV(y1, y2, pixcnt++, color);
+				sendScreenBuffer3[i] = (uint8_t)y2;
+				y1 = y2;
+			}
+			break;
+		}
+		default:
+			assertError(16u); // 16 - wrong timeDiv for displayWaveform
+
 	}
-	if(chNum)
+}
+
+/**
+ * @brief Display waveform when using individual channel acquisition
+ */
+static void displayWaveform_channel(uint32_t chNum)
+{
+	uint32_t i;
+	uint32_t pixcnt = 8; // reticle starting pixel
+	uint32_t color;
+	uint16_t *buff1;
+	uint32_t y1 = 0, y2 = 0, x = 0, vert = 0;
+	uint8_t *scrbuff;
+	switch (chNum)
 	{
-		uint16_t *buff1;
-		uint32_t y1 = 0, y2 = 0, x = 0, vert = 0;
-		uint8_t *scrbuff;
-		switch (chNum)
+		default:
+		case 1:
 		{
-			default:
-			case 1:
-			{
-				vert = dso.ch1.vertical;
-				color = CH1_COLOR; // ch1 color
-				buff1 = (uint16_t*) buffer1;
-				scrbuff = sendScreenBuffer1;
-				clear_framebuffer1_f = true;
-				break;
-			}
-			case 2:
-			{
-				vert = dso.ch2.vertical;
-				color = CH2_COLOR; // ch1 color
-				buff1 = (uint16_t*) buffer2;
-				scrbuff = sendScreenBuffer2;
-				clear_framebuffer2_f = true;
-				break;
-			}
-			case 3:
-			{
-				vert = dso.ch3.vertical;
-				color = CH3_COLOR; // ch1 color
-				buff1 = (uint16_t*) buffer3;
-				scrbuff = sendScreenBuffer3;
-				clear_framebuffer3_f = true;
-				break;
-			}
-			case 4:
-			{
-				vert = dso.ch4.vertical;
-				color = CH4_COLOR; // ch1 color
-				buff1 = (uint16_t*) buffer4;
-				scrbuff = sendScreenBuffer4;
-				clear_framebuffer4_f = true;
-				break;
-			}
+			vert = dso.ch1.vertical;
+			color = CH1_COLOR; // ch1 color
+			buff1 = (uint16_t*) buffer1;
+			scrbuff = sendScreenBuffer1;
+			clear_framebuffer1_f = true;
+			break;
 		}
-		switch (dso.timeDiv)
+		case 2:
 		{
-			case timeDiv_1ms:
+			vert = dso.ch2.vertical;
+			color = CH2_COLOR; // ch1 color
+			buff1 = (uint16_t*) buffer2;
+			scrbuff = sendScreenBuffer2;
+			clear_framebuffer2_f = true;
+			break;
+		}
+		case 3:
+		{
+			vert = dso.ch3.vertical;
+			color = CH3_COLOR; // ch1 color
+			buff1 = (uint16_t*) buffer3;
+			scrbuff = sendScreenBuffer3;
+			clear_framebuffer3_f = true;
+			break;
+		}
+		case 4:
+		{
+			vert = dso.ch4.vertical;
+			color = CH4_COLOR; // ch1 color
+			buff1 = (uint16_t*) buffer4;
+			scrbuff = sendScreenBuffer4;
+			clear_framebuffer4_f = true;
+			break;
+		}
+	}
+	switch (dso.timeDiv)
+	{
+		case timeDiv_1ms:
+		{
+			y1 = 227u - (buff1[dso.triggerPoint] / 19u) + vert; // 212 comes from waveform screen size
+			scrbuff[0] = (uint8_t)y1;
+			for (i = 1; i < X_PIXELS; i++)
 			{
-				y1 = 227u - (buff1[dso.triggerPoint] / 19u) + vert; // 212 comes from waveform screen size
-				scrbuff[0] = (uint8_t)y1;
-				for (i = 1; i < X_PIXELS; i++)
-				{
-					x = ((i * 439143u) / 131072u) + dso.triggerPoint;
-					y2 = 227u - (buff1[x] / 19u) + vert;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					scrbuff[i] = (uint8_t)y2;
-					y1 = y2;
-				}
-				break;
+				x = ((i * 439143u) / 131072u) + dso.triggerPoint;
+				y2 = 227u - (buff1[x] / 19u) + vert;
+				LCD_DrawLineV(y1, y2, pixcnt++, color);
+				scrbuff[i] = (uint8_t)y2;
+				y1 = y2;
 			}
-			case timeDiv_500us:
+			break;
+		}
+		case timeDiv_500us:
+		{
+			y1 = 227u - (buff1[dso.triggerPoint] / 19u) + vert; // 212 comes from waveform screen size
+			scrbuff[0] = (uint8_t)y1;
+			for (i = 1; i < X_PIXELS; i++)
 			{
-				y1 = 227u - (buff1[dso.triggerPoint] / 19u) + vert; // 212 comes from waveform screen size
-				scrbuff[0] = (uint8_t)y1;
-				for (i = 1; i < X_PIXELS; i++)
-				{
-					x = ((i * 910925u) / 65536u) + dso.triggerPoint;
-					y2 = 227 - (buff1[x] / 19u) + vert;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					scrbuff[i] = (uint8_t)y2;
-					y1 = y2;
-				}
-				break;
+				x = ((i * 910925u) / 65536u) + dso.triggerPoint;
+				y2 = 227 - (buff1[x] / 19u) + vert;
+				LCD_DrawLineV(y1, y2, pixcnt++, color);
+				scrbuff[i] = (uint8_t)y2;
+				y1 = y2;
 			}
-			case timeDiv_250us:
+			break;
+		}
+		case timeDiv_250us:
+		{
+			y1 = 227u - (buff1[dso.triggerPoint] / 19u) + vert; // 212 comes from waveform screen size
+			scrbuff[0] = (uint8_t)y1;
+			for (i = 1; i < X_PIXELS; i++)
 			{
-				y1 = 227u - (buff1[dso.triggerPoint] / 19u) + vert; // 212 comes from waveform screen size
-				scrbuff[0] = (uint8_t)y1;
-				for (i = 1; i < X_PIXELS; i++)
-				{
-					x = (i * 7u) + dso.triggerPoint;
-					y2 = 227u - (buff1[x] / 19u) + vert;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					scrbuff[i] = (uint8_t)y2;
-					y1 = y2;
-				}
-				break;
+				x = (i * 7u) + dso.triggerPoint;
+				y2 = 227u - (buff1[x] / 19u) + vert;
+				LCD_DrawLineV(y1, y2, pixcnt++, color);
+				scrbuff[i] = (uint8_t)y2;
+				y1 = y2;
 			}
-			case timeDiv_100us:
+			break;
+		}
+		case timeDiv_100us:
+		{
+			y1 = 227u - (buff1[dso.triggerPoint] / 19u) + vert; // 212 comes from waveform screen size
+			scrbuff[0] = (uint8_t)y1;
+			for (i = 1; i < X_PIXELS; i++)
 			{
-				y1 = 227u - (buff1[dso.triggerPoint] / 19u) + vert; // 212 comes from waveform screen size
-				scrbuff[0] = (uint8_t)y1;
-				for (i = 1; i < X_PIXELS; i++)
-				{
-					x = ((i * 421307u) / 65536u) + dso.triggerPoint;
-					y2 = 227 - (buff1[x] / 19u) + vert;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					scrbuff[i] = (uint8_t)y2;
-					y1 = y2;
-				}
-				break;
+				x = ((i * 421307u) / 65536u) + dso.triggerPoint;
+				y2 = 227 - (buff1[x] / 19u) + vert;
+				LCD_DrawLineV(y1, y2, pixcnt++, color);
+				scrbuff[i] = (uint8_t)y2;
+				y1 = y2;
 			}
-			case timeDiv_50us:
+			break;
+		}
+		case timeDiv_50us:
+		{
+			y1 = 227u - (buff1[dso.triggerPoint] / 19u) + vert; // 212 comes from waveform screen size
+			scrbuff[0] = (uint8_t)y1;
+			for (i = 1; i < X_PIXELS; i++)
 			{
-				y1 = 227u - (buff1[dso.triggerPoint] / 19u) + vert; // 212 comes from waveform screen size
-				scrbuff[0] = (uint8_t)y1;
-				for (i = 1; i < X_PIXELS; i++)
-				{
-					x = ((i * 1389865) / 262144u) + dso.triggerPoint;
-					y2 = 227u - (buff1[x] / 19u) + vert;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					scrbuff[i] = (uint8_t)y2;
-					y1 = y2;
-				}
-				break;
+				x = ((i * 1389865) / 262144u) + dso.triggerPoint;
+				y2 = 227u - (buff1[x] / 19u) + vert;
+				LCD_DrawLineV(y1, y2, pixcnt++, color);
+				scrbuff[i] = (uint8_t)y2;
+				y1 = y2;
 			}
-			case timeDiv_25us:
+			break;
+		}
+		case timeDiv_25us:
+		{
+			y1 = 227u - (buff1[dso.triggerPoint] / 19u) + vert; // 212 comes from waveform screen size
+			scrbuff[0] = (uint8_t)y1;
+			for (i = 1; i < X_PIXELS; i++)
 			{
-				y1 = 227u - (buff1[dso.triggerPoint] / 19u) + vert; // 212 comes from waveform screen size
-				scrbuff[0] = (uint8_t)y1;
-				for (i = 1; i < X_PIXELS; i++)
-				{
-					x = ((i * 30093u) / 8192u) + dso.triggerPoint;
-					y2 = 227 - (buff1[x] / 19u) + vert;
-					LCD_DrawLineV(y1, y2, pixcnt++, color);
-					scrbuff[i] = (uint8_t)y2;
-					y1 = y2;
-				}
-				break;
+				x = ((i * 30093u) / 8192u) + dso.triggerPoint;
+				y2 = 227 - (buff1[x] / 19u) + vert;
+				LCD_DrawLineV(y1, y2, pixcnt++, color);
+				scrbuff[i] = (uint8_t)y2;
+				y1 = y2;
 			}
-			default:
-				assertError(16u);
-				break;
+			break;
+		}
+		default:
+			assertError(16u);
+			break;
+	}
+}
+
+/**
+ * @brief Process acquired data and display it on the screen
+ * @param chNum Channel Number
+ * @param mode 1 for displaying, 0 for clearings
+ */
+void displayWaveformTrig(uint32_t chNum)
+{
+	if(dso.quad)
+	{
+		displayWaveform_quad();
+	}
+	else
+	{
+		if(dso.dual1)
+		{
+			displayWaveform_dual1();
+		}
+
+		if(dso.dual2)
+		{
+			displayWaveform_dual2();
+		}
+
+		if(chNum)
+		{
+			displayWaveform_channel(chNum);
 		}
 	}
 }
@@ -504,16 +547,16 @@ void findTrigger(void)
 		uint16_t *buff1;
 		switch (dso.triggerSource)
 		{
-			case 1:
+			case TRIG_SRC_CH1:
 				buff1 = (uint16_t*) (&buffer1[40]);
 				break;
-			case 2:
+			case TRIG_SRC_CH2:
 				buff1 = (uint16_t*) (&buffer2[40]);
 				break;
-			case 3:
+			case TRIG_SRC_CH3:
 				buff1 = (uint16_t*) (&buffer3[40]);
 				break;
-			case 4:
+			case TRIG_SRC_CH4:
 				buff1 = (uint16_t*) (&buffer4[40]);
 				break;
 			default:

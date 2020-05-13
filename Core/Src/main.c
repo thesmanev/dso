@@ -252,8 +252,8 @@ void channelChange(void)
 			{
 				if(dso.timeDiv < timeDiv_2_5us)
 				{
-					setupADCDual(0);
-					setupDMADual(0);
+					setupADCDual(ACQ_DUAL_12);
+					setupDMADual(ACQ_DUAL_12);
 					dso.dual1 = 1;
 					dso.dual2 = 0;
 					dso.quad = 0;
@@ -305,8 +305,8 @@ void channelChange(void)
 		{
 			if(dso.timeDiv < timeDiv_10us)
 			{ //ch1 and ch2 parallel
-				setupADCParallel(0);
-				setupDMAParallel(0);
+				setupADCParallel(ACQ_PARALLEL_12);
+				setupDMAParallel(ACQ_PARALLEL_12);
 				dso.dual1 = 0;
 				dso.dual2 = 0;
 				dso.quad = 0;
@@ -343,8 +343,8 @@ void channelChange(void)
 			{
 				if(dso.timeDiv < timeDiv_2_5us)
 				{
-					setupADCDual(1);
-					setupDMADual(1);
+					setupADCDual(ACQ_DUAL_34);
+					setupDMADual(ACQ_DUAL_34);
 					dso.dual1 = 0;
 					dso.dual2 = 1;
 					dso.quad = 0;
@@ -385,10 +385,10 @@ void channelChange(void)
 			{
 				if(dso.timeDiv < timeDiv_2_5us)
 				{
-					setupADCDual(0);
-					setupDMADual(0);
-					setupADCDual(1);
-					setupDMADual(1);
+					setupADCDual(ACQ_DUAL_12);
+					setupDMADual(ACQ_DUAL_12);
+					setupADCDual(ACQ_DUAL_34);
+					setupDMADual(ACQ_DUAL_34);
 					dso.dual1 = 1;
 					dso.dual2 = 1;
 					dso.quad = 0;
@@ -436,8 +436,8 @@ void channelChange(void)
 		{ // channels 1, 2 and 3
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				setupADCParallel(0);
-				setupDMAParallel(0);
+				setupADCParallel(ACQ_PARALLEL_12);
+				setupDMAParallel(ACQ_PARALLEL_12);
 				initADC(&dso.ch3);
 				setupADCSingle(&dso.ch3);
 				setupDMA(&dso.ch3);
@@ -536,8 +536,8 @@ void channelChange(void)
 		{ //channels 1,2 and 4
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				setupADCParallel(0);
-				setupDMAParallel(0);
+				setupADCParallel(ACQ_PARALLEL_12);
+				setupDMAParallel(ACQ_PARALLEL_12);
 				initADC(&dso.ch4);
 				setupADCSingle(&dso.ch4);
 				setupDMA(&dso.ch4);
@@ -562,8 +562,8 @@ void channelChange(void)
 		{ // channels 3 and 4
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				setupADCParallel(1);
-				setupDMAParallel(1);
+				setupADCParallel(ACQ_PARALLEL_34);
+				setupDMAParallel(ACQ_PARALLEL_34);
 				dso.dual1 = 0;
 				dso.dual2 = 0;
 				dso.quad = 0;
@@ -584,8 +584,8 @@ void channelChange(void)
 		{ // channels 1, 3 and 4
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				setupADCParallel(1);
-				setupDMAParallel(1);
+				setupADCParallel(ACQ_PARALLEL_34);
+				setupDMAParallel(ACQ_PARALLEL_34);
 				initADC(&dso.ch1);
 				setupADCSingle(&dso.ch1);
 				setupDMA(&dso.ch1);
@@ -610,8 +610,8 @@ void channelChange(void)
 		{ // channels 2, 3 and 4
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				setupADCParallel(1);
-				setupDMAParallel(1);
+				setupADCParallel(ACQ_PARALLEL_34);
+				setupDMAParallel(ACQ_PARALLEL_34);
 				initADC(&dso.ch2);
 				setupADCSingle(&dso.ch2);
 				setupDMA(&dso.ch2);
@@ -636,10 +636,10 @@ void channelChange(void)
 		{ // all channels
 			if(dso.timeDiv < timeDiv_10us)
 			{
-				setupADCParallel(1);
-				setupDMAParallel(1);
-				setupADCParallel(0);
-				setupDMAParallel(0);
+				setupADCParallel(ACQ_PARALLEL_34);
+				setupDMAParallel(ACQ_PARALLEL_34);
+				setupADCParallel(ACQ_PARALLEL_12);
+				setupDMAParallel(ACQ_PARALLEL_12);
 				dso.dual1 = 0;
 				dso.dual2 = 0;
 				dso.quad = 0;

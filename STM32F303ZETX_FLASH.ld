@@ -29,7 +29,7 @@
 ENTRY(Reset_Handler)
 
 /* Highest address of the user mode stack */
-_estack = ORIGIN(RAM) + LENGTH(RAM);	/* end of "RAM" Ram type memory */
+_estack = ORIGIN(CCMRAM) + LENGTH(CCMRAM);	/* end of "RAM" Ram type memory */
 
 _Min_Heap_Size = 0x200 ;	/* required amount of heap  */
 _Min_Stack_Size = 0x400 ;	/* required amount of stack */
@@ -136,7 +136,26 @@ SECTIONS
     . = ALIGN(4);
     _edata = .;        /* define a global symbol at data end */
     
-  } >RAM AT> FLASH
+  } >CCMRAM AT> FLASH
+  
+  _siccmram = LOADADDR(.ccmram);
+  
+  /* CCM-RAM section
+  * 
+  * IMPORTANT NOTE!
+  * If initialized variables will be placed in this section,
+  * the startup code needs to be modified to copy the init-values.
+  */
+  .ccmram :
+  {
+  	. = ALIGN(4);
+  	_sccmram = .;		/* create a global symbol at ccmram start */
+  	*(.ccmram)
+  	*(.ccmram*)
+  	
+  	. = ALIGN(4);
+  	_eccmram = .;		/* create a global symbol at ccmram end */
+  } >CCMRAM AT> FLASH
 
   /* Uninitialized data section into "RAM" Ram type memory */
   . = ALIGN(4);
@@ -152,7 +171,7 @@ SECTIONS
     . = ALIGN(4);
     _ebss = .;         /* define a global symbol at bss end */
     __bss_end__ = _ebss;
-  } >RAM
+  } >CCMRAM
 
   /* User_heap_stack section, used to check that there is enough "RAM" Ram  type memory left */
   ._user_heap_stack :
@@ -163,7 +182,7 @@ SECTIONS
     . = . + _Min_Heap_Size;
     . = . + _Min_Stack_Size;
     . = ALIGN(8);
-  } >RAM
+  } >CCMRAM
 
   /* Remove information from the compiler libraries */
   /DISCARD/ :

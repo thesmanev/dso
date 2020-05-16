@@ -76,7 +76,7 @@ void clearWaveform(void)
 /**
  * @brief Display waveform when using quad channel acquisition
  */
-static void displayWaveform_quad(void)
+static void  __attribute__((section(".ccmram"))) displayWaveform_quad(void)
 {
 	uint32_t i;
 	uint32_t pixcnt = 8; // reticle starting pixel
@@ -177,7 +177,7 @@ static void displayWaveform_quad(void)
 /**
  * @brief Display waveform when using dual channel acquisition on channel 1
  */
-static void displayWaveform_dual1(void)
+static void  __attribute__((section(".ccmram"))) displayWaveform_dual1(void)
 {
 	uint32_t i;
 	uint32_t pixcnt = 8; // reticle starting pixel
@@ -227,7 +227,7 @@ static void displayWaveform_dual1(void)
 /**
  * @brief Display waveform when using dual channel acquisition on channel 3
  */
-static void displayWaveform_dual2(void)
+static void  __attribute__((section(".ccmram"))) displayWaveform_dual2(void)
 {
 	uint32_t i;
 	uint32_t pixcnt = 8; // reticle starting pixel
@@ -278,7 +278,7 @@ static void displayWaveform_dual2(void)
 /**
  * @brief Display waveform when using individual channel acquisition
  */
-static void displayWaveform_channel(uint32_t chNum)
+static void  __attribute__((section(".ccmram"))) displayWaveform_channel(uint32_t chNum)
 {
 	uint32_t i;
 	uint32_t pixcnt = 8; // reticle starting pixel

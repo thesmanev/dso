@@ -73,13 +73,29 @@ CopyDataInit:
 	adds	r1, r1, #4
 
 LoopCopyDataInit:
-	ldr	r0, =_sdata
-	ldr	r3, =_edata
-	adds	r2, r0, r1
-	cmp	r2, r3
-	bcc	CopyDataInit
-	ldr	r2, =_sbss
-	b	LoopFillZerobss
+  	ldr  r0, =_sdata
+  	ldr  r3, =_edata
+  	adds  r2, r0, r1
+  	cmp  r2, r3
+  	bcc  CopyDataInit
+  	movs r1, #0
+  	b LoopCopyDataInit1
+
+CopyDataInit1:
+  	ldr r3, =_siccmram
+  	ldr r3, [r3, r1]
+  	str r3, [r0, r1]
+  	adds r1, r1, #4
+
+LoopCopyDataInit1:
+  	ldr r0, =_sccmram
+  	ldr r3, =_eccmram
+  	adds r2, r0, r1
+  	cmp r2, r3
+  	bcc CopyDataInit1
+  	ldr  r2, =_sbss
+  	b  LoopFillZerobss
+
 /* Zero fill the bss segment. */
 FillZerobss:
 	movs	r3, #0

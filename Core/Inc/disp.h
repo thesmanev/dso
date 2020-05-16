@@ -169,17 +169,17 @@ extern uint8_t trig[TRIG_STR_LNGTH];
 
 // functions
 void LCD_Init(void);
-void LCD_PutPixel(uint32_t x, uint32_t y, uint32_t color);
-void LCD_WriteCommand(uint32_t command);
-void LCD_WriteData(uint32_t data);
-void LCD_DrawLineH(uint32_t x0, uint32_t x1, uint32_t y, uint32_t color);
-void LCD_SetWindow(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1);
+void LCD_PutPixel(uint32_t x, uint32_t y, uint32_t color)  __attribute__((section(".ccmram")));
+void LCD_WriteCommand(uint32_t command)  __attribute__((section(".ccmram")));
+void LCD_WriteData(uint32_t data)  __attribute__((section(".ccmram")));
+void LCD_DrawLineH(uint32_t x0, uint32_t x1, uint32_t y, uint32_t color) __attribute__((section(".ccmram")));
+void LCD_SetWindow(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1) __attribute__((section(".ccmram")));
 void LCD_Background(uint32_t color);
-void LCD_DrawLineV(uint32_t y0, uint32_t y1, uint32_t x, uint32_t color);
+void LCD_DrawLineV(uint32_t y0, uint32_t y1, uint32_t x, uint32_t color)  __attribute__((section(".ccmram")));
 void LCD_Print(uint32_t x, uint32_t y, uint8_t *text, uint32_t length, uint32_t color);
 void LCD_RectFill(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color);
-void LCD_DrawRect(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color);
-void LCD_DrawReticle(void);
+void LCD_DrawRect(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color)  __attribute__((section(".ccmram")));
+void LCD_DrawReticle(void)  __attribute__((section(".ccmram")));
 void displayInit(void);
 void LCD_DrawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color);
 void LCD_DrawLineX(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color);

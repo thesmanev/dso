@@ -527,7 +527,7 @@ static void calibrateADC(channel_t *chx)
 			//Start ADC calibration
 			ADC3->CR |= ADC_CR_ADCAL;
 			//wait until calibration done
-			while (ADC4->CR & ADC_CR_ADCAL);
+			while (ADC3->CR & ADC_CR_ADCAL);
 			break;
 		}
 		case CH4_ID:

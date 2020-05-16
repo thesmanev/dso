@@ -9,7 +9,7 @@ uint8_t *sendScreenBuffer1; /**< Screen buffer for channel 1 */
 uint8_t *sendScreenBuffer2; /**< Screen buffer for channel 2 */
 uint8_t *sendScreenBuffer3; /**< Screen buffer for channel 3 */
 uint8_t *sendScreenBuffer4; /**< Screen buffer for channel 4 */
-uint32_t buffer1[BUFF_SIZE * 4]; /**< Buffer for channel 1. (allocates memory for all four channels) */
+uint32_t *buffer1; /**< Buffer for channel 1. (allocates memory for all four channels) */
 uint32_t *buffer2; /**< Acquisition buffer for channel 2 */
 uint32_t *buffer3; /**< Acquisition buffer for channel 2 */
 uint32_t *buffer4; /**< Acquisition buffer for channel 2 */
@@ -763,9 +763,10 @@ void setSwitch(uint32_t num)
  */
 int main(void)
 {
-	buffer2 = &buffer1[2048];
-	buffer3 = &buffer1[4096];
-	buffer4 = &buffer1[6144];
+	buffer1 = (uint32_t *)0x20000000;
+	buffer2 = buffer1 + BUFF_SIZE;
+	buffer3 = buffer2 + BUFF_SIZE;
+	buffer4 = buffer3 + BUFF_SIZE;
 
 	sendScreenBuffer1 = sendScreenBuffer;
 	sendScreenBuffer2 = &sendScreenBuffer[280];

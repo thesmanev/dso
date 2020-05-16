@@ -8,9 +8,9 @@
 #ifndef INC_TRIGGER_H_
 #define INC_TRIGGER_H_
 
-void displayWaveformTrig(uint32_t chNum);
-void findTrigger(void);
-void clearWaveform(void);
+void displayWaveformTrig(uint32_t chNum) __attribute__((section(".ccmram")));
+void findTrigger(void) __attribute__((section(".ccmram")));
+void clearWaveform(void) __attribute__((section(".ccmram")));
 
 
 #endif /* INC_TRIGGER_H_ */

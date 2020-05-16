@@ -109,6 +109,6 @@ typedef struct{
 	channel_t ch4;
 } dso_config_t;
 
-void aquireData(void);
+void aquireData(void)  __attribute__((section(".ccmram")));
 
 #endif /* INC_ACQUISITION_H_ */

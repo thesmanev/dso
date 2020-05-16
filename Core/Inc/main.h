@@ -48,7 +48,7 @@ extern uint8_t *sendScreenBuffer1;				/**< Screen buffer for channel 1 */
 extern uint8_t *sendScreenBuffer2;				/**< Screen buffer for channel 2 */
 extern uint8_t *sendScreenBuffer3;				/**< Screen buffer for channel 3 */
 extern uint8_t *sendScreenBuffer4;				/**< Screen buffer for channel 4 */
-extern uint32_t buffer1[BUFF_SIZE*4];			/**< Buffer for channel 1. (allocates memory for all four channels) */
+extern uint32_t *buffer1; 						/**< Buffer for channel 1. (allocates memory for all four channels) */
 extern uint32_t *buffer2;						/**< Acquisition buffer for channel 2 */
 extern uint32_t *buffer3;						/**< Acquisition buffer for channel 2 */
 extern uint32_t *buffer4;						/**< Acquisition buffer for channel 2 */

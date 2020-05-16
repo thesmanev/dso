@@ -9,7 +9,7 @@
 /**
  * @brief Acquire/sample data on channel one using all four ADCs in interleaved mode
  */
-static void aquireDataQuad(void)
+static void  __attribute__((section(".ccmram"))) aquireDataQuad(void)
 {
 	setupDMAQuad();
 	setDMACntr(&dso.ch1); //master1
@@ -41,7 +41,7 @@ static void aquireDataQuad(void)
  * @brief Acquire data on channel 1 and channel 3 in parallel. Channels 1 & 2 in interlaved,
  * 			channels 3 & 4 in interlaved mode, 1 & 2 are in parallel to 3 & 4
  */
-static void aquireDataDualParallel(void)
+static void  __attribute__((section(".ccmram"))) aquireDataDualParallel(void)
 {
 	setDMACntr(&dso.ch1);	//master1
 	setDMACntr(&dso.ch3);	//master3
@@ -64,7 +64,7 @@ static void aquireDataDualParallel(void)
  * Acquire data in dual mode but only using channels 1 & 2 or only channels 3 & 4 in interleaved mode
  * @param num 0 for using channels 1 & 2, 1 for using channels 3 & 4
  */
-static void aquireDataDual(uint32_t num)
+static void  __attribute__((section(".ccmram"))) aquireDataDual(uint32_t num)
 {
 	if(num == ACQ_DUAL_34)
 	{
@@ -96,7 +96,7 @@ static void aquireDataDual(uint32_t num)
  * @brief Acquire data from two channels in parallel
  * @param num 0 for channels 1 & 2 in parallel, 1 for channels 3 & 4
  */
-static void aquireDataParallel(uint32_t num)
+static void  __attribute__((section(".ccmram"))) aquireDataParallel(uint32_t num)
 {
 	if(num == ACQ_PARALLEL_34)
 	{
@@ -129,7 +129,7 @@ static void aquireDataParallel(uint32_t num)
 /**
  * @brief Acquire data with all four channels in parallel
  */
-static void aquireDataAllParallel(void)
+static void  __attribute__((section(".ccmram"))) aquireDataAllParallel(void)
 {
 	setDMACntr(&dso.ch1); //ADC1 - master
 	setDMACntr(&dso.ch2); //ADC2 - slave
@@ -160,7 +160,7 @@ static void aquireDataAllParallel(void)
  * @brief Acquire data on a single channel
  * @param chx Pointer to a channel structure
  */
-static void aquireDataSingle(channel_t *chx)
+static void  __attribute__((section(".ccmram"))) aquireDataSingle(channel_t *chx)
 {
 	switch (chx->id)
 	{
@@ -225,7 +225,7 @@ static void aquireDataSingle(channel_t *chx)
 /**
  * @brief Acquire data on channels 2 and 3 in parallel
  */
-static void aquireDataParallel_23(void)
+static void  __attribute__((section(".ccmram"))) aquireDataParallel_23(void)
 {
 	setDMACntr(&dso.ch2);
 	setDMACntr(&dso.ch3);
@@ -246,7 +246,7 @@ static void aquireDataParallel_23(void)
 /**
  * @brief Acquire data in parallel on channels 2, 3 and 4
  */
-static void aquireDataParallel_234(void)
+static void  __attribute__((section(".ccmram"))) aquireDataParallel_234(void)
 {
 	setDMACntr(&dso.ch2);
 	setDMACntr(&dso.ch3);
@@ -266,7 +266,7 @@ static void aquireDataParallel_234(void)
 	asm("wfi");
 }
 
-static void aquireDataParallel_24(void)
+static void  __attribute__((section(".ccmram"))) aquireDataParallel_24(void)
 {
 	setDMACntr(&dso.ch2);
 	setDMACntr(&dso.ch4);
@@ -287,7 +287,7 @@ static void aquireDataParallel_24(void)
 /**
  * @brief Acqure data in parallel on channels 1 and 4
  */
-static void aquireDataParallel_14(void)
+static void  __attribute__((section(".ccmram"))) aquireDataParallel_14(void)
 {
 	setDMACntr(&dso.ch1);
 	setDMACntr(&dso.ch4);
@@ -308,7 +308,7 @@ static void aquireDataParallel_14(void)
 /**
  * @brief Acquire data in parallel on channels 1, 2 and 4
  */
-static void aquireDataParallel_124(void)
+static void  __attribute__((section(".ccmram"))) aquireDataParallel_124(void)
 {
 	setDMACntr(&dso.ch1);
 	setDMACntr(&dso.ch2);
@@ -331,7 +331,7 @@ static void aquireDataParallel_124(void)
 /**
  * @brief Acquire data in parallel on channels 1 and 3
  */
-static void aquireDataParallel_13(void)
+static void  __attribute__((section(".ccmram"))) aquireDataParallel_13(void)
 {
 	setDMACntr(&dso.ch1); //master1
 	setDMACntr(&dso.ch3); //master3

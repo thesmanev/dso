@@ -290,7 +290,7 @@ void LCD_DrawLineH(uint32_t x0, uint32_t x1, uint32_t y, uint32_t color)
  * @param color Color of the line
  * @note This function has no safety checks.
  */
-void LCD_DrawLineVX(uint32_t y0, uint32_t y1, uint32_t x, uint32_t color)
+static void  __attribute__((section(".ccmram"))) LCD_DrawLineVX(uint32_t y0, uint32_t y1, uint32_t x, uint32_t color)
 {
 	if (y0 > y1)
 	{
